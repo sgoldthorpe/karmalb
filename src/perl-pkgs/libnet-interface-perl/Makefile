@@ -6,10 +6,13 @@ MAINTAINER = "Steve Goldthorpe <steve@karmalb.org.uk>"
 DESCRIPTION = "Perl module for manipulating host network interfaces"
 DEPENDS =
 ARCH = $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB = $(MODULE)_$(VERSION)-$(RELEASE)_$(ARCH).deb
 
-all: $(MODULE)_$(VERSION)-$(RELEASE)_$(ARCH).deb
+.SECONDARY: $(DEB)
 
-$(MODULE)_$(VERSION)-$(RELEASE)_$(ARCH).deb:
+all: $(DEB)
+
+$(DEB):
 	dh-make-perl --cpan $(CPANNAME) -e $(MAINTAINER) $(DEPENDS) --desc $(DESCRIPTION) --build --version $(VERSION)-$(RELEASE)
 
 clean:
