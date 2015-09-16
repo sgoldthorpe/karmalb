@@ -5,11 +5,13 @@ CPANNAME = File::Grep
 MAINTAINER = "Steve Goldthorpe <steve@karmalb.org.uk>"
 DESCRIPTION = "Find matches to a pattern in a series of files and related functions"
 DEPENDS =
+ARCH = al
 
-all: ${MODULE}_${VERSION}-${RELEASE}_all.deb
+all: $(MODULE)_$(VERSION)-$(RELEASE)_$(ARCH).deb
 
-${MODULE}_${VERSION}-${RELEASE}_all.deb:
-	dh-make-perl --cpan ${CPANNAME} -e ${MAINTAINER} ${DEPENDS} --desc ${DESCRIPTION} --build --version ${VERSION}
+$(MODULE)_$(VERSION)-$(RELEASE)_$(ARCH).deb:
+	dh-make-perl --cpan $(CPANNAME) -e $(MAINTAINER) $(DEPENDS) --desc $(DESCRIPTION) --build --version $(VERSION)-$(RELEASE)
 
 clean:
-	rm -rf ${MODULE}*
+	rm -rf $(MODULE)* $(subst ::,-,$(CPANNAME))*
+
