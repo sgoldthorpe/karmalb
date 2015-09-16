@@ -5,7 +5,7 @@ CPANNAME = Net::Interface
 MAINTAINER = "Steve Goldthorpe <steve@karmalb.org.uk>"
 DESCRIPTION = "Perl module for manipulating host network interfaces"
 DEPENDS =
-ARCH = amd64
+ARCH = $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
 all: $(MODULE)_$(VERSION)-$(RELEASE)_$(ARCH).deb
 
