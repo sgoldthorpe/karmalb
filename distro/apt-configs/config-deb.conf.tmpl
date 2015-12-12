@@ -1,0 +1,21 @@
+Dir {
+  ArchiveDir "@ARCHIVE@";
+  OverrideDir "indices";
+  CacheDir "indices";
+};
+
+TreeDefault {
+  Directory "pool/";
+};
+
+BinDirectory "pool/main" {
+    Packages "dists/@DIST@/main/binary-@ARCH@/Packages";
+#   BinOverride "override";
+#   ExtraOverride "override.extra";
+};
+
+Default {
+   Packages {
+      Extensions ".deb";
+  };
+};

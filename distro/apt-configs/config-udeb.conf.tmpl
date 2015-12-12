@@ -1,0 +1,19 @@
+Dir {
+  ArchiveDir "@ARCHIVE@";
+  OverrideDir "indices";
+  CacheDir "indices";
+};
+
+TreeDefault {
+  Directory "pool/";
+};
+
+BinDirectory "pool/main" {
+  Packages "dists/@DIST@/main/debian-installer/binary-@ARCH@/Packages";
+};
+
+Default {
+  Packages {
+      Extensions ".udeb";
+  };
+};
