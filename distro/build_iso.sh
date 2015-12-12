@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/sh -e
+set -e
 
 # DEFINITIONS
 PROJNAME=KarmaLB
@@ -16,6 +17,7 @@ MNT=iso
 NETLOC=http://mirrorservice.org/sites/cdimage.debian.org/debian-cd/current/$ARCH/bt-cd/
 NETISO=debian-$DEBREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
+PKGLOC=$DEST/pool/main/karmalb
 LABEL="`echo ${PROJNAME} ${PROJREL} ${ARCH}|tr '[a-z]. ' '[A-Z]__'`"
 
 # MAIN SCRIPT
@@ -38,12 +40,46 @@ cp -av $MNT/. $DEST/
 sudo umount $MNT
 
 # Copied files are read-only so make some read-write
-LIST="dists/$DIST/Release dists/$DIST/main/debian-installer/binary-$ARCH/ dists/$DIST/main/binary-$ARCH/ md5sum.txt isolinux/isolinux.bin $INITRD"
+LIST="pool/main dists/$DIST/Release dists/$DIST/main/debian-installer/binary-$ARCH/ dists/$DIST/main/binary-$ARCH/ md5sum.txt isolinux/isolinux.bin $INITRD"
 for L in $LIST; do
 	chmod u+w $DEST/$L
 done
 
 # ADD CUSTOM PACKAGES HERE
+( 
+	PERLPKGS="`ls ../src/perl-pkgs/*/*.deb 2>&1`"
+	set -- $PERLPKGS
+	if [ $# -ne 5 ]; then
+		echo "ERROR: Not all custom perl packages found."
+		exit 5
+	else
+		mkdir -p $PKGLOC
+		while [ "$1" ]; do
+			cp -p $1 $PKGLOC
+			shift
+		done
+	fi
+)
+
+# ADD PKG DEPENDENCIES HERE
+PKGLIST="expect iputils-arping libdata-validate-ip-perl libexpect-perl libgd-perl libio-interface-perl libipc-run3-perl liblinux-inotify2-perl libmoose-perl libnetaddr-ip-perl libnet-ssh-perl libpcap0.8 libproc-daemon-perl libreadonly-perl librrds-perl netstat-nat ntpdate openssh-server rrdtool rsync"
+INSTALL=""
+for PKG in $PKGLIST; do
+	FOUND="`find $DEST/pool/main -type f -name ${PKG}_\*.deb -print`"
+	if [ "$FOUND" ]; then
+		echo "FOUND: $FOUND"
+	else
+		INSTALL="$INSTALL $PKG"
+	fi
+done
+(
+	if [ "$INSTALL" ]; then
+		cd $PKGLOC
+		for PKG in $INSTALL; do
+			apt-get download $PKG
+		done
+	fi
+)
 
 TEMPLATED_CONFIGS="$APTCONFIGS/config-udeb.conf $APTCONFIGS/config-deb.conf $APTCONFIGS/config-rel.conf"
 for TEMPLATE in $TEMPLATED_CONFIGS; do
@@ -72,7 +108,7 @@ done
 	cd irmod
 	gzip -d < ../$DEST/$INITRD | \
 		sudo -n cpio --extract --verbose --make-directories --no-absolute-filenames
-	cp ../my_preseed.cfg preseed.cfg
+	cp ../karmalb_preseed.cfg preseed.cfg
 	find . | sudo -n cpio -H newc --create --verbose | \
 		gzip -9 > ../$DEST/$INITRD
 	cd ../
