@@ -62,7 +62,66 @@ done
 )
 
 # ADD PKG DEPENDENCIES HERE
-PKGLIST="expect iputils-arping libdata-validate-ip-perl libexpect-perl libgd-perl libio-interface-perl libipc-run3-perl liblinux-inotify2-perl libmoose-perl libnetaddr-ip-perl libnet-ssh-perl libpcap0.8 libproc-daemon-perl libreadonly-perl librrds-perl netstat-nat ntpdate openssh-server rrdtool rsync"
+PKGLIST="`cat <<!EOM
+expect
+fontconfig
+fontconfig-config
+fonts-dejavu-core
+iputils-arping
+libcairo2
+libcommon-sense-perl
+libdata-validate-ip-perl
+libdatrie1
+libdbi1
+libexpect-perl
+libfontconfig1
+libgd3
+libgd-perl
+libglib2.0-data
+libgraphite2-3
+libharfbuzz0b
+libio-interface-perl
+libio-pty-perl
+libio-stty-perl
+libipc-run3-perl
+libjbig0
+libjpeg62-turbo
+liblinux-inotify2-perl
+libmoose-perl
+libnetaddr-ip-perl
+libnet-ipv6addr-perl
+libnet-netmask-perl
+libnet-ssh-perl
+libnetwork-ipv4addr-perl
+libpango-1.0-0
+libpangocairo-1.0-0
+libpangoft2-1.0-0
+libpixman-1-0
+libproc-daemon-perl
+libproc-processtable-perl
+libreadonly-perl
+librrd4
+librrds-perl
+libtcl8.6
+libthai0
+libthai-data
+libtiff5
+libvpx1
+libxcb-render0
+libxcb-shm0
+libxml2
+libxpm4
+libxrender1
+netstat-nat
+ntpdate
+rrdtool
+rsync
+shared-mime-info
+tcl8.6
+tcl-expect
+xdg-user-dirs
+!EOM
+`"
 INSTALL=""
 for PKG in $PKGLIST; do
 	FOUND="`find $DEST/pool/main -type f -name ${PKG}_\*.deb -print`"
