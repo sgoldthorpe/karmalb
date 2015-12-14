@@ -4,8 +4,9 @@ set -e
 # DEFINITIONS
 PROJNAME=KarmaLB
 PROJREL=1.0a1
+OSNAME=Debian
+OSREL=8.2.0
 DIST=jessie
-DEBREL=8.2.0
 ARCH=amd64
 #
 APTCONFIGS=apt-configs
@@ -15,7 +16,7 @@ INITRD=install.amd/initrd.gz
 MNT=iso
 # DERIVED DEFINITIONS
 NETLOC=http://mirrorservice.org/sites/cdimage.debian.org/debian-cd/current/$ARCH/bt-cd/
-NETISO=debian-$DEBREL-$ARCH-netinst.iso
+NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
 PKGLOC=$DEST/pool/main/karmalb
 LABEL="`echo ${PROJNAME} ${PROJREL} ${ARCH}|tr '[a-z]. ' '[A-Z]__'`"
@@ -40,7 +41,7 @@ cp -av $MNT/. $DEST/
 sudo umount $MNT
 
 # Copied files are read-only so make some read-write
-LIST="pool/main dists/$DIST/Release dists/$DIST/main/debian-installer/binary-$ARCH/ dists/$DIST/main/binary-$ARCH/ md5sum.txt isolinux/isolinux.bin $INITRD"
+LIST="pool/main dists/$DIST/Release dists/$DIST/main/debian-installer/binary-$ARCH/ dists/$DIST/main/binary-$ARCH/ md5sum.txt isolinux/isolinux.bin $INITRD isolinux/menu.cfg isolinux/stdmenu.cfg"
 for L in $LIST; do
 	chmod u+w $DEST/$L
 done
@@ -173,6 +174,12 @@ done
 	cd ../
 	sudo rm -fr irmod/
 )
+
+# UPDATE ISOLINUX
+ISOLIST="menu.cfg stdmenu.cfg"
+for F in $ISOLIST; do
+	sed -e "s/@PROJNAME@/$PROJNAME/g" -e "s/@PROJREL@/$PROJREL/g" -e "s/@OSNAME@/$OSNAME/g" -e "s/@OSREL@/$OSREL/g" files/$F > $DEST/isolinux/$F
+done
 
 # REBUILD CHECKSUMS
 ( cd $DEST; md5sum `find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f` > md5sum.txt )
