@@ -199,6 +199,7 @@ dd if=$NETISO bs=512 count=1 of=$BBFILE
 xorriso -as mkisofs \
    -o $TARGETISO \
    -V "$LABEL" \
+   -r \
    -isohybrid-mbr $BBFILE \
    -c isolinux/boot.cat \
    -b isolinux/isolinux.bin \
