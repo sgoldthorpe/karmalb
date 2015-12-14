@@ -200,6 +200,7 @@ xorriso -as mkisofs \
    -o $TARGETISO \
    -V "$LABEL" \
    -r \
+   -J -joliet-long \
    -isohybrid-mbr $BBFILE \
    -c isolinux/boot.cat \
    -b isolinux/isolinux.bin \
