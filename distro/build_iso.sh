@@ -175,7 +175,7 @@ done
 )
 
 # REBUILD CHECKSUMS
-( cd $DEST; md5sum `find -follow -type f` > md5sum.txt )
+( cd $DEST; md5sum `find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f` > md5sum.txt )
 
 #genisoimage -o test.iso -r -J -no-emul-boot -boot-load-size 4 \
 # -boot-info-table -b isolinux/isolinux.bin -c isolinux/boot.cat ./$DEST
