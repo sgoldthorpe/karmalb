@@ -209,6 +209,7 @@ xorriso -as mkisofs \
    -e boot/grub/efi.img \
       -no-emul-boot \
       -isohybrid-gpt-basdat \
+      -isohybrid-apm-hfsplus \
    ./$DEST
 
 # CLEAN UP
