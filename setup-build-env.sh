@@ -1,5 +1,6 @@
 REQPKGS="apt-file \
 	apt-utils \
+	debhelper \
 	dh-make-perl \
 	libemail-valid-perl \
 	libexpect-perl \
@@ -10,6 +11,7 @@ REQPKGS="apt-file \
 	libnet-dns-perl \
 	libnet-ip-perl \
 	libreadonly-perl \
+	libssl-dev \
 	libtest-exception-perl \
 	lintian \
 	sudo \
