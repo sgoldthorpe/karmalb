@@ -14,3 +14,7 @@
 /src/perl-pkgs/*/*-perl/
 /src/perl-pkgs/*/*.tar.gz
 /src/perl-pkgs/*/*.deb
+
+# ignore any extracted debs from zen
+/src/karmalb-pkg/util/*.deb
+
