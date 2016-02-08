@@ -4,6 +4,7 @@ ZENPKG=zenloadbalancer_3.7_i386.deb
 ZENISO=zenloadbalancer-distro_37.iso
 FILELIST=../filelist
 FILESDIR=../files
+CONTROLDIR=../control
 
 getyn()
 {
@@ -55,6 +56,7 @@ dpkg -x $ZENPKG $TMPDIR
 		fi
 	done | sort -k 2 > $FILELIST
 
+# copy source files to files directory
 rm -rf $FILESDIR
 mkdir $FILESDIR
 cat $FILELIST | (
@@ -67,5 +69,9 @@ cat $FILELIST | (
 		esac
 	done
 )
-
 rm -rf $TMPDIR
+
+# extract control files from package
+rm -rf $CONTROLDIR
+mkdir $CONTROLDIR
+dpkg -e $ZENPKG $CONTROLDIR
