@@ -1,3 +1,6 @@
+# ignore any vi swap files
+*.swp
+
 # ignore any .iso images - these are either downloaded or generated
 *.iso
 
