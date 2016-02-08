@@ -3,9 +3,9 @@ set -e
 
 # DEFINITIONS
 PROJNAME=KarmaLB
-PROJREL=1.0a1
+PROJREL=1.0a2
 OSNAME=Debian
-OSREL=8.2.0
+OSREL=8.3.0
 DIST=jessie
 ARCH=amd64
 #
@@ -15,7 +15,7 @@ DEST=cdrom
 INITRD=install.amd/initrd.gz
 MNT=iso
 # DERIVED DEFINITIONS
-NETLOC=http://mirrorservice.org/sites/cdimage.debian.org/debian-cd/current/$ARCH/bt-cd/
+NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
 PKGLOC=$DEST/pool/main/karmalb
