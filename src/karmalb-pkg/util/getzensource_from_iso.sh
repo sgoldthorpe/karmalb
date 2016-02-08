@@ -53,7 +53,7 @@ dpkg -x $ZENPKG $TMPDIR
 				echo "f $F"
 			fi
 		fi
-	done > $FILELIST
+	done | sort -k 2 > $FILELIST
 
 rm -rf $FILESDIR
 mkdir $FILESDIR
