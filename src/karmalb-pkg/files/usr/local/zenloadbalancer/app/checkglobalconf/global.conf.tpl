@@ -27,9 +27,9 @@ $rttables = "/etc/iproute2/rt_tables";
 #this file
 $globalcfg = "/usr/local/zenloadbalancer/config/global.conf";
 #version ZEN
-$version="3.05";#update
+$version="3.7";#update
 #Cipher PCI
-$cipher_pci="RC4-SHA";#update
+$cipher_pci="DEFAULT";#update
 #BUY SSL Certificates
 $buy_ssl="http://ecommerce.sofintel.net/ssl/ssl-certificate.aspx?ci=8347&prog_id=503889";
 #URL of dinamic content in global view
@@ -75,14 +75,34 @@ $zcat="/bin/zcat";
 $datentp="/usr/sbin/ntpdate";
 #Where is arping?
 $arping_bin="/usr/bin/arping";
+#Where is ping?
+$ping_bin="/bin/ping";
 #Where is openssl?
 $openssl="/usr/bin/openssl";
+#Where is unzip?
+$unzip="/usr/bin/unzip";
+#Where is mv?
+$mv="/bin/mv";
+#Where is ls?
+$ls="/bin/ls";
+#Where is cp?
+$cp="/bin/cp";
 #Where is iptables?
 $iptables="/sbin/iptables";
+#Where is modprobe?
+$modprobe="/sbin/modprobe";
+#Where is lsmod?
+$lsmod="/sbin/lsmod";
 #Where is netstat-nat?
 $netstatNat="/usr/bin/netstat-nat";
 #Where is gdnsd?
 $gdnsd="/usr/local/zenloadbalancer/app/gdnsd/sbin/gdnsd";
+#Where is l4sd?
+$l4sd="/usr/local/zenloadbalancer/app/l4s/bin/l4sd";
+#Where is conntrack?
+$conntrack="/usr/sbin/conntrack";
+#Where is insserv?
+$insserv="/sbin/insserv";
 
 #where is pound binary?
 $pound="/usr/local/zenloadbalancer/app/pound/sbin/pound";
@@ -100,6 +120,8 @@ $fwmarksconf = "$configdir/fwmarks.conf";
 $defaultgw="";
 #Interface Default Gateway
 $defaultgwif="";
+#Number of gratuitous pings
+$pingc="1";
 
 #Directory where is check script. In this directory you can save your own check scripts. 
 $libexec_dir="/usr/local/zenloadbalancer/app/libexec";
@@ -137,6 +159,9 @@ $zenlatlog="/usr/local/zenloadbalancer/logs/zenlatency.log";
 
 #Zen backup
 $zenbackup="/usr/local/zenloadbalancer/app/zenbackup/zenbackup.pl";
+
+#SNMP service
+$snmpdconfig_file="/etc/snmp/snmpd.conf";
 #::END Global Section
 
 #!!!!NOT REMOVE NEXT LINE!!!!!!
