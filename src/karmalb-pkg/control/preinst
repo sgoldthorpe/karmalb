@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+#Save .htpasswd file
+use File::Copy 'move';
+my $orig = "$basedir\/\.htpasswd";
+my $dst = "\/tmp\/\.htpasswd";
+move $orig, $dst;
+
+#Move minihttpd configuration to persist interface configuration
+move "/usr/local/zenloadbalancer/app/mini_httpd/mini_httpd.conf", "/tmp/mini_httpd.conf";
