@@ -1,0 +1,25 @@
+Source: karmalb-keyring
+Section: misc
+Priority: extra
+Maintainer: Steve Goldthorpe <steve@karmalb.org.uk>
+Build-Depends: debhelper (>= 9), gnupg
+Standards-Version: 3.9.6
+
+Package: karmalb-keyring
+Architecture: all
+Multi-Arch: foreign
+Depends: gpgv, apt, ${misc:Depends}
+Recommends: gnupg
+Breaks: apt (<< 0.7.25.1)
+Description: GnuPG keys for the karmalb packages
+ The karmalb team digitally signs their Release files.  This package contains
+ the keys used for that.
+
+Package: karmalb-keyring-udeb
+XC-Package-Type: udeb
+Section: debian-installer
+Architecture: all
+Recommends: gpgv-udeb
+Description: GnuPG keys for the karmalb packages
+ The karmalb team digitally signs their Release files.  This package contains
+ the keys used for that for use by the installer.

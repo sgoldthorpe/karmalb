@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+GPG_OPTIONS := --no-options --no-default-keyring --no-auto-check-trustdb --homedir $(CURDIR)/build
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	mkdir -p $(CURDIR)/build	
+
+	# Build keyrings
+	mkdir -p $(CURDIR)/build/keyrings
+	gpg $(GPG_OPTIONS) --keyring $(CURDIR)/build/keyrings/karmalb-keyring.gpg --import $(CURDIR)/active-keys/*
+	gpg $(GPG_OPTIONS) --keyring $(CURDIR)/build/keyrings/karmalb-keyring-removed.gpg --import $(CURDIR)/removed-keys/*
+
+	# Build fragment files
+	mkdir -p $(CURDIR)/build/trusted.gpg.d
+	for k in `ls $(CURDIR)/active-keys` ; do \
+	    gpg $(GPG_OPTIONS) --keyring $(CURDIR)/build/trusted.gpg.d/$${k%.key}.gpg --import $(CURDIR)/active-keys/$$k ; \
+	done
+
+override_dh_auto_clean:
+	rm -fr $(CURDIR)/build
