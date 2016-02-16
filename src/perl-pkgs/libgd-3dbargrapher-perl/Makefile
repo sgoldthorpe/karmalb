@@ -13,7 +13,7 @@ DEB = $(MODULE)_$(VERSION)-$(RELEASE)_$(ARCH).deb
 all: $(DEB)
 
 $(DEB):
-	dh-make-perl --cpan $(CPANNAME) -e $(MAINTAINER) $(DEPENDS) --desc $(DESCRIPTION) --build --version $(VERSION)-$(RELEASE)
+	env -i HOME=$(HOME) PWD=$(CURDIR) PATH=$(PATH) dh-make-perl --cpan $(CPANNAME) -e $(MAINTAINER) $(DEPENDS) --desc $(DESCRIPTION) --build --version $(VERSION)-$(RELEASE)
 
 clean:
 	rm -rf $(MODULE)* $(subst ::,-,$(CPANNAME))*
