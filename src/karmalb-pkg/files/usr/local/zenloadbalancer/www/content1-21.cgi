@@ -50,7 +50,7 @@ if ( $action eq "Save" )
 		$action = "addfarm";
 	}
 
-	if ( $farmprotocol =~ /TCP|HTTP|UDP|HTTPS|GSLB/ )
+	if ( $farmprotocol =~ /TCP|HTTP|UDP|HTTPS|GSLB|L4xNAT/ )
 	{
 		if ( &isnumber( $vipp ) eq "true" )
 		{
@@ -121,9 +121,9 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 	if ( $farmprotocol eq "" || $farmname eq "" )
 	{
 		print "<select name=\"farmprotocol\">";
-		print "<option value=\"TCP\">TCP</option>\n";
+		print "<option value=\"L4xNAT\">L4xNAT (Default)</option>\n";
+		#print "<option value=\"TCP\">TCP</option>\n";
 		print "<option value=\"HTTP\">HTTP</option>\n";
-		print "<option value=\"L4xNAT\">L4xNAT</option>\n";
 		print "<option value=\"DATALINK\">DATALINK</option>\n";
 
 		# Only one GSLB farm is possible
@@ -139,7 +139,7 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 		}
 		if ( $has_gslb == 0 )
 		{
-			print "<option value=\"GSLB\">GSLB</option>\n";
+			#print "<option value=\"GSLB\">GSLB</option>\n";
 		}
 		
 		print "</select>";
@@ -178,7 +178,8 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 			print "<b> or add <a href=\"index.cgi?id=3-2\">new VIP interface</a>.</b>";
 		}
 
-		if ( $farmprotocol ne "DATALINK" && $farmprotocol ne "L4xNAT" )
+		#if ( $farmprotocol ne "DATALINK" && $farmprotocol ne "L4xNAT" )
+		if ( $farmprotocol ne "DATALINK" )
 		{
 			#vip port
 			print "<b> Virtual Port(s): </b>";

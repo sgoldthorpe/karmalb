@@ -100,6 +100,10 @@ sub setSnmpdConfig($snmpd_ip, $snmpd_port, $snmpd_community, $snmpd_scope)
 
 	# example: rocommunity public  0.0.0.0/0
 	$config_file[1] = "rocommunity $snmpd_community $snmpd_scope";
+	
+	# needed for Disk information
+	# example:  includeAllDisks 10% for all partitions and disks
+	$config_file[2] = "includeAllDisks 10% for all partitions and disks";
 
 	# Close config file
 	untie @config_file;

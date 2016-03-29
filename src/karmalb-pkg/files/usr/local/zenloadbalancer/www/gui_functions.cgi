@@ -69,6 +69,7 @@ sub createmenuviph($name,$pid,$fproto)
 	else
 	{
 		print "<a href=\"index.cgi?id=$id&action=startfarm&farmname=$name\"><img src=\"img/icons/small/farm_up.png\" title=\"Start the $name Farm\"></a> ";
+		print "<a href=\"index.cgi?id=$id&action=editfarm&farmname=$name\"><img src=\"img/icons/small/farm_edit.png\" title=\"Edit the $name Farm\"></a> ";
 	}
 	print "<a href=\"index.cgi?id=$id&action=deletefarm&farmname=$name\"><img src=\"img/icons/small/farm_cancel.png\" title=\"Delete the $name Farm\" onclick=\"return confirm('Are you sure you want to delete the farm: $name?')\"></a> ";
 

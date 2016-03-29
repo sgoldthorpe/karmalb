@@ -83,10 +83,13 @@ if ( $action eq "editfarm-urlp" )
 
 if ( $action eq "editfarm-maintenance" )
 {
-	&setFarmBackendMaintenance( $farmname, $id_server, $service );
-	if ( $? eq 0 )
+	if ( &getFarmStatus( $farmname ) eq "up")
 	{
-		&successmsg( "Enabled maintenance mode for backend $id_server in service $service" );
+		&setFarmBackendMaintenance( $farmname, $id_server, $service );
+		if ( $? eq 0 )
+		{
+			&successmsg( "Enabled maintenance mode for backend $id_server in service $service" );
+		}
 	}
 }
 
@@ -1067,7 +1070,7 @@ my $pos     = 0;
 $id_serverr = $id_server;
 foreach $line ( @file )
 {
-	if ( $first == 1 && $line =~ /Service.*/ )
+	if ( $first == 1 && $line =~ /Service\ \"/ )
 	{
 		if ( $vserver == 0 )
 		{
@@ -1406,8 +1409,7 @@ foreach $line ( @file )
 		$service = $farmname;
 		break;
 	}
-
-	if ( $line !~ /Service "$service"/ && $line =~ /Service/ )
+	if ( $line !~ /Service "$service"/ && $line =~ /Service\ \"/ )
 	{
 		$pos++;
 		$first   = 1;

@@ -87,13 +87,9 @@ print "</tr>";
 print "</thead>";
 print "<tbody>";
 
-my $globalfarm = 0;
 foreach $file ( @files )
 {
-	$name = &getFarmName( $file );
-##########if farm is not the current farm then it doesn't print. only print for global view.
-	if ( $farmname eq $name || !( defined $farmname ) || $farmname eq "" || $action eq "deletefarm" || $action =~ /^Save|^Cancel/ )
-	{
+		$name = &getFarmName( $file );
 		$type = &getFarmType( $name );
 		$globalfarm++;
 		if ( $type ne "datalink" )
@@ -171,7 +167,6 @@ foreach $file ( @files )
 		{
 			$thereisdl = "true";
 		}
-	}
 }
 print "</tbody>";
 
@@ -275,15 +270,6 @@ if ( $thereisdl eq "true" )
 print "</table>";
 print "</div>";
 
-if ( $globalfarm == 1 )
-{
-	print "<div id=\"page-header\"></div>";
-	print "<form method=\"get\" action=\"index.cgi\">";
-	print "<input type=\"hidden\" value=\"1-2\" name=\"id\">";
-	print "<input type=\"submit\" value=\"Return to all Farms\" name=\"action\" class=\"button small\">";
-	print "</form>";
-	print "<div id=\"page-header\"></div>";
-}
 
 print "<br class=\"cl\" >";
 print "</div>";

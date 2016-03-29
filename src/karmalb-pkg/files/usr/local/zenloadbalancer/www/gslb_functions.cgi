@@ -36,7 +36,7 @@ sub getGSLBStartCommand($farmname)
 {
 	my ( $fname ) = @_;
 
-	my $cmd = "$gdnsd -d $configdir\/$fname\_gslb.cfg start";
+	my $cmd = "$gdnsd -c $configdir\/$fname\_gslb.cfg start";
 
 	return $cmd;
 }
@@ -46,7 +46,7 @@ sub getGSLBStopCommand($farmname)
 {
 	my ( $fname ) = @_;
 
-	my $cmd = "$gdnsd -d $configdir\/$fname\_gslb.cfg stop";
+	my $cmd = "$gdnsd -c $configdir\/$fname\_gslb.cfg stop";
 
 	return $cmd;
 }
@@ -58,13 +58,13 @@ sub setFarmGSLBNewZone($fname,$service)
 
 	my $output = -1;
 
-	opendir ( DIR, "$configdir\/$fname\_gslb.cfg\/etc\/zones\/" );
+	opendir ( DIR, "$configdir\/$fname\_gslb.cfg\/zones\/" );
 	my @files = grep { /^$svice/ } readdir ( DIR );
 	closedir ( DIR );
 
 	if ( $files == 0 )
 	{
-		open FO, ">$configdir\/$fname\_gslb.cfg\/etc\/zones\/$svice";
+		open FO, ">$configdir\/$fname\_gslb.cfg\/zones\/$svice";
 		print FO "@	SOA ns1 hostmaster (\n	1\n	7200\n	1800\n	259200\n	900\n)\n\n";
 		print FO "@		NS	ns1 ;index_0\n";
 		print FO "ns1		A	0.0.0.0 ;index_1\n";
@@ -87,7 +87,7 @@ sub setFarmGSLBDeleteZone($fname,$service)
 	my $output = -1;
 
 	use File::Path 'rmtree';
-	rmtree( ["$configdir\/$fname\_gslb.cfg\/etc\/zones\/$svice"] );
+	rmtree( ["$configdir\/$fname\_gslb.cfg\/zones\/$svice"] );
 	$output = 0;
 
 	return $output;
@@ -112,13 +112,13 @@ sub setFarmGSLBNewService($fname,$service,$algorithm)
 			$gsalg = "simplefo";
 		}
 	}
-	opendir ( DIR, "$configdir\/$fname\_gslb.cfg\/etc\/plugins\/" );
+	opendir ( DIR, "$configdir\/$fname\_gslb.cfg\/plugins\/" );
 	my @files = grep { /^$svice/ } readdir ( DIR );
 	closedir ( DIR );
 
 	if ( $files == 0 )
 	{
-		open FO, ">$configdir\/$fname\_gslb.cfg\/etc\/plugins\/$svice.cfg";
+		open FO, ">$configdir\/$fname\_gslb.cfg\/plugins\/$svice.cfg";
 		print FO "$gsalg => {\n\tservice_types = up\n";
 		print FO "\t$svice => {\n\t\tservice_types = tcp_80\n";
 		print FO "\t}\n}\n";
@@ -126,7 +126,7 @@ sub setFarmGSLBNewService($fname,$service,$algorithm)
 		$output = 0;
 
 		# Include the plugin file in the main configuration
-		tie @fileconf, 'Tie::File', "$configdir\/$fname\_gslb.cfg\/etc\/config";
+		tie @fileconf, 'Tie::File', "$configdir\/$fname\_gslb.cfg\/config";
 		my $found = 0;
 		my $index = 0;
 		foreach $line ( @fileconf )
@@ -162,8 +162,8 @@ sub setFarmGSLBDeleteService($fname,$service)
 	my $output = -1;
 
 	use File::Path 'rmtree';
-	rmtree( ["$configdir\/$fname\_gslb.cfg\/etc\/plugins\/$svice.cfg"] );
-	tie @fileconf, 'Tie::File', "$configdir\/$fname\_gslb.cfg\/etc\/config";
+	rmtree( ["$configdir\/$fname\_gslb.cfg\/plugins\/$svice.cfg"] );
+	tie @fileconf, 'Tie::File', "$configdir\/$fname\_gslb.cfg\/config";
 	my $found = 0;
 	my $index = 0;
 	foreach $line ( @fileconf )
@@ -191,7 +191,7 @@ sub getFarmGSLBBootStatus($file)
 {
 	my ( $file ) = @_;
 
-	open FI, "<$configdir/$file/etc/config";
+	open FI, "<$configdir/$file/config";
 	my $first = "true";
 	while ( $line = <FI> )
 	{
@@ -214,7 +214,7 @@ sub setFarmGSLBBootStatus($fname, $status)
 	my ( $fname, $status ) = @_;
 
 	use Tie::File;
-	tie @filelines, 'Tie::File', "$configdir\/$file\/etc\/config";
+	tie @filelines, 'Tie::File', "$configdir\/$file\/config";
 	my $first = 1;
 	foreach ( @filelines )
 	{
@@ -294,9 +294,11 @@ sub setFarmGSLB($fvip,$fvipp,$fname)
 	my $type   = "gslb";
 
 	mkdir "$configdir\/$fname\_$type.cfg";
-	mkdir "$configdir\/$fname\_$type.cfg\/etc";
-	mkdir "$configdir\/$fname\_$type.cfg\/etc\/zones";
-	mkdir "$configdir\/$fname\_$type.cfg\/etc\/plugins";
+	mkdir "$configdir\/$fname\_$type.cfg\/";
+	mkdir "$configdir\/$fname\_$type.cfg\/zones";
+	mkdir "$configdir\/$fname\_$type.cfg\/plugins";
+	mkdir "$configdir\/$fname\_$type.cfg\/run";
+	mkdir "$configdir\/$fname\_$type.cfg\/lib";
 	my $httpport = 35060;
 	while ( $httpport < 35160 && &checkport( 127.0.0.1, $httpport ) eq "true" )
 	{
@@ -308,8 +310,8 @@ sub setFarmGSLB($fvip,$fvipp,$fname)
 	}
 	else
 	{
-		open FO, ">$configdir\/$fname\_$type.cfg\/etc\/config";
-		print FO ";up\noptions => {\n   listen = $fvip\n   dns_port = $fvipp\n   http_port = $httpport\n   http_listen = 127.0.0.1\n}\n\n";
+		open FO, ">$configdir\/$fname\_$type.cfg\/config";
+		print FO ";up\noptions => {\n   run_dir = $configdir\/$fname\_gslb.cfg\/run\n   listen = $fvip\n   dns_port = $fvipp\n   http_port = $httpport\n   http_listen = 127.0.0.1\n}\n\n";
 		print FO "service_types => { \n\n}\n\n";
 		print FO "plugins => { \n\n}\n\n";
 		close FO;

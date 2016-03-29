@@ -37,11 +37,11 @@ if ( $ftype ne "l4xnat" )
 }
 
 $fstate = &getFarmStatus( $farmname );
-if ( $fstate eq "down" )
-{
-	&errormsg( "The farm $farmname is down, to edit please start it up" );
-	$action = "";
-}
+#if ( $fstate eq "down" )
+#{
+#	&errormsg( "The farm $farmname is down, to edit please start it up" );
+	#$action = "";
+#}
 
 #maintenance mode for servers
 #if ($action eq "editfarm-maintenance"){
@@ -125,8 +125,11 @@ if ( $action eq "editfarm-changevipvipp" )
 		$status = &setFarmVirtualConf( $vip, $vipp, $farmname );
 		if ( $status != -1 )
 		{
-			&runFarmStop( $farmname, "false" );
-			&runFarmStart( $farmname, "false" );
+	                if ( $fstate ne "down" ) #apply changes
+        	        {
+                	        &runFarmStop( $farmname, "false" );
+                	        &runFarmStart( $farmname, "false" );
+                	}
 			&successmsg( "Virtual IP and Virtual Port has been modified for the farm $farmname" );
 		}
 		else
@@ -156,8 +159,11 @@ if ( $action eq "editfarm-deleteserver" )
 	$status = &runFarmServerDelete( $id_server, $farmname );
 	if ( $status != -1 )
 	{
-		&runFarmStop( $farmname, "false" );
-		&runFarmStart( $farmname, "false" );
+                if ( $fstate ne "down" ) #apply changes
+                {
+                        &runFarmStop( $farmname, "false" );
+                        &runFarmStart( $farmname, "false" );
+                }
 		&successmsg( "The real server with ID $id_server of the $farmname farm has been deleted" );
 	}
 	else
@@ -211,8 +217,12 @@ if ( $action eq "editfarm-saveserver" )
 		$status = &setFarmServer( $id_server, $rip_server, $port_server, $max_server, $weight_server, $priority_server, $timeout_server, $farmname );
 		if ( $status != -1 )
 		{
-			&runFarmStop( $farmname, "false" );
-			&runFarmStart( $farmname, "false" );
+                if ( $fstate ne "down" ) #apply changes
+ 	        {
+                        &runFarmStop( $farmname, "false" );
+                        &runFarmStart( $farmname, "false" );
+        	}
+
 			&successmsg( "The real server with ID $id_server and IP $rip_server of the $farmname farm has been modified" );
 		}
 		else
@@ -228,8 +238,12 @@ if ( $action eq "editfarm-typesession" )
 	$status = &setFarmSessionType( $session, $farmname );
 	if ( $status == 0 )
 	{
-		&runFarmStop( $farmname, "false" );
-		&runFarmStart( $farmname, "false" );
+                if ( $fstate ne "down" ) #apply changes
+                {
+                        &runFarmStop( $farmname, "false" );
+                        &runFarmStart( $farmname, "false" );
+                }
+
 		&successmsg( "The session type for $farmname farm has been modified" );
 	}
 	else
@@ -253,9 +267,12 @@ if ( $action eq "editfarm-algorithm" )
 		if ( $status != -1 )
 		{
 
-			#			$action="editfarm";
-			&runFarmStop( $farmname, "false" );
-			&runFarmStart( $farmname, "false" );
+                if ( $fstate ne "down" ) #apply changes
+                {
+                        &runFarmStop( $farmname, "false" );
+                        &runFarmStart( $farmname, "false" );
+                }
+
 			&successmsg( "The algorithm for $farmname Farm is modified" );
 		}
 		else
@@ -271,8 +288,11 @@ if ( $action eq "editfarm-nattype" )
 	$status = &setFarmNatType( $nattype, $farmname );
 	if ( $status == 0 )
 	{
-		&runFarmStop( $farmname, "false" );
-		&runFarmStart( $farmname, "false" );
+                if ( $fstate ne "down" ) #apply changes
+                {
+                        &runFarmStop( $farmname, "false" );
+                        &runFarmStart( $farmname, "false" );
+                }
 		&successmsg( "The NAT type for $farmname farm has been modified" );
 	}
 	else
@@ -287,8 +307,11 @@ if ( $action eq "editfarm-prototype" )
 	$status = &setFarmProto( $farmprotocol, $farmname );
 	if ( $status == 0 )
 	{
-		&runFarmStop( $farmname, "false" );
-		&runFarmStart( $farmname, "false" );
+		if ( $fstate ne "down" ) #apply changes
+		{
+			&runFarmStop( $farmname, "false" );
+                        &runFarmStart( $farmname, "false" );
+                }
 		&successmsg( "The protocol type for $farmname farm has been modified" );
 	}
 	else
@@ -311,8 +334,11 @@ if ( $action eq "editfarm-TTL" )
 		$status = &setFarmMaxClientTime( 0, $param, $farmname );
 		if ( $status == 0 )
 		{
-			&runFarmStop( $farmname, "false" );
-			&runFarmStart( $farmname, "false" );
+			if ( $fstate ne "down" ) #apply changes
+			{
+				&runFarmStop( $farmname, "false" );
+				&runFarmStart( $farmname, "false" );
+			}
 			&successmsg( "The sessions TTL for $farmname farm has been modified" );
 		}
 		else
@@ -820,7 +846,10 @@ print "</div>";
 print "</div>";
 
 print "<div id=\"page-header\"></div>";
+print "<form method=\"get\" action=\"index.cgi\">";
+print "<input type=\"hidden\" value=\"1-2\" name=\"id\">";
 print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+print "</form>";
 print "<div id=\"page-header\"></div>";
 print "</form>";
 print "</div>";

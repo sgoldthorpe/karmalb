@@ -382,7 +382,7 @@ print "<input type=\"text\" name=\"snmpd_community\" value=\"$snmpd_community\" 
 print "<br>";
 
 # IP or subnet with access to SNMP server
-print "<font size=1>IP or subnet with access: </font>";
+print "<font size=1>IP or subnet with access (IP/bit): </font>";
 print "<input type=\"text\" name=\"snmpd_scope\" value=\"$snmpd_scope\" size=\"12\" required>";
 print "<br>";
 

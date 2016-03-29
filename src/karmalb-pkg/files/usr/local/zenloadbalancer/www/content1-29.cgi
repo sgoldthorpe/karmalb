@@ -57,7 +57,7 @@ print "<br>";
 print "<div class=\"box-header\">Real servers status<font size=1>&nbsp;&nbsp;&nbsp; $backendsize servers, $activebackends active </font></div>";
 print "<div class=\"box table\"><table cellspacing=\"0\">\n";
 print "<thead>\n";
-print "<tr><td>Server</td><td>Address</td><td>Port(s)</td><td>Status</td><td>Pending Conns</td><td>Established Conns</td><td>Weight</td><td>Priority</td>";
+print "<tr><td>Server</td><td>Address</td><td>Port(s)</td><td>Status</td><td>Pending Conns</td><td>Established Conns</td>";
 print "</thead>\n";
 print "<tbody>";
 
@@ -98,8 +98,6 @@ foreach ( @backends )
 	@stabnetstatback = &getBackendEstConns( $farmname, ${ ip_backend }, $port_backend, @netstat );
 	my $nestab = @stabnetstatback;
 	print "<td>$nestab</td>";
-	print "<td> $backends_data[2] </td>";
-	print "<td> $backends_data[3] </td>";
 	print "</tr>";
 	$index++;
 }

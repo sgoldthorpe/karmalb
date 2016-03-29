@@ -72,7 +72,10 @@ else
 	&successmsg( "Successfully changed password" );
 	if ( $action eq "Change & Sync with root passwd" )
 	{
+		#scape special characters:
+		
 		chomp ( $newpass );
+		$newpass =~ s/\$/\\\$/g;
 ##no move the next lines
 		my @run = `
 /usr/bin/passwd 2>/dev/null<<EOF

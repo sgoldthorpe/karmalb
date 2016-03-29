@@ -223,10 +223,6 @@ sub genIptMark($fname,$nattype,$lbalg,$vip,$vport,$proto,$index,$mark,$value,$st
 
 	my $rule;
 
-	#	if ($state !~ /^up$/){
-	#		return $rule;
-	#	}
-
 	my $layer = "";
 	if ( $proto ne "all" )
 	{
@@ -239,18 +235,19 @@ sub genIptMark($fname,$nattype,$lbalg,$vip,$vport,$proto,$index,$mark,$value,$st
 		{
 			$prob = $value;
 		}
-		$prob = $value / $prob;
-		$rule = "$iptables -t mangle -A PREROUTING -m statistic --mode random --probability $prob -d $vip $layer -j MARK --set-mark $mark -m comment --comment ' FARM\_$fname\_$index\_ '";
+		#~ &logfile("prob:$prob value:$value");
+		#~ $prob = $value / $prob;
+		$rule = "$iptables -t mangle -I PREROUTING -m statistic --mode random --probability $prob -d $vip $layer -j MARK --set-mark $mark -m comment --comment ' FARM\_$fname\_$index\_ '";
 	}
 
 	if ( $lbalg eq "leastconn" )
 	{
-		$rule = "$iptables -t mangle -A PREROUTING -m condition --condition '\_$fname\_$mark\_' -d $vip $layer -j MARK --set-mark $mark -m comment --comment ' FARM\_$fname\_$index\_ '";
+		$rule = "$iptables -t mangle -I PREROUTING -m condition --condition '\_$fname\_$mark\_' -d $vip $layer -j MARK --set-mark $mark -m comment --comment ' FARM\_$fname\_$index\_ '";
 	}
 
 	if ( $lbalg eq "prio" )
 	{
-		$rule = "$iptables -t mangle -A PREROUTING -d $vip $layer -j MARK --set-mark $mark -m comment --comment ' FARM\_$fname\_$index\_ '";
+		$rule = "$iptables -t mangle -I PREROUTING -d $vip $layer -j MARK --set-mark $mark -m comment --comment ' FARM\_$fname\_$index\_ '";
 	}
 
 	return $rule;
@@ -262,10 +259,6 @@ sub genIptRedirect($fname,$nattype,$index,$rip,$proto,$mark,$value,$persist,$sta
 	my ( $fname, $nattype, $index, $rip, $proto, $mark, $value, $persist, $state ) = @_;
 
 	my $rule;
-
-	#	if ($state !~ /^up$/){
-	#		return $rule;
-	#	}
 
 	my $layer = "";
 	if ( $proto ne "all" )

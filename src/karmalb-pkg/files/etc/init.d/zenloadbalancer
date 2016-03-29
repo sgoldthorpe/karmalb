@@ -86,72 +86,11 @@ if ( $eject eq "restart" )
 
 if ( $eject eq "start" )
 {
+	if ( -e "/etc/firstboot" )
+	{
+		system("/usr/local/zenloadbalancer/app/zbin/zlb-firstboot.sh");
+	}
 	system ( "/usr/local/zenloadbalancer/app/checkglobalconf/checkglobalconf.cgi" );
-
-	# Set system tuning.
-	$sysctl = "/etc/sysctl.conf";
-	use Tie::File;
-	tie @filelines, 'Tie::File', "$sysctl";
-	@filelines = grep !/^net\.ipv4\.tcp_tw_recycle/, @filelines;
-	if ( !grep ( /^fs\.file-max/, @filelines ) )
-	{
-		push ( @filelines, "fs.file-max = 100000" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_max_tw_buckets/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_max_tw_buckets = 100000" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_low_latency/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_low_latency = 1" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_tw_reuse/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_tw_reuse = 1" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_tw_recycle/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_tw_recycle = 0" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_keepalive_time/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_keepalive_time = 512" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_fin_timeout/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_fin_timeout = 5" );
-	}
-	if ( !grep ( /^net\.ipv4\.inet_peer_maxttl/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.inet_peer_maxttl = 5" );
-	}
-	if ( !grep ( /^net\.core\.rmem_max/, @filelines ) )
-	{
-		push ( @filelines, "net.core.rmem_max = 262143" );
-	}
-	if ( !grep ( /^net\.core\.rmem_default/, @filelines ) )
-	{
-		push ( @filelines, "net.core.rmem_default = 262143" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_keepalive_intvl/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_keepalive_intvl = 15" );
-	}
-	if ( !grep ( /^net\.core\.netdev_max_backlog/, @filelines ) )
-	{
-		push ( @filelines, "net.core.netdev_max_backlog = 3000" );
-	}
-	if ( !grep ( /^net\.core\.somaxconn/, @filelines ) )
-	{
-		push ( @filelines, "net.core.somaxconn = 3000" );
-	}
-	if ( !grep ( /^net\.ipv4\.tcp_keepalive_probes/, @filelines ) )
-	{
-		push ( @filelines, "net.ipv4.tcp_keepalive_probes = 5" );
-	}
-	untie @filelines;
-
-	$status = `sysctl -p > /dev/null`;
 
 	if ( -e $filecluster )
 	{
@@ -356,16 +295,16 @@ if ( $eject eq "startlocal" )
 	open FR, "</etc/apt/sources.list";
 	my @repo = <FR>;
 	close FR;
-	if ( !( grep ( /zenloadbalancer\.sourceforge\.net\/apt\/x86\ v3\//, @repo ) ) )
+	if ( !( grep ( /zenloadbalancer\.sourceforge\.net\/apt\/x86\ v31\//, @repo ) ) )
 	{
 		open FR, ">/etc/apt/sources.list";
 		print FR "#official repository for Debian\n";
-		print FR "deb http://ftp.debian.org/debian/ squeeze main non-free\n";
-		print FR "deb-src http://ftp.debian.org/debian/ squeeze main non-free\n";
-		print FR "deb http://security.debian.org/ squeeze/updates main\n";
-		print FR "deb-src http://security.debian.org/ squeeze/updates main\n";
+		print FR "deb http://ftp.debian.org/debian/ jessie main non-free\n";
+		print FR "deb-src http://ftp.debian.org/debian/ jessie main non-free\n";
+		print FR "deb http://security.debian.org/ jessie/updates main\n";
+		print FR "deb-src http://security.debian.org/ jessie/updates main\n";
 		print FR "#official repository for Zen Load Balancer Updates\n";
-		print FR "deb http://zenloadbalancer.sourceforge.net/apt/x86 v3/\n";
+		print FR "deb http://zenloadbalancer.sourceforge.net/apt/x86 v31/\n";
 		close FR;
 	}
 

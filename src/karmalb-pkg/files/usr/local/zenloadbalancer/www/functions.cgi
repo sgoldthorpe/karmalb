@@ -279,7 +279,12 @@ sub createmenuserversfarm($action,$name,$id_server)
 	{
 		print "<input type=\"hidden\" name=\"action\" value=\"editfarm-editserver\">";
 		print "<input type=\"image\" src=\"img/icons/small/server_edit.png\" title=\"Edit Real Server $id_server\" name=\"action\" value=\"editfarm-editserver\">";
-		my $maintenance = &getFarmBackendMaintenance( $name, $id_server, $sv );
+		my $maintenance = -1;
+                #print status of a farm
+                if ( &getFarmStatus($name) eq "up" )
+                {
+			$maintenance = &getFarmBackendMaintenance( $name, $id_server, $sv );
+		}
 		if ( $type ne "datalink" && $type ne "l4xnat" && $type ne "gslb" )
 		{
 			if ( $maintenance ne "0" )
@@ -391,7 +396,6 @@ sub help($cod)
 sub createmenuvip($name,$id,$status)
 {
 	( $name, $id, $status ) = @_;
-
 	if ( $status eq "up" )
 	{
 		print "<a href=\"index.cgi?id=$id&action=stopfarm&farmname=$name\" onclick=\"return confirm('Are you sure you want to stop the farm: $name?')\"><img src=\"img/icons/small/farm_delete.png\" title=\"Stop the $name Farm\"></a> ";
@@ -400,6 +404,7 @@ sub createmenuvip($name,$id,$status)
 	else
 	{
 		print "<a href=\"index.cgi?id=$id&action=startfarm&farmname=$name\"><img src=\"img/icons/small/farm_up.png\" title=\"Start the $name Farm\"></a> ";
+		print "<a href=\"index.cgi?id=$id&action=editfarm&farmname=$name\"><img src=\"img/icons/small/farm_edit.png\" title=\"Edit the $name Farm\"></a> ";
 	}
 	print "<a href=\"index.cgi?id=$id&action=deletefarm&farmname=$name\" onclick=\"return confirm('Are you sure you wish to delete the farm: $name?')\"><img src=\"img/icons/small/farm_cancel.png\" title=\"Delete the $name Farm\"></a> ";
 }

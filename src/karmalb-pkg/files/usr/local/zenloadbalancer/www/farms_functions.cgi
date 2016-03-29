@@ -2431,7 +2431,6 @@ sub _runFarmStart($fname,$writeconf)
 			close FI;
 		}
 	}
-
 	if ( $type eq "l4xnat" )
 	{
 		if ( $writeconf eq "true" )
@@ -2476,13 +2475,13 @@ sub _runFarmStart($fname,$writeconf)
 			my @tsnat;
 			my @traw;
 
-			my $prob = 0;
+			my $total_weight = 0;
 			foreach $lservers ( @run )
 			{
 				my @serv = split ( "\;", $lservers );
 				if ( @serv[6] =~ /up/ )
 				{
-					$prob = $prob + @serv[4];
+					$total_weight = $total_weight + @serv[4];
 				}
 			}
 
@@ -2514,6 +2513,7 @@ sub _runFarmStart($fname,$writeconf)
 			}
 			my $bestprio = 1000;
 			my @srvprio;
+			my $prob = 0;
 
 			foreach $lservers ( @run )
 			{
@@ -2528,23 +2528,19 @@ sub _runFarmStart($fname,$writeconf)
 						{
 							$rip = "$rip\:$port";
 						}
+
+						$prob += @serv[4] / $total_weight;
 						my $tag = &genIptMark( $fname, $nattype, $lbalg, $vip, $vport, $proto, @serv[0], @serv[3], @serv[4], @serv[6], $prob );
 
 						if ( $persist ne "none" )
 						{
 							my $tagp = &genIptMarkPersist( $fname, $vip, $vport, $proto, $ttl, @serv[0], @serv[3], @serv[6] );
 							push ( @tmanglep, $tagp );
-
-							#my $tagp2 = &genIptMarkReturn($fname,$vip,$vport,$proto,@serv[0],@serv[6]);
-							#push(@tmanglep,$tagp2);
 						}
 
 						# dnat rules
-						#if ($vproto ne "sip"){
 						my $red = &genIptRedirect( $fname, $nattype, @serv[0], $rip, $proto, @serv[3], @serv[4], $persist, @serv[6] );
 						push ( @tnat, $red );
-
-						#}
 
 						if ( $nattype eq "nat" )
 						{
@@ -2562,8 +2558,6 @@ sub _runFarmStart($fname,$writeconf)
 						}
 
 						push ( @tmangle, $tag );
-
-						$prob = $prob - @serv[4];
 					}
 
 					if ( $lbalg eq "prio" )
@@ -2595,8 +2589,6 @@ sub _runFarmStart($fname,$writeconf)
 				#if ($vproto ne "sip"){
 				my $red = &genIptRedirect( $fname, $nattype, @srvprio[0], $rip, $proto, @srvprio[3], @srvprio[4], $persist, @srvprio[6] );
 
-				#}
-
 				if ( $persist ne "none" )
 				{
 					my $tagp = &genIptMarkPersist( $fname, $vip, $vport, $proto, $ttl, @srvprio[0], @srvprio[3], @srvprio[6] );
@@ -2620,15 +2612,11 @@ sub _runFarmStart($fname,$writeconf)
 					push ( @tsnat, $ntag );
 				}
 
-				#my $nraw = "$iptables -t raw -A OUTPUT -j NOTRACK -p $proto -d $vip --dport $vport -m comment --comment ' FARM\_$fname\_@srvprio[0]\_ '";
-				#my $nnraw = "$iptables -t raw -A OUTPUT -j NOTRACK -p $proto -s $vip -m comment --comment ' FARM\_$fname\_@srvprio[0]\_ '";
 				push ( @tmangle, $tag );
 				push ( @tnat,    $red );
-
-				#push(@traw,$nraw);
-				#push(@traw,$nnraw);
 			}
 
+			# not used
 			foreach $nraw ( @traw )
 			{
 				if ( $nraw ne "" )
@@ -2643,7 +2631,8 @@ sub _runFarmStart($fname,$writeconf)
 				}
 			}
 
-			@tmangle = reverse ( @tmangle );
+			#~ @tmangle = reverse ( @tmangle );
+			# apply tags
 			foreach $ntag ( @tmangle )
 			{
 				if ( $ntag ne "" )
@@ -2658,8 +2647,29 @@ sub _runFarmStart($fname,$writeconf)
 				}
 			}
 
-			if ( $persist ne "none" )
+			# apply persistence tags
+			if ( $persist eq "ip" )
 			{
+				# preprocess rules: if farm guardian is starting a server
+				# only start the one now available
+				if ( $0 =~ /farmguardian/ )
+				{
+					my @iptables_lines = grep {/recent: CHECK/} `$iptables -n -t mangle -L PREROUTING`;
+
+					# add only not started backends
+					foreach my $be_line ( &getFarmServers($fname) )
+					{
+						# (0:#,1:ip,2:port,3:tag,4:weight,5:prio,6:status)
+						my ($tag,$state) = (split ';', $be_line)[3,6];
+						chomp ($state);
+
+						if ($state eq 'up' && grep (/$tag/, @iptables_lines) == 1)
+						{
+							@tmanglep = grep {!/$tag/} @tmanglep;
+						}
+					}
+				}
+
 				foreach $ntag ( @tmanglep )
 				{
 					if ( $ntag ne "" )
@@ -2671,6 +2681,28 @@ sub _runFarmStart($fname,$writeconf)
 							&logfile( "last command failed!" );
 							$status = -1;
 						}
+					}
+				}
+			}
+
+			# redirect/routing to backends
+
+			# preprocess rules: if farm guardian is starting a server
+			# only start the one now available
+			if ( $0 =~ /farmguardian/ && $persist eq "ip" )
+			{
+				my @iptables_lines = grep {/recent: SET/} `$iptables -n -t nat -L PREROUTING`;
+
+				# add only not started backends
+				foreach my $be_line ( &getFarmServers($fname) )
+				{
+					# (0:#,1:ip,2:port,3:tag,4:weight,5:prio,6:status)
+					my ($tag,$state) = (split ';', $be_line)[3,6];
+					chomp ($state);
+
+					if ($state eq 'up' && grep (/$tag/, @iptables_lines) == 1)
+					{
+						@tnat = grep {!/$tag/} @tnat;
 					}
 				}
 			}
@@ -2689,6 +2721,7 @@ sub _runFarmStart($fname,$writeconf)
 				}
 			}
 
+			# masquerade
 			foreach $nred ( @tsnat )
 			{
 				if ( $nred ne "" )
@@ -2713,7 +2746,6 @@ sub _runFarmStart($fname,$writeconf)
 				close FI;
 			}
 		}
-
 	}
 
 	return $status;
@@ -2893,15 +2925,62 @@ sub _runFarmStop($fname,$writeconf)
 		# Apply changes online
 		if ( $status != -1 )
 		{
-
 			# Disable rules
-			my @allrules = &getIptList( "raw", "OUTPUT" );
-			$status = &deleteIptRules( "farm", $fname, "raw", "OUTPUT", @allrules );
+			#~ my @allrules = &getIptList( "raw", "OUTPUT" );
+			#~ $status = &deleteIptRules( "farm", $fname, "raw", "OUTPUT", @allrules );
 			my @allrules = &getIptList( "mangle", "PREROUTING" );
+			
+			# do not remove persistence rules when backend detected as failed
+			if ($0 =~ /farmguardian/ && &getFarmSessionType($fname) eq 'ip')
+			{
+				# @allrules includes the rules to be deleted
+				# non recent related rules
+				my @non_recent_rules = grep {!/recent: CHECK/} @allrules;
+				
+				# take all persistence rules
+				my @recent_rules = grep {/recent: CHECK/} @allrules;
+
+				@allrules = @non_recent_rules;
+				
+				# pick backends down to remove them
+				foreach my $be_line ( &getFarmServers($fname) )
+				{
+					# (0:#,1:ip,2:port,3:tag,4:weight,5:prio,6:status)
+					my ($tag,$state) = (split ';', $be_line)[3,6];
+					chomp ($state);
+					# if status eq up -> remove
+					# for each backend as down, add it to the removal list
+					if ($state eq 'fgDOWN')
+					{
+						push (@allrules, grep {/$tag/} @recent_rules);
+					}
+				}
+			}
+			
 			$status = &deleteIptRules( "farm", $fname, "mangle", "PREROUTING", @allrules );
-			my @allrules = &getIptList( "nat", "PREROUTING" );
+
+			@allrules = &getIptList( "nat", "PREROUTING" );
+
+			if ($0 =~ /farmguardian/ && &getFarmSessionType($fname) eq 'ip')
+			{
+				# do not remove available backends
+				foreach my $be_line ( &getFarmServers($fname) )
+				{
+					# (0:#,1:ip,2:port,3:tag,4:weight,5:prio,6:status)
+					my ($tag,$state) = (split ';', $be_line)[3,6];
+					chomp ($state);
+					# if status eq up -> remove
+					# for each backend as down, add it to the removal list
+					if ($state eq 'up')
+					{
+						@allrules = grep {!/$tag/} @allrules;
+					}
+				}
+			}
+
 			$status = &deleteIptRules( "farm", $fname, "nat", "PREROUTING", @allrules );
-			my @allrules = &getIptList( "nat", "POSTROUTING" );
+			
+			@allrules = &getIptList( "nat", "POSTROUTING" );
 			$status = &deleteIptRules( "farm", $fname, "nat", "POSTROUTING", @allrules );
 
 			# Disable active l4xnat file
@@ -3042,7 +3121,7 @@ sub runFarmCreate($fproto,$fvip,$fvipp,$fname,$fdev)
 		#	$type = "l4xnat";
 		#}
 		open FO, ">$configdir\/$fname\_$type.cfg";
-		print FO "$fname\;all\;$fvip\;*\;dnat\;weight\;none\;120\;up\n";
+		print FO "$fname\;tcp\;$fvip\;$fvipp\;nat\;weight\;none\;120\;up\n";
 		close FO;
 		$output = $?;
 
@@ -5626,7 +5705,7 @@ sub deleteFarmService($farmname,$service)
 	for ( $i = 0 ; $i < $#fileconf ; $i++ )
 	{
 		$line = @fileconf[$i];
-		if ( $sw eq "1" && ( $line =~ /ZWACL-END/ || $line =~ /Service/ ) )
+		if ( $sw eq "1" && ( $line =~ /ZWACL-END/ || $line =~ /Service\ \"/ ) )
 		{
 			$output = 0;
 			last;

@@ -309,7 +309,7 @@ sub zsystem(@exec)
 {
 	( @exec ) = @_;
 
-	system ( ". /etc/profile && @exec" );
+	system ( "@exec" );
 	return $?;
 }
 
