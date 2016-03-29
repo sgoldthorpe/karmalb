@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+# # override the default keyring
+ln -s karmalb-keyring.gpg /usr/share/keyrings/archive.gpg
+
+# Force installation of karmalb-keyring
+if ! db_get "base-installer/includes" ; then
+    db_register debian-installer/dummy "base-installer/includes"
+    INCLUDES="karmalb-keyring"
+else
+    INCLUDES="$RET karmalb-keyring"
+fi
+db_set base-installer/includes "$INCLUDES"
+
+exit 0

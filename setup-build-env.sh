@@ -2,6 +2,7 @@ REQPKGS="apt-file \
 	apt-utils \
 	debhelper \
 	dh-make-perl \
+	dpkg-sig \
 	libemail-valid-perl \
 	libexpect-perl \
 	libgd-perl \
@@ -14,6 +15,8 @@ REQPKGS="apt-file \
 	libssl-dev \
 	libtest-exception-perl \
 	lintian \
+	packaging-dev \
+	quilt \
 	sudo \
 	wget \
 	xorriso"

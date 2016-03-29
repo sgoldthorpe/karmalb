@@ -1,0 +1,2 @@
+build/trusted.gpg.d/*gpg	etc/apt/trusted.gpg.d
+build/keyrings/*gpg		usr/share/keyrings

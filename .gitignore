@@ -1,0 +1,23 @@
+# ignore any vi swap files
+*.swp
+
+# ignore any .iso images - these are either downloaded or generated
+*.iso
+
+# ignore our cdrom building directory
+/distro/cdrom/
+
+# ignore our apt-config config files as they are generated
+/distro/apt-configs/*.conf
+
+# ignore the extacted iso image boot block
+/distro/isohdpfx.bin
+
+# ignore perl package working directories, source tarballs and generated packages
+/src/perl-pkgs/*/*-perl/
+/src/perl-pkgs/*/*.tar.gz
+/src/perl-pkgs/*/*.deb
+
+# ignore any extracted debs from zen
+/src/karmalb-pkg/util/*.deb
+

@@ -3,9 +3,9 @@ set -e
 
 # DEFINITIONS
 PROJNAME=KarmaLB
-PROJREL=1.0a1
+PROJREL=1.0a2
 OSNAME=Debian
-OSREL=8.2.0
+OSREL=8.3.0
 DIST=jessie
 ARCH=amd64
 #
@@ -15,7 +15,7 @@ DEST=cdrom
 INITRD=install.amd/initrd.gz
 MNT=iso
 # DERIVED DEFINITIONS
-NETLOC=http://mirrorservice.org/sites/cdimage.debian.org/debian-cd/current/$ARCH/bt-cd/
+NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
 PKGLOC=$DEST/pool/main/karmalb
@@ -47,11 +47,27 @@ for L in $LIST; do
 done
 
 # ADD CUSTOM PACKAGES HERE
+# PERL
 ( 
 	PERLPKGS="`ls ../src/perl-pkgs/*/*.deb 2>&1`"
 	set -- $PERLPKGS
 	if [ $# -ne 5 ]; then
 		echo "ERROR: Not all custom perl packages found."
+		exit 5
+	else
+		mkdir -p $PKGLOC
+		while [ "$1" ]; do
+			cp -p $1 $PKGLOC
+			shift
+		done
+	fi
+)
+# MISC
+( 
+	MISCPKGS="`ls ../src/misc-pkgs/*.deb 2>&1`"
+	set -- $MISCPKGS
+	if [ $# -ne 1 ]; then
+		echo "ERROR: Not all packages found."
 		exit 5
 	else
 		mkdir -p $PKGLOC

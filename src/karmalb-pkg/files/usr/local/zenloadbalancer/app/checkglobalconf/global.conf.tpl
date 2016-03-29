@@ -27,9 +27,9 @@ $rttables = "/etc/iproute2/rt_tables";
 #this file
 $globalcfg = "/usr/local/zenloadbalancer/config/global.conf";
 #version ZEN
-$version="3.05";#update
+$version="3.10";#update
 #Cipher PCI
-$cipher_pci="RC4-SHA";#update
+$cipher_pci="DEFAULT";#update
 #BUY SSL Certificates
 $buy_ssl="http://ecommerce.sofintel.net/ssl/ssl-certificate.aspx?ci=8347&prog_id=503889";
 #URL of dinamic content in global view
@@ -62,7 +62,7 @@ $scp="/usr/bin/scp";
 #Where is rsync binary?
 $rsync="/usr/bin/rsync";
 #Where is ucarp binary?
-$ucarp="/usr/local/zenloadbalancer/app/ucarp/sbin/ucarp";
+$ucarp="/usr/sbin/ucarp";
 #Where is pidof binary?
 $pidof="/bin/pidof";
 #Where is ps binary?
@@ -75,19 +75,37 @@ $zcat="/bin/zcat";
 $datentp="/usr/sbin/ntpdate";
 #Where is arping?
 $arping_bin="/usr/bin/arping";
+#Where is ping?
+$ping_bin="/bin/ping";
 #Where is openssl?
 $openssl="/usr/bin/openssl";
+#Where is unzip?
+$unzip="/usr/bin/unzip";
+#Where is mv?
+$mv="/bin/mv";
+#Where is ls?
+$ls="/bin/ls";
+#Where is cp?
+$cp="/bin/cp";
 #Where is iptables?
 $iptables="/sbin/iptables";
-#Where is netstat-nat?
-$netstatNat="/usr/bin/netstat-nat";
+#Where is modprobe?
+$modprobe="/sbin/modprobe";
+#Where is lsmod?
+$lsmod="/sbin/lsmod";
 #Where is gdnsd?
-$gdnsd="/usr/local/zenloadbalancer/app/gdnsd/sbin/gdnsd";
+$gdnsd="/usr/sbin/gdnsd";
+#Where is l4sd?
+$l4sd="/usr/local/zenloadbalancer/app/l4s/bin/l4sd";
+#Where is conntrack?
+$conntrack="/usr/sbin/conntrack";
+#Where is insserv?
+$insserv="/sbin/insserv";
 
 #where is pound binary?
-$pound="/usr/local/zenloadbalancer/app/pound/sbin/pound";
+$pound="/usr/sbin/pound";
 #where is pound ctl?
-$poundctl="/usr/local/zenloadbalancer/app/pound/sbin/poundctl";
+$poundctl="/usr/sbin/poundctl";
 #pound file configuration template?
 $poundtpl="/usr/local/zenloadbalancer/app/pound/etc/poundtpl.cfg";
 #piddir
@@ -100,13 +118,13 @@ $fwmarksconf = "$configdir/fwmarks.conf";
 $defaultgw="";
 #Interface Default Gateway
 $defaultgwif="";
+#Number of gratuitous pings
+$pingc="1";
 
 #Directory where is check script. In this directory you can save your own check scripts. 
 $libexec_dir="/usr/local/zenloadbalancer/app/libexec";
 #FarmGuardian binary, create advanced check for backend servers
 $farmguardian="/usr/local/zenloadbalancer/app/farmguardian/bin/farmguardian";
-#Directory where FarmGuardian save the configuration files
-$farmguardian_dir="/usr/local/zenloadbalancer/app/farmguardian/etc";
 #Directory where FarmGuadian save the logs
 $farmguardian_logs="/usr/local/zenloadbalancer/logs";
 
@@ -119,7 +137,7 @@ $rrd_dir="rrd/";
 #File log name  for ZenRRD. A lot of disk space is needed. If it is blank no loggin
 $log_rrd="";
 
-#Service for configure Zen directory replication
+#Zen service replication
 $zenino="/usr/local/zenloadbalancer/app/zeninotify/zeninotify.pl"; 
 #Zen Inotify pid file 
 $zeninopid="/var/run/zeninotify.pid";
@@ -128,15 +146,18 @@ $zeninolog="/usr/local/zenloadbalancer/logs/zeninotify.log";
 #.<b>Rsync replication parameters</b>
 $zenrsync="-auzv --delete";
 
-#Services for configure start latency service
+#zen latency service start
 $zenlatup="/usr/local/zenloadbalancer/app/zenlatency/zenlatency-start.pl";
-#Services for configure stop latency service
+#zen latency service stop
 $zenlatdown="/usr/local/zenloadbalancer/app/zenlatency/zenlatency-stop.pl";
 #Zen latency log file
 $zenlatlog="/usr/local/zenloadbalancer/logs/zenlatency.log";
 
 #Zen backup
 $zenbackup="/usr/local/zenloadbalancer/app/zenbackup/zenbackup.pl";
+
+#SNMP service
+$snmpdconfig_file="/etc/snmp/snmpd.conf";
 #::END Global Section
 
 #!!!!NOT REMOVE NEXT LINE!!!!!!

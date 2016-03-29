@@ -1,0 +1,2 @@
+build/keyrings/karmalb-keyring.gpg			usr/share/keyrings
+debian-installer-startup.d/S40karmalb			lib/debian-installer-startup.d

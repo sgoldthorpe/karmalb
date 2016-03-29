@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+[ "$1" == "configure" ] && echo "Concluding ZLB installation..." 
+
+update-rc.d zenloadbalancer defaults
+
+exit 0
