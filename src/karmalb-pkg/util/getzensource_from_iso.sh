@@ -1,7 +1,7 @@
 #/!bin/sh -e
 TMPDIR=tmp
-ZENPKG=zenloadbalancer_3.7_i386.deb
-ZENISO=zenloadbalancer-distro_37.iso
+ZENPKG=zenloadbalancer_3.10.deb
+ZENISO=zenloadbalancer-distro_3.10.iso
 FILELIST=../filelist
 FILESDIR=../files
 CONTROLDIR=../control
