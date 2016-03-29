@@ -5,6 +5,7 @@ TMPDIR=tmp
 ZENPKG=zenloadbalancer_3.10.deb
 FILELIST=filelist
 FILESDIR=files
+CONTROLDIR=control
 
 if [ ! -f $ZENPKG ]; then
 	echo "You need to get hold of $ZENPKG first..."
@@ -56,4 +57,8 @@ cat $FILELIST | while read T F X; do
 	esac
 done
 rm -rf $TMPDIR
+echo "Extracting control files..."
+rm -rf $CONTROLDIR
+mkdir $CONTROLDIR
+dpkg -e $ZENPKG $CONTROLDIR
 echo "Done."
