@@ -26,7 +26,7 @@ getyn
 
 if [ ! -f $ZENPKG ]; then
 	if [ ! -f $ZENISO ]; then
-		wget http://sourceforge.net/settings/mirror_choices?projectname=zenloadbalancer&filename=Distro/$ZENISO
+		wget -O $ZENISO https://sourceforge.net/projects/zenloadbalancer/files/Distro/$ZENISO/download
 	fi
 	mkdir iso
 	sudo mount -o loop -t iso9660 -r $ZENISO iso
