@@ -47,11 +47,27 @@ for L in $LIST; do
 done
 
 # ADD CUSTOM PACKAGES HERE
+# PERL
 ( 
 	PERLPKGS="`ls ../src/perl-pkgs/*/*.deb 2>&1`"
 	set -- $PERLPKGS
 	if [ $# -ne 5 ]; then
 		echo "ERROR: Not all custom perl packages found."
+		exit 5
+	else
+		mkdir -p $PKGLOC
+		while [ "$1" ]; do
+			cp -p $1 $PKGLOC
+			shift
+		done
+	fi
+)
+# MISC
+( 
+	MISCPKGS="`ls ../src/misc-pkgs/*.deb 2>&1`"
+	set -- $MISCPKGS
+	if [ $# -ne 1 ]; then
+		echo "ERROR: Not all packages found."
 		exit 5
 	else
 		mkdir -p $PKGLOC
