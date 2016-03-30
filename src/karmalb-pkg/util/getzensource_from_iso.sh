@@ -1,10 +1,16 @@
 #/!bin/sh -e
-TMPDIR=tmp
+PKGNAME=karmalb
+PKGVERS=1.0a2
+PKGMAIN="KarmaLB Developers <dev@karmalb.org.uk>"
+#
 ZENPKG=zenloadbalancer_3.10.deb
 ZENISO=zenloadbalancer-distro_3.10.iso
+#
+TMPDIR=tmp
 FILELIST=../filelist
 FILESDIR=../files
 CONTROLDIR=../control
+PKGARCH=`dpkg-architecture -qDEB_BUILD_ARCH`
 
 getyn()
 {
@@ -75,3 +81,9 @@ rm -rf $TMPDIR
 rm -rf $CONTROLDIR
 mkdir $CONTROLDIR
 dpkg -e $ZENPKG $CONTROLDIR
+# fix up control file
+sed -i -e "s/^Package:.*/Package: $PKGNAME/" \
+	-e "s/^Version:.*/Version: $PKGVERS/" \
+	-e "s/^Maintainer:.*/Maintainer: $PKGMAIN/" \
+	-e "s/^Architecture:.*/Architecture: $PKGARCH/" \
+	$CONTROLDIR/control
