@@ -1,0 +1,19 @@
+Description: Change the default document root to /var/www/html
+	    and added index.mini-httpd.html in /var/www/html
+Author: Jose dos Santos Junior <j.s.junior@live.com>
+Last-Update: 2015-09-14
+Bug: http://bugs.debian.org/730373
+===================================================================
+Index: mini-httpd-1.21/mini_httpd.c
+===================================================================
+--- mini-httpd-1.21.orig/mini_httpd.c
++++ mini-httpd-1.21/mini_httpd.c
+@@ -1140,7 +1140,7 @@ handle_request( void )
+     char* cp;
+     int r, file_len, i;
+     const char* index_names[] = {
+-	"index.html", "index.htm", "index.xhtml", "index.xht", "Default.htm",
++	"index.html", "index.mini-httpd.html", "index.htm", "index.xhtml", "index.xht", "Default.htm",
+ 	"index.cgi" };
+ 
+     /* Set up the timeout for reading. */

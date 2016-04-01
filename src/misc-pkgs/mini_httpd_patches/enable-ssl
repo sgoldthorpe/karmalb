@@ -1,0 +1,26 @@
+--- mini_httpd-1.23/Makefile	2016-04-01 11:16:12.044293214 +0100
++++ mini_httpd-1.23/Makefile.new	2016-04-01 11:17:35.512289798 +0100
+@@ -14,10 +14,10 @@
+ # http://www.openssl.org/  Make sure the SSL_TREE definition points to the
+ # tree with your OpenSSL installation - depending on how you installed it,
+ # it may be in /usr/local instead of /usr/local/ssl.
+-#SSL_TREE =	/usr/local/ssl
+-#SSL_DEFS =	-DUSE_SSL
+-#SSL_INC =	-I$(SSL_TREE)/include
+-#SSL_LIBS =	-L$(SSL_TREE)/lib -lssl -lcrypto
++SSL_TREE =	/usr
++SSL_DEFS =	-DUSE_SSL
++SSL_INC =	-I$(SSL_TREE)/include
++SSL_LIBS =	-L$(SSL_TREE)/lib -lssl -lcrypto
+ 
+ BINDIR =$(DESTDIR)/usr/sbin
+ MANDIR =$(DESTDIR)/usr/share/man
+@@ -33,7 +33,7 @@
+ 	$(CC) $(LDFLAGS) mini_httpd.o match.o tdate_parse.o $(LDLIBS) -o mini_httpd
+ 
+ mini_httpd.o:	mini_httpd.c version.h port.h match.h tdate_parse.h mime_encodings.h mime_types.h
+-	$(CC) $(LDFLAGS) -c mini_httpd.c
++	$(CC) $(CFLAGS) $(LDFLAGS) -c mini_httpd.c
+ 
+ match.o:	match.c match.h
+ 	$(CC) $(CFLAGS) -c match.c

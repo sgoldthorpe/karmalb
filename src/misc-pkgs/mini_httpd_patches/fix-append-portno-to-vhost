@@ -1,0 +1,24 @@
+Description: Append port number to vhost.
+	       Thanks Steffen Grunewald <steffen.grunewald@gmx.net>
+Author: Jose dos Santos Junior <j.s.junior@live.com>
+Last-Update:2015-09-05
+Bug: http://bugs.debian.org/491078
+===================================================================
+Index: mini-httpd-1.21/mini_httpd.c
+===================================================================
+--- mini-httpd-1.21.orig/mini_httpd.c
++++ mini-httpd-1.21/mini_httpd.c
+@@ -2349,7 +2349,13 @@ virtual_file( char* f )
+ 
+     /* Use the request's hostname, or fall back on the IP address. */
+     if ( host != (char*) 0 )
++	{
+ 	req_hostname = host;
++	char *portno;
++	portno = strpbrk(req_hostname, ":");
++	if (portno != (char *) 0)
++	    *portno++ = '\0';
++	}
+     else
+ 	{
+ 	usockaddr usa;

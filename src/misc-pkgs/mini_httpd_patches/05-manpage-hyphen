@@ -1,0 +1,129 @@
+Description: Escape minus signs as needed.
+Author: Raphael Geissert <geissert@debian.org>
+Last-Update: 2015-09-05
+
+Index: mini-httpd-1.21/mini_httpd.8
+===================================================================
+--- mini-httpd-1.21.orig/mini_httpd.8
++++ mini-httpd-1.21/mini_httpd.8
+@@ -107,7 +107,7 @@ The config-file option name for this fla
+ .B -dd
+ Specifies a directory to chdir() to after chrooting.
+ If you're not chrooting, you might as well do a single chdir() with
+-the -d flag.
++the \-d flag.
+ If you are chrooting, this lets you put the web files in a subdirectory
+ of the chroot tree, instead of in the top level mixed in with the
+ chroot files.
+@@ -172,7 +172,7 @@ which is just fine for most sites.
+ The config-file option name for this flag is "maxage".
+ .TP
+ .B -S
+-If mini_httpd is configured to do SSL/HTTPS, then the -S flag is available
++If mini_httpd is configured to do SSL/HTTPS, then the \-S flag is available
+ to enable this feature.
+ The config-file option name for this flag is "ssl".
+ .TP
+@@ -207,7 +207,7 @@ Shows mini_httpd's version and then exit
+ mini_httpd supports the CGI 1.1 spec.
+ .PP
+ In order for a CGI program to be run, its name must match the pattern
+-you specify with the -c flag
++you specify with the \-c flag
+ This is a simple shell-style filename pattern.
+ You can use * to match any string not including a slash,
+ or ** to match any string including slashes,
+@@ -255,12 +255,12 @@ so that mini_httpd can still generate sy
+ Check your system's syslodg man page for how to do this.
+ In FreeBSD you would put something like this in /etc/rc.conf:
+ .nf
+-    syslogd_flags="-l /usr/local/www/data/dev/log"
++    syslogd_flags="\-l /usr/local/www/data/dev/log"
+ .fi
+ Substitute in your own chroot tree's pathname, of course.
+ Don't worry about creating the log socket, syslogd wants to do that itself.
+ (You may need to create the dev directory.)
+-In Linux the flag is -a instead of -l, and there may be other differences.
++In Linux the flag is \-a instead of \-l, and there may be other differences.
+ .SH "MULTIHOMING"
+ .PP
+ Multihoming means using one machine to serve multiple hostnames.
+@@ -308,7 +308,7 @@ If your OS's version of ifconfig doesn't
+ probably out of luck.
+ .PP
+ Third and last, you must set up mini_httpd to handle the multiple hosts.
+-The easiest way is with the -v flag.
++The easiest way is with the \-v flag.
+ This works with either CNAME multihosting or multiple-IP multihosting.
+ What it does is send each incoming request to a subdirectory based on the
+ hostname it's intended for.
+@@ -321,26 +321,26 @@ With the example above, you'd do like so
+ If you're using old-style multiple-IP multihosting, you should also create
+ symbolic links from the numeric addresses to the names, like so:
+ .nf
+-  ln -s www.acme.com 192.100.66.1
+-  ln -s www.joe.acme.com 192.100.66.200
+-  ln -s www.jane.acme.com 192.100.66.201
++  ln \-s www.acme.com 192.100.66.1
++  ln \-s www.joe.acme.com 192.100.66.200
++  ln \-s www.jane.acme.com 192.100.66.201
+ .fi
+ This lets the older HTTP/1.0 browsers find the right subdirectory.
+ .PP
+ There's an optional alternate step three if you're using multiple-IP
+ multihosting: run a separate mini_httpd process for each hostname, using
+-the -h flag to specify which one is which.
++the \-h flag to specify which one is which.
+ This gives you more flexibility, since you can run each of these processes
+ in separate directories or with different options.
+ Example:
+ .nf
+-  ( cd /usr/www ; mini_httpd -h www.acme.com )
+-  ( cd /usr/www/joe ; mini_httpd -u joe -h www.joe.acme.com )
+-  ( cd /usr/www/jane ; mini_httpd -u jane -h www.jane.acme.com )
++  ( cd /usr/www ; mini_httpd \-h www.acme.com )
++  ( cd /usr/www/joe ; mini_httpd \-u joe \-h www.joe.acme.com )
++  ( cd /usr/www/jane ; mini_httpd \-u jane \-h www.jane.acme.com )
+ .fi
+ But remember, this multiple-process method does not work with CNAME
+-multihosting - for that, you must use a single mini_httpd process with
+-the -v flag.
++multihosting \(hy for that, you must use a single mini_httpd process with
++the \-v flag.
+ .SH "CUSTOM ERRORS"
+ .PP
+ mini_httpd lets you define your own custom error pages for the various
+@@ -416,15 +416,15 @@ http://www.modssl.org/docs/2.4/ssl_faq.h
+ You can also create one for yourself, using the openssl tool.
+ Step one - create the key and certificate request:
+ .nf
+-    openssl req -new > cert.csr
++    openssl req \-new > cert.csr
+ .fi
+-Step two - remove the passphrase from the key:
++Step two \(hy remove the passphrase from the key:
+ .nf
+-    openssl rsa -in privkey.pem -out key.pem
++    openssl rsa \-in privkey.pem \-out key.pem
+ .fi
+-Step three - convert the certificate request into a signed certificate:
++Step three \(hy convert the certificate request into a signed certificate:
+ .nf
+-    openssl x509 -in cert.csr -out cert.pem -req -signkey key.pem -days 365
++    openssl x509 \-in cert.csr \-out cert.pem \-req \-signkey key.pem \-days 365
+ .fi
+ This creates four files.
+ The ones you want are cert.pem and key.pem.
+Index: mini-httpd-1.21/htpasswd.1
+===================================================================
+--- mini-httpd-1.21.orig/htpasswd.1
++++ mini-httpd-1.21/htpasswd.1
+@@ -9,7 +9,7 @@ htpasswd - manipulate HTTP-server passwo
+ .SH DESCRIPTION
+ .PP
+ Sets a user's password in an httpd-style password file.
+-The -c flag creates a new file.
++The \-c flag creates a new file.
+ .SH AUTHOR
+ Rob McCool.
+ Modified 29aug97 by Jef Poskanzer to accept new password on stdin,
