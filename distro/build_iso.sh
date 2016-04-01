@@ -14,12 +14,34 @@ BBFILE=isohdpfx.bin
 DEST=cdrom
 INITRD=install.amd/initrd.gz
 MNT=iso
+PKGCACHE=pkgcache
 # DERIVED DEFINITIONS
 NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
 PKGLOC=$DEST/pool/main/karmalb
 LABEL="`echo ${PROJNAME} ${PROJREL} ${ARCH}|tr '[a-z]. ' '[A-Z]__'`"
+
+# FUNCTIONS
+
+fetch_pkg() {
+	VER=`apt-cache show --no-all-versions ^$1$|awk '/^Version/ { print $2 }'|sed 's/.*://'`
+	echo "x$VER"
+	FOUND="`find $PKGCACHE -name $1_$VER_\*.deb`"
+	echo "x$FOUND"
+	if [ ! "$FOUND" ]; then
+		( cd $PKGCACHE; apt-get download $1 )
+		# epoch version confuses matters - rename if found
+		RENAME="`find $PKGCACHE -name $1_[0-9]*%3a*.deb`"
+		if [ "$RENAME" ]; then
+			NEWNAME="`echo $RENAME | sed 's/_[0-9]*%3a/_/'`"
+			mv $RENAME $NEWNAME
+		fi
+		FOUND="`find $PKGCACHE -name $1_${VER}\*.deb`"
+	fi
+	sudo cp -p $FOUND $2
+}
+
 
 # MAIN SCRIPT
 
@@ -185,9 +207,8 @@ for PKG in $PKGLIST; do
 done
 (
 	if [ "$INSTALL" ]; then
-		cd $PKGLOC
 		for PKG in $INSTALL; do
-			apt-get download $PKG
+			fetch_pkg $PKG $PKGLOC
 		done
 	fi
 )
