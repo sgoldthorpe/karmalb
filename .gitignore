@@ -7,6 +7,9 @@
 # ignore our cdrom building directory
 /distro/cdrom/
 
+# ignore the pkgcache directory
+/distro/pkgcache/
+
 # ignore our apt-config config files as they are generated
 /distro/apt-configs/*.conf
 
