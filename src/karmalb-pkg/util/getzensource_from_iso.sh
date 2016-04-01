@@ -53,6 +53,7 @@ if [ ! -f $ZENPKG ]; then
 fi
 
 # extract files from package 
+rm -rf $TMPDIR
 mkdir $TMPDIR
 dpkg -x $ZENPKG $TMPDIR
 
