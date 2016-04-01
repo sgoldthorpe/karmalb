@@ -2,6 +2,10 @@
 PKGNAME=karmalb
 PKGVERS=1.0a2
 PKGMAIN="KarmaLB Developers <dev@karmalb.org.uk>"
+OLDPREFIX=usr/local
+NEWPREFIX=opt
+OLDPATH=${OLDPREFIX}/zenloadbalancer
+NEWPATH=${NEWPREFIX}/klb
 #
 ZENPKG=zenloadbalancer_3.10.deb
 ZENISO=zenloadbalancer-distro_3.10.iso
@@ -52,6 +56,11 @@ fi
 mkdir $TMPDIR
 dpkg -x $ZENPKG $TMPDIR
 
+# move lb directory
+mkdir -p ${TMPDIR}/${NEWPREFIX}
+mv ${TMPDIR}/${OLDPATH} ${TMPDIR}/${NEWPATH}
+( cd $TMPDIR; rmdir -p $OLDPREFIX )
+
 # build filelist file
 ( cd $TMPDIR; find * -print ) | sort | \
 	while read F; do
@@ -75,10 +84,15 @@ mkdir $FILESDIR
 cat $FILELIST | (
 	while read T F X; do
 		case $T in
-			\#*) echo "Skipping binary $F";;
-			l) echo "Skipping link $F -> $X";;
-			d) mkdir $FILESDIR/$F;;
-			f) cp -p $TMPDIR/$F $FILESDIR/$F;;
+			\#*)	echo "Skipping binary $F";;
+			l)	echo "Skipping link $F -> $X";;
+			d)	mkdir $FILESDIR/$F;;
+			f)	cp -p $TMPDIR/$F $FILESDIR/$F
+				if grep -q /$OLDPATH $FILESDIR/$F; then
+					sed -i "s@/$OLDPATH@/$NEWPATH@g" $FILESDIR/$F
+					echo "Modified $F"
+				fi
+				;;
 		esac
 	done
 )
