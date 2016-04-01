@@ -68,6 +68,8 @@ for L in $LIST; do
 	chmod u+w $DEST/$L
 done
 
+mkdir -p $PKGCACHE
+
 # ADD CUSTOM PACKAGES HERE
 # PERL
 ( 
