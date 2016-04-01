@@ -70,6 +70,19 @@ done
 
 mkdir -p $PKGCACHE
 
+# UPGRADE MEDIA PACKAGES TO ENSURE CONSISTENT VERSIONING
+
+find $DEST/pool -type f -name \*.deb | while read PKG; do
+	BASE=`basename $PKG|sed 's/_.*//'`
+	VER=`apt-cache show --no-all-versions ^$BASE$|awk '/^Version/ { print $2 }'|sed 's/.*://'`2
+	if [ ! "`echo $PKG|grep _${VER}_`" ]; then
+		echo "upgrade $BASE to $VER"
+		DIR=`dirname $PKG`
+		sudo rm -f $PKG
+		fetch_pkg $BASE $DIR
+	fi
+done
+
 # ADD CUSTOM PACKAGES HERE
 # PERL
 ( 
