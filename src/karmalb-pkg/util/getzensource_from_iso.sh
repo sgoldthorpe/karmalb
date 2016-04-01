@@ -11,6 +11,13 @@ FILELIST=../filelist
 FILESDIR=../files
 CONTROLDIR=../control
 PKGARCH=`dpkg-architecture -qDEB_BUILD_ARCH`
+#
+KEEPFILES=0
+
+if [ "x$1" = "x-k" ]; then
+	KEEPFILES=1
+	shift
+fi
 
 getyn()
 {
@@ -75,7 +82,7 @@ cat $FILELIST | (
 		esac
 	done
 )
-rm -rf $TMPDIR
+test $KEEPFILES -eq 1 || rm -rf $TMPDIR
 
 # extract control files from package
 rm -rf $CONTROLDIR
