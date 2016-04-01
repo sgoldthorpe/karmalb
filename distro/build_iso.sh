@@ -45,6 +45,7 @@ fetch_pkg() {
 
 # fetch Debian iso if not already downloaded
 if [ ! -f $NETISO ]; then
+	echo "Fetching network iso image..."
 	wget $NETLOC/$NETISO
 fi
 
@@ -56,8 +57,9 @@ if [ -d $DEST ]; then
 	sudo rm -rf $DEST
 fi
 mkdir $DEST
-# copy ISO contents to $DEST
-cp -av $MNT/. $DEST/
+
+echo "Copying ISO image contents..."
+cp -a $MNT/. $DEST/
 sudo umount $MNT
 
 # Copied files are read-only so make some read-write
@@ -70,6 +72,7 @@ mkdir -p $PKGCACHE
 
 # UPGRADE MEDIA PACKAGES TO ENSURE CONSISTENT VERSIONING
 
+echo "Upgrading packages..."
 find $DEST/pool -type f -name \*.deb | while read PKG; do
 	BASE=`basename $PKG|sed 's/_.*//'`
 	VER=`apt-cache show --no-all-versions $BASE|awk '/^Version/ { print $2 }'|sed 's/.*://'`2
@@ -82,6 +85,7 @@ find $DEST/pool -type f -name \*.deb | while read PKG; do
 done
 
 # ADD CUSTOM PACKAGES HERE
+echo "Adding custom packages..."
 # PERL
 ( 
 	PERLPKGS="`ls ../src/perl-pkgs/*/*.deb 2>&1`"
@@ -211,12 +215,12 @@ unzip
 xdg-user-dirs
 !EOM
 `"
+
+echo "Adding package dependencies..."
 INSTALL=""
 for PKG in $PKGLIST; do
 	FOUND="`find $DEST/pool/main -type f -name ${PKG}_\*.deb -print`"
-	if [ "$FOUND" ]; then
-		echo "FOUND: $FOUND"
-	else
+	if [ ! "$FOUND" ]; then
 		INSTALL="$INSTALL $PKG"
 	fi
 done
@@ -234,6 +238,7 @@ for TEMPLATE in $TEMPLATED_CONFIGS; do
 done
 
 # REBUILD PACKAGE ARCHIVES
+echo "Rebuilding apt archive..."
 export GZIP="-9v" # ensure we shrink things as small as they will go
 apt-ftparchive generate $APTCONFIGS/config-udeb.conf
 apt-ftparchive generate $APTCONFIGS/config-deb.conf
@@ -249,14 +254,15 @@ done
 
 # CUSTOMISE INSTALL FILES HERE
 
+echo "Building initrd..."
 # REBUILD INITRD WITH PRESEED FILE
 (
 	mkdir irmod
 	cd irmod
 	gzip -d < ../$DEST/$INITRD | \
-		sudo -n cpio --extract --verbose --make-directories --no-absolute-filenames
+		sudo -n cpio --extract --make-directories --no-absolute-filenames
 	cp ../karmalb_preseed.cfg preseed.cfg
-	find . | sudo -n cpio -H newc --create --verbose | \
+	find . | sudo -n cpio -H newc --create | \
 		gzip -9 > ../$DEST/$INITRD
 	cd ../
 	sudo rm -fr irmod/
@@ -283,6 +289,7 @@ done
 dd if=$NETISO bs=512 count=1 of=$BBFILE
 
 # MAKE HYBRID GRUB/EFI ISO
+echo "Creating ISO image..."
 xorriso -as mkisofs \
    -o $TARGETISO \
    -V "$LABEL" \
@@ -304,3 +311,4 @@ xorriso -as mkisofs \
 #for CLEAN in $TEMPLATED_CONFIGS $BBFILE; do
 #	rm $CLEAN
 #done
+echo "Done."
