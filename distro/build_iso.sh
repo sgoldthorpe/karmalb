@@ -25,10 +25,8 @@ LABEL="`echo ${PROJNAME} ${PROJREL} ${ARCH}|tr '[a-z]. ' '[A-Z]__'`"
 # FUNCTIONS
 
 fetch_pkg() {
-	VER=`apt-cache show --no-all-versions ^$1$|awk '/^Version/ { print $2 }'|sed 's/.*://'`
-	echo "x$VER"
+	VER=`apt-cache show --no-all-versions $1|awk '/^Version/ { print $2 }'|sed 's/.*://'`
 	FOUND="`find $PKGCACHE -name $1_$VER_\*.deb`"
-	echo "x$FOUND"
 	if [ ! "$FOUND" ]; then
 		( cd $PKGCACHE; apt-get download $1 )
 		# epoch version confuses matters - rename if found
@@ -74,7 +72,7 @@ mkdir -p $PKGCACHE
 
 find $DEST/pool -type f -name \*.deb | while read PKG; do
 	BASE=`basename $PKG|sed 's/_.*//'`
-	VER=`apt-cache show --no-all-versions ^$BASE$|awk '/^Version/ { print $2 }'|sed 's/.*://'`2
+	VER=`apt-cache show --no-all-versions $BASE|awk '/^Version/ { print $2 }'|sed 's/.*://'`2
 	if [ ! "`echo $PKG|grep _${VER}_`" ]; then
 		echo "upgrade $BASE to $VER"
 		DIR=`dirname $PKG`
