@@ -1,6 +1,12 @@
 #!/bin/sh
 WORKDIR=workdir
 
+if [ "x$1" = "x-k" ]; then
+	KEEPDIR=1
+	shift
+else
+	KEEPDIR=0
+fi
 
 rm -rf $WORKDIR
 mkdir -p $WORKDIR
@@ -20,5 +26,4 @@ cat filelist | while read T F X; do
 done
 fakeroot dpkg-deb -b $WORKDIR .
 
-
-
+test $KEEPDIR -eq 1 || rm -rf $WORKDIR
