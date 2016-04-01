@@ -88,7 +88,7 @@ done
 ( 
 	MISCPKGS="`ls ../src/misc-pkgs/*.deb 2>&1`"
 	set -- $MISCPKGS
-	if [ $# -ne 1 ]; then
+	if [ $# -ne 2 ]; then
 		echo "ERROR: Not all packages found."
 		exit 5
 	else
