@@ -111,6 +111,8 @@ fi
 
 # ADD PKG DEPENDENCIES HERE
 PKGLIST="`cat <<!EOM
+apt-transport-https
+conntrack
 expect
 fontconfig
 fontconfig-config
