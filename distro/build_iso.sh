@@ -78,23 +78,38 @@ done
 	fi
 )
 
+# FINALLY KARMA PKG ITSELF
+KARMAPKG="`ls ../src/karmalb-pkg/karmalb*.deb 2>&1`"
+if [ "$KARMAPKG" ]; then
+	cp -p $KARMAPKG $PKGLOC
+else
+	echo "ERROR: Not all packages found."
+	exit 5
+fi
+
 # ADD PKG DEPENDENCIES HERE
 PKGLIST="`cat <<!EOM
 expect
 fontconfig
 fontconfig-config
 fonts-dejavu-core
+gdnsd
+geoip-database
 iputils-arping
 libcairo2
 libcommon-sense-perl
+libcurl3-gnutls
+libnetfilter-conntrack3
 libdata-validate-ip-perl
 libdatrie1
 libdbi1
+libev4
 libexpect-perl
 libfontconfig1
 libgd3
 libgd-perl
 libglib2.0-data
+libgeoip1
 libgraphite2-3
 libharfbuzz0b
 libio-interface-perl
@@ -103,8 +118,10 @@ libio-stty-perl
 libipc-run3-perl
 libjbig0
 libjpeg62-turbo
+libldap-2.4-2
 liblinux-inotify2-perl
 libmoose-perl
+libmysqlclient18
 libnetaddr-ip-perl
 libnet-ipv6addr-perl
 libnet-netmask-perl
@@ -113,29 +130,47 @@ libnetwork-ipv4addr-perl
 libpango-1.0-0
 libpangocairo-1.0-0
 libpangoft2-1.0-0
+libperl5.20
 libpixman-1-0
 libproc-daemon-perl
 libproc-processtable-perl
 libreadonly-perl
 librrd4
 librrds-perl
+librtmp1
+libsasl2-2
+libsasl2-modules-db
+libssh2-1
+libsensors4
+libsnmp-base
+libsnmp30
+libssl1.0.0
 libtcl8.6
 libthai0
 libthai-data
 libtiff5
+liburcu2
 libvpx1
 libxcb-render0
 libxcb-shm0
 libxml2
 libxpm4
 libxrender1
+mysql-common
 netstat-nat
 ntpdate
+perl
+perl-base
+pound
 rrdtool
 rsync
 shared-mime-info
+snmpd
+snmptrapd
 tcl8.6
 tcl-expect
+ucarp
+unzip
 xdg-user-dirs
 !EOM
 `"
