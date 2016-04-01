@@ -1,7 +1,16 @@
+#!/bin/sh
 D=mini_httpd-1.23
 P=mini_httpd_patches
 TAR=mini_httpd-1.23.tar.gz
 TARLOC=http://www.acme.com/software/mini_httpd/$TAR
+
+if [ "x$1" = "x-k" ]; then
+	KEEPDIR=1
+	shift
+else
+	KEEPDIR=0
+fi
+
 rm -rf $D
 if [ ! -f $TAR ]; then
 	wget $TARLOC
@@ -24,8 +33,10 @@ p $D fix-append-portno-to-vhost
 p $D fix-makefile
 p $D enable-ssl
 echo "done"
-cd $D
+( cd $D
 make
 export SUMMARY="small, simple http daemon, supports SSL"
 sudo -E checkinstall -D --maintainer "Steve\ Goldthorpe\ \<steve@karmalb.org.uk\>" --requires libssl1.0.0 --reset-uids --install=no --pkgsource="http://www.acme.com/software/$TAR" --pkggroup=web --pkglicense="BSD-2-clause" --provides "httpd, httpd-cgi" --conflicts "apache2-utils" -y --pakdir=.. --deldoc
+)
 
+test $KEEPDIR -eq 1 || rm -rf $D
