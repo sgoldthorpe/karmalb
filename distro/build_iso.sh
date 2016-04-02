@@ -289,6 +289,7 @@ done
 dd if=$NETISO bs=512 count=1 of=$BBFILE
 
 # MAKE HYBRID GRUB/EFI ISO
+rm -f $TARGETISO
 echo "Creating ISO image..."
 xorriso -as mkisofs \
    -o $TARGETISO \
