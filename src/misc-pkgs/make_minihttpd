@@ -16,7 +16,7 @@ if [ ! -f $TAR ]; then
 	wget $TARLOC
 fi
 
-tar xvfz $TAR
+tar xfz $TAR
 find $D -type d -exec chmod o+w \{\} \;
 
 p() {
