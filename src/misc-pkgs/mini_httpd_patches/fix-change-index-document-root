@@ -8,7 +8,7 @@ Index: mini-httpd-1.21/mini_httpd.c
 ===================================================================
 --- mini-httpd-1.21.orig/mini_httpd.c
 +++ mini-httpd-1.21/mini_httpd.c
-@@ -1140,7 +1140,7 @@ handle_request( void )
+@@ -1142,7 +1142,7 @@ handle_request( void )
      char* cp;
      int r, file_len, i;
      const char* index_names[] = {

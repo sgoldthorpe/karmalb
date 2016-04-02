@@ -8,7 +8,7 @@ Index: mini-httpd-1.21/mini_httpd.c
 ===================================================================
 --- mini-httpd-1.21.orig/mini_httpd.c
 +++ mini-httpd-1.21/mini_httpd.c
-@@ -2349,7 +2349,13 @@ virtual_file( char* f )
+@@ -2359,7 +2359,13 @@ virtual_file( char* f )
  
      /* Use the request's hostname, or fall back on the IP address. */
      if ( host != (char*) 0 )
