@@ -28,10 +28,13 @@ p $D 01-manpage
 p $D fix-change-index-document-root
 p $D 03-cgi-php
 p $D 04-kfreebsd.dpatch
+p $D fix-port
 p $D 05-manpage-hyphen
 p $D fix-append-portno-to-vhost
 p $D fix-makefile
 p $D enable-ssl
+p $D fix-includes
+p $D fix-noise
 echo "done"
 ( cd $D
 make

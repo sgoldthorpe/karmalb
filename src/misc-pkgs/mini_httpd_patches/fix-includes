@@ -1,0 +1,30 @@
+--- mini_httpd-1.23/htpasswd.c	2014-08-05 01:03:51.000000000 +0100
++++ mini_httpd-1.23/htpasswd.c.new	2016-04-02 23:18:34.156182632 +0100
+@@ -15,6 +15,7 @@
+ #include <stdlib.h>
+ #include <time.h>
+ #include <unistd.h>
++#include <crypt.h>
+ 
+ #define LF 10
+ #define CR 13
+--- mini_httpd-1.23/mini_httpd.c	2016-04-02 23:17:28.486680257 +0100
++++ mini_httpd-1.23/mini_httpd.c.new	2016-04-02 23:18:55.548647401 +0100
+@@ -52,6 +52,7 @@
+ #include <arpa/inet.h>
+ #include <netdb.h>
+ #include <dirent.h>
++#include <crypt.h>
+ 
+ #include "port.h"
+ #include "match.h"
+--- mini_httpd-1.23/mini_httpd.c	2016-04-02 23:36:28.159225792 +0100
++++ mini_httpd-1.23/mini_httpd.c.new	2016-04-02 23:44:25.161871551 +0100
+@@ -53,6 +53,7 @@
+ #include <netdb.h>
+ #include <dirent.h>
+ #include <crypt.h>
++#include <grp.h>
+ 
+ #include "port.h"
+ #include "match.h"

@@ -1,0 +1,51 @@
+--- mini_httpd-1.23/Makefile.old	2016-04-02 23:50:24.654898583 +0100
++++ mini_httpd-1.23/Makefile	2016-04-02 23:52:59.542922729 +0100
+@@ -24,7 +24,7 @@
+ CC =		cc
+ CDEFS =		$(SSL_DEFS) $(SSL_INC)
+ CFLAGS+=-O $(CDEFS) -ansi -pedantic -U__STRICT_ANSI__ -Wall -Wpointer-arith -Wshadow -Wcast-qual -Wcast-align -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls -Wno-long-long
+-LDFLAGS+= -s `dpkg-buildflags --get CPPFLAGS` `dpkg-buildflags --get CFLAGS` `dpkg-buildflags --get LDFLAGS`
++LDFLAGS+= -s `dpkg-buildflags --get CPPFLAGS` `dpkg-buildflags --get CFLAGS` `dpkg-buildflags --get LDFLAGS` -Wno-format -Wno-unused-result
+ LDLIBS =	$(CRYPT_LIB) $(SSL_LIBS) $(SYSV_LIBS)
+ 
+ all:		mini_httpd htpasswd
+--- mini_httpd-1.23/mini_httpd.c.old	2016-04-02 23:53:58.716474582 +0100
++++ mini_httpd-1.23/mini_httpd.c	2016-04-03 00:02:29.402080344 +0100
+@@ -277,10 +277,10 @@
+ static void add_to_response( char* str );
+ static void send_response( void );
+ static void send_via_write( int fd, off_t size );
+-static void send_via_sendfile( int fd, int s, off_t size );
+ static ssize_t my_read( char* buf, size_t size );
+ static ssize_t my_write( void* buf, size_t size );
+ #ifdef HAVE_SENDFILE
++static void send_via_sendfile( int fd, int s, off_t size );
+ static int my_sendfile( int fd, int s, off_t offset, size_t nbytes );
+ #endif /* HAVE_SENDFILE */
+ static void add_str( char** bufP, size_t* bufsizeP, size_t* buflenP, char* str );
+@@ -2362,8 +2362,8 @@
+     /* Use the request's hostname, or fall back on the IP address. */
+     if ( host != (char*) 0 )
+ 	{
+-	req_hostname = host;
+ 	char *portno;
++	req_hostname = host;
+ 	portno = strpbrk(req_hostname, ":");
+ 	if (portno != (char *) 0)
+ 	    *portno++ = '\0';
+@@ -2719,6 +2719,7 @@
+     }
+ 
+ 
++#ifdef HAVE_SENDFILE
+ static void
+ send_via_sendfile( int fd, int s, off_t size )
+     {
+@@ -2748,6 +2749,7 @@
+ 	(void) alarm( WRITE_TIMEOUT );
+ 	}
+     }
++#endif /* HAVE_SENDFILE */
+ 
+ 
+ static ssize_t
