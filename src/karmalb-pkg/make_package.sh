@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 WORKDIR=workdir
 
 if [ "x$1" = "x-k" ]; then
@@ -19,7 +19,7 @@ cat filelist | while read T F X; do
 			if [ -x files/$F ]; then
 				chmod 755 $WORKDIR/$F
 			fi;;
-		l)	ln -s $WORKDIR/$F $X;;
+		l)	ln -s $X $WORKDIR/$F;;
 		\#*)	# skip
 			;;
 	esac
