@@ -1,7 +1,13 @@
 #/!bin/sh -e
-PKGNAME=karmalb
-PKGVERS=1.0a2
-PKGMAIN="KarmaLB Developers <dev@karmalb.org.uk>"
+
+lookup() {
+        awk "/^$1=/ { split(\$0,s,\"=\"); print s[2]; exit }" $VF
+}
+
+VF=../../../VERSION
+PKGNAME="`lookup PROJNAME|tr 'A-Z' 'a-z'`"
+PKGVERS="`lookup VERSION`"
+PKGMAIN="`lookup MAINTAINER`"
 OLDPREFIX=usr/local
 NEWPREFIX=opt
 OLDPATH=${OLDPREFIX}/zenloadbalancer
@@ -14,7 +20,7 @@ TMPDIR=tmp
 FILELIST=../filelist
 FILESDIR=../files
 CONTROLDIR=../control
-PKGARCH=`dpkg-architecture -qDEB_BUILD_ARCH`
+PKGARCH="`lookup ARCH`"
 #
 KEEPFILES=0
 

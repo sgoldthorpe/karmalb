@@ -1,13 +1,17 @@
 #!/bin/sh -e
-set -e
+
+lookup() {
+	awk "/^$1=/ { split(\$0,s,\"=\"); print s[2]; exit }" $VF
+}
 
 # DEFINITIONS
-PROJNAME=KarmaLB
-PROJREL=1.0a2
-OSNAME=Debian
-OSREL=8.3.0
-DIST=jessie
-ARCH=amd64
+VF="../VERSION"
+PROJNAME="`lookup PROJNAME`"
+PROJREL="`lookup VERSION`"
+OSNAME="`lookup OSNAME`"
+OSREL="`lookup OSREL`"
+DIST="`lookup DEBDIST`"
+ARCH="`lookup ARCH`"
 #
 APTCONFIGS=apt-configs
 BBFILE=isohdpfx.bin
@@ -276,14 +280,6 @@ done
 
 # REBUILD CHECKSUMS
 ( cd $DEST; md5sum `find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f` > md5sum.txt )
-
-#genisoimage -o test.iso -r -J -no-emul-boot -boot-load-size 4 \
-# -boot-info-table -b isolinux/isolinux.bin -c isolinux/boot.cat ./$DEST
-
-#genisoimage -r -c isolinux/boot.cat  -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -b boot/grub/efi.img -no-emul-boot -o test2.iso ./cdrom
-#xorriso -as mkisofs -r -c isolinux/boot.cat  -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot -o test2.iso ./cdrom
-
-#isohybrid --uefi test2.iso
 
 # EXTRACT BOOT BLOCK FROM ISO
 dd if=$NETISO bs=512 count=1 of=$BBFILE
