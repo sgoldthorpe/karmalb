@@ -1,0 +1,36 @@
+#!/bin/sh /usr/share/dpatch/dpatch-run
+## 04-kfreebsd.dpatch by Marvin Stark <marv@der-marv.de>
+## Thanks to Petr Salinger who has written this patch.
+##
+## DP: mini-httpd does not build on GNU/kFreeBSD
+
+@DPATCH@
+
+--- mini-httpd-1.19/port.h~     2008-09-09 15:37:08.000000000 +0000
++++ mini-httpd-1.19/port.h      2008-09-09 15:37:08.000000000 +0000
+@@ -21,6 +21,9 @@
+ #elif defined(__svr4__)
+ # define OS_SysV
+ # define ARCH "SysV"
++#elif defined(__GLIBC__)
++# define OS_GLIBC
++# define ARCH "GLIBC"
+ #else
+ # define OS_UNKNOWN
+ # define ARCH "UNKNOWN"
+@@ -81,6 +84,15 @@
+ # define HAVE_INT64T
+ #endif /* OS_Linux */
+
++#ifdef OS_GLIBC
++# define HAVE_DAEMON
++# define HAVE_SETSID
++# define HAVE_WAITPID
++# define HAVE_TM_GMTOFF
++# define HAVE_SCANDIR
++# define HAVE_INT64T
++#endif /* OS_GLIBC */
++
+ #ifdef OS_Solaris
+ # define HAVE_SETSID
+ # define HAVE_WAITPID

@@ -62,11 +62,11 @@ sub runhttpsgui()
 }
 
 #endfunction
-$globalcfg = "/usr/local/zenloadbalancer/config/global.conf";
+$globalcfg = "/opt/klb/config/global.conf";
 $limitfile = "/etc/security/limits.conf";
 require ( $globalcfg );
-require ( "/usr/local/zenloadbalancer/www/functions.cgi" );
-require ( "/usr/local/zenloadbalancer/www/cluster_functions.cgi" );
+require ( "/opt/klb/www/functions.cgi" );
+require ( "/opt/klb/www/cluster_functions.cgi" );
 
 $eject = $ARGV[0];
 use Tie::File;
@@ -88,9 +88,9 @@ if ( $eject eq "start" )
 {
 	if ( -e "/etc/firstboot" )
 	{
-		system("/usr/local/zenloadbalancer/app/zbin/zlb-firstboot.sh");
+		system("/opt/klb/app/zbin/zlb-firstboot.sh");
 	}
-	system ( "/usr/local/zenloadbalancer/app/checkglobalconf/checkglobalconf.cgi" );
+	system ( "/opt/klb/app/checkglobalconf/checkglobalconf.cgi" );
 
 	if ( -e $filecluster )
 	{
@@ -162,21 +162,21 @@ if ( $eject eq "start" )
 			{
 				print "CL_TYPE=equal\n";
 				my @eject = system (
-					"$ucarp $ignoreifstate -r $deadratio --interface=@cliface[2] --srcip=$lip --vhid=$idcluster --pass=secret --addr=@cliface[1] --upscript=/usr/local/zenloadbalancer/app/zenlatency/zenlatency-start.pl --downscript=/usr/local/zenloadbalancer/app/zenlatency/zenlatency-stop.pl -B -f local6"
+					"$ucarp $ignoreifstate -r $deadratio --interface=@cliface[2] --srcip=$lip --vhid=$idcluster --pass=secret --addr=@cliface[1] --upscript=/opt/klb/app/zenlatency/zenlatency-start.pl --downscript=/opt/klb/app/zenlatency/zenlatency-stop.pl -B -f local6"
 				);
 			}
 			elsif ( $cltype =~ /$lhost-$rhost/ )
 			{
 				print "CL_TYPE=M-B, Master node\n";
 				my @eject = system (
-					"$ucarp $ignoreifstate -r $deadratio --interface=@cliface[2] --srcip=$lip -P --vhid=$idcluster --pass=secret --addr=@cliface[1] --upscript=/usr/local/zenloadbalancer/app/zenlatency/zenlatency-start.pl --downscript=/usr/local/zenloadbalancer/app/zenlatency/zenlatency-stop.pl -B -f local6"
+					"$ucarp $ignoreifstate -r $deadratio --interface=@cliface[2] --srcip=$lip -P --vhid=$idcluster --pass=secret --addr=@cliface[1] --upscript=/opt/klb/app/zenlatency/zenlatency-start.pl --downscript=/opt/klb/app/zenlatency/zenlatency-stop.pl -B -f local6"
 				);
 			}
 			else
 			{
 				print "CL_TYPE=M-B Backup node\n";
 				my @eject = system (
-					"$ucarp $ignoreifstate -r $deadratio --interface=@cliface[2] -k 50 --srcip=$lip --vhid=$idcluster --pass=secret --addr=@cliface[1] --upscript=/usr/local/zenloadbalancer/app/zenlatency/zenlatency-start.pl --downscript=/usr/local/zenloadbalancer/app/zenlatency/zenlatency-stop.pl -B -f local6"
+					"$ucarp $ignoreifstate -r $deadratio --interface=@cliface[2] -k 50 --srcip=$lip --vhid=$idcluster --pass=secret --addr=@cliface[1] --upscript=/opt/klb/app/zenlatency/zenlatency-start.pl --downscript=/opt/klb/app/zenlatency/zenlatency-stop.pl -B -f local6"
 				);
 			}
 			chomp ( $lip );
@@ -287,7 +287,7 @@ if ( $eject eq "startlocal" )
 	close FR;
 	if ( !grep ( /ucarp/, @filelog ) )
 	{
-		my @eject = `echo \"local6.* /usr/local/zenloadbalancer/logs/ucarp.log\">> $rsyslog`;
+		my @eject = `echo \"local6.* /opt/klb/logs/ucarp.log\">> $rsyslog`;
 		my @eject = `/etc/init.d/rsyslog restart`;
 	}
 

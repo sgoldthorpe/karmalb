@@ -1,5 +1,6 @@
 REQPKGS="apt-file \
 	apt-utils \
+	checkinstall \
 	debhelper \
 	dh-make-perl \
 	dpkg-sig \

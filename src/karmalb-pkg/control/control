@@ -1,7 +1,7 @@
-Package: zenloadbalancer
-Version: 3.10
-Maintainer: ZenLB Team <zenloadbalancer-support@lists.sourceforge.net>
-Architecture: i386
+Package: karmalb
+Version: 1.0a2
+Maintainer: KarmaLB Developers <dev@karmalb.org.uk>
+Architecture: amd64
 Section: admin
 Priority: optional
 Description: Multilayered load balancer with web GUI 

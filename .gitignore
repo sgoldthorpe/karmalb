@@ -7,6 +7,9 @@
 # ignore our cdrom building directory
 /distro/cdrom/
 
+# ignore the pkgcache directory
+/distro/pkgcache/
+
 # ignore our apt-config config files as they are generated
 /distro/apt-configs/*.conf
 
@@ -21,3 +24,11 @@
 # ignore any extracted debs from zen
 /src/karmalb-pkg/util/*.deb
 
+# and other misc debs
+/src/misc-pkgs/karmalb*.udeb
+/src/misc-pkgs/karmalb*.deb
+/src/karmalb-pkg/karmalb_*.deb
+/src/misc-pkgs/mini-httpd_*.deb
+
+# and downloaded tarballs
+/src/misc-pkgs/mini_httpd*.tar.gz

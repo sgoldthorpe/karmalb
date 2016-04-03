@@ -1,0 +1,45 @@
+#!/bin/sh -e
+D=mini_httpd-1.23
+P=mini_httpd_patches
+TAR=mini_httpd-1.23.tar.gz
+TARLOC=http://www.acme.com/software/mini_httpd/$TAR
+
+if [ "x$1" = "x-k" ]; then
+	KEEPDIR=1
+	shift
+else
+	KEEPDIR=0
+fi
+
+rm -rf $D
+if [ ! -f $TAR ]; then
+	wget $TARLOC
+fi
+
+tar xfz $TAR
+find $D -type d -exec chmod o+w \{\} \;
+
+p() {
+	echo "Patch: $2"
+	patch -d $D -p1 < $P/$2
+}
+
+p $D 01-manpage
+p $D fix-change-index-document-root
+p $D 03-cgi-php
+p $D 04-kfreebsd.dpatch
+p $D fix-port
+p $D 05-manpage-hyphen
+p $D fix-append-portno-to-vhost
+p $D fix-makefile
+p $D enable-ssl
+p $D fix-includes
+p $D fix-noise
+echo "done"
+( cd $D
+make
+export SUMMARY="small, simple http daemon, supports SSL"
+sudo -E checkinstall -D --maintainer "Steve\ Goldthorpe\ \<steve@karmalb.org.uk\>" --requires libssl1.0.0 --reset-uids --install=no --pkgsource="http://www.acme.com/software/$TAR" --pkggroup=web --pkglicense="BSD-2-clause" --provides "httpd, httpd-cgi" --conflicts "apache2-utils" -y --pakdir=.. --deldoc
+)
+
+test $KEEPDIR -eq 1 || rm -rf $D

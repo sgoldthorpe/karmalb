@@ -1,4 +1,4 @@
-/usr/local/zenloadbalancer/logs/*.log {
+/opt/klb/logs/*.log {
         daily
         compress
         missingok
