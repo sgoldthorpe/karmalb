@@ -5,7 +5,7 @@ lookup() {
 }
 
 VF=../../../VERSION
-PKGNAME="`lookup PROJNAME|tr 'A-Z' 'a-z'`"
+PKGNAME="`lookup PKGNAME`"
 PKGVERS="`lookup VERSION`"
 PKGMAIN="`lookup MAINTAINER`"
 OLDPREFIX=usr/local

@@ -8,6 +8,7 @@ lookup() {
 VF="../VERSION"
 PROJNAME="`lookup PROJNAME`"
 PROJREL="`lookup VERSION`"
+PKGNAME="`lookup PKGNAME`"
 OSNAME="`lookup OSNAME`"
 OSREL="`lookup OSREL`"
 DIST="`lookup DEBDIST`"
@@ -24,7 +25,7 @@ NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
 PKGLOC=$DEST/pool/main/karmalb
-LABEL="`echo ${PROJNAME} ${PROJREL} ${ARCH}|tr '[a-z]. ' '[A-Z]__'`"
+LABEL="`echo ${PKGNAME} ${PROJREL} ${ARCH}`"
 
 # FUNCTIONS
 

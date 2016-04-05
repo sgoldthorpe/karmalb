@@ -5,7 +5,7 @@ lookup() {
 }
 
 VF=../../VERSION
-PKGNAME="`lookup PROJNAME|tr 'A-Z' 'a-z'`"
+PKGNAME="`lookup PKGNAME`"
 VERSION="`lookup VERSION`"
 MAINTAINER="`lookup MAINTAINER`"
 ARCH="`lookup ARCH`"
