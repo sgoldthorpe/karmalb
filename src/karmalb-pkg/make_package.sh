@@ -1,4 +1,16 @@
 #!/bin/sh -e
+
+lookup() {
+        awk "/^$1=/ { split(\$0,s,\"=\"); print s[2]; exit }" $VF
+}
+
+VF=../../VERSION
+PKGNAME="`lookup PKGNAME`"
+VERSION="`lookup VERSION`"
+MAINTAINER="`lookup MAINTAINER`"
+ARCH="`lookup ARCH`"
+LONGNAME="`lookup FULLNAME`"
+SHORTNAME="`lookup PROJNAME`"
 WORKDIR=workdir
 
 if [ "x$1" = "x-k" ]; then
@@ -11,7 +23,17 @@ fi
 rm -rf $WORKDIR
 mkdir -p $WORKDIR
 mkdir $WORKDIR/DEBIAN
-cp control/* $WORKDIR/DEBIAN
+
+for F in control/*; do
+	sed -e "s/@PKGNAME@/$PKGNAME/g" \
+		-e "s/@VERSION@/$VERSION/g" \
+		-e "s/@MAINTAINER@/$MAINTAINER/g" \
+		-e "s/@ARCH@/$ARCH/g" \
+		-e "s/@LONGNAME@/$LONGNAME/g" \
+		-e "s/@SHORTNAME@/$SHORTNAME/g" \
+		$F > $WORKDIR/DEBIAN/`basename $F`
+done
+
 cat filelist | while read T F X; do
 	case $T in
 		d)	mkdir $WORKDIR/$F;;

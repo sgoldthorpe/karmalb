@@ -1,13 +1,18 @@
 #!/bin/sh -e
-set -e
+
+lookup() {
+	awk "/^$1=/ { split(\$0,s,\"=\"); print s[2]; exit }" $VF
+}
 
 # DEFINITIONS
-PROJNAME=KarmaLB
-PROJREL=1.0a2
-OSNAME=Debian
-OSREL=8.3.0
-DIST=jessie
-ARCH=amd64
+VF="../VERSION"
+PROJNAME="`lookup PROJNAME`"
+PROJREL="`lookup VERSION`"
+PKGNAME="`lookup PKGNAME`"
+OSNAME="`lookup OSNAME`"
+OSREL="`lookup OSREL`"
+DIST="`lookup DEBDIST`"
+ARCH="`lookup ARCH`"
 #
 APTCONFIGS=apt-configs
 BBFILE=isohdpfx.bin
@@ -20,7 +25,26 @@ NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
 PKGLOC=$DEST/pool/main/karmalb
-LABEL="`echo ${PROJNAME} ${PROJREL} ${ARCH}|tr '[a-z]. ' '[A-Z]__'`"
+LABEL="`echo ${PKGNAME} ${PROJREL} ${ARCH}`"
+
+# FUNCTIONS
+
+fetch_pkg() {
+	VER=`apt-cache show --no-all-versions $1|awk '/^Version/ { print $2 }'|sed 's/.*://'`
+	FOUND="`find $PKGCACHE -name $1_$VER_\*.deb`"
+	if [ ! "$FOUND" ]; then
+		( cd $PKGCACHE; apt-get download $1 )
+		# epoch version confuses matters - rename if found
+		RENAME="`find $PKGCACHE -name $1_[0-9]*%3a*.deb`"
+		if [ "$RENAME" ]; then
+			NEWNAME="`echo $RENAME | sed 's/_[0-9]*%3a/_/'`"
+			mv $RENAME $NEWNAME
+		fi
+		FOUND="`find $PKGCACHE -name $1_${VER}\*.deb`"
+	fi
+	sudo cp -p $FOUND $2
+}
+
 
 # FUNCTIONS
 
@@ -276,14 +300,6 @@ done
 
 # REBUILD CHECKSUMS
 ( cd $DEST; md5sum `find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f` > md5sum.txt )
-
-#genisoimage -o test.iso -r -J -no-emul-boot -boot-load-size 4 \
-# -boot-info-table -b isolinux/isolinux.bin -c isolinux/boot.cat ./$DEST
-
-#genisoimage -r -c isolinux/boot.cat  -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -b boot/grub/efi.img -no-emul-boot -o test2.iso ./cdrom
-#xorriso -as mkisofs -r -c isolinux/boot.cat  -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot -o test2.iso ./cdrom
-
-#isohybrid --uefi test2.iso
 
 # EXTRACT BOOT BLOCK FROM ISO
 dd if=$NETISO bs=512 count=1 of=$BBFILE
