@@ -33,6 +33,7 @@ for F in control/*; do
 		-e "s/@SHORTNAME@/$SHORTNAME/g" \
 		$F > $WORKDIR/DEBIAN/`basename $F`
 done
+chmod +x $WORKDIR/DEBIAN/postinst
 
 cat filelist | while read T F X; do
 	case $T in
