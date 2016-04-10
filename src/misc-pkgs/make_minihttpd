@@ -39,7 +39,7 @@ echo "done"
 ( cd $D
 make
 export SUMMARY="small, simple http daemon, supports SSL"
-sudo -E checkinstall -D --maintainer "Steve\ Goldthorpe\ \<steve@karmalb.org.uk\>" --requires libssl1.0.0 --reset-uids --install=no --pkgsource="http://www.acme.com/software/$TAR" --pkggroup=web --pkglicense="BSD-2-clause" --provides "httpd, httpd-cgi" --conflicts "apache2-utils" -y --pakdir=.. --deldoc
+fakeroot checkinstall -D --maintainer "Steve\ Goldthorpe\ \<steve@karmalb.org.uk\>" --requires libssl1.0.0 --reset-uids --install=no --pkgsource="http://www.acme.com/software/$TAR" --pkggroup=web --pkglicense="BSD-2-clause" --provides "httpd, httpd-cgi" --conflicts "apache2-utils" -y --pakdir=.. --deldoc
 )
 
 test $KEEPDIR -eq 1 || rm -rf $D
