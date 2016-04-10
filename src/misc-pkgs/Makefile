@@ -1,9 +1,14 @@
+KEYRINGDEB = karmalb-keyring_1.0-1_all.deb
+KEYRINGUDEB = karmalb-keyring-udeb_1.0-1_all.udeb
+MHTTPDDEB = mini-httpd_1.23-1_amd64.deb
 
-all: karmalb-keyring_1.0-1_all.deb  karmalb-keyring-udeb_1.0-1_all.udeb mini-httpd_1.23-1_amd64.deb
+all: $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB)
 
-karmalb-keyring_1.0-1_all.deb  karmalb-keyring-udeb_1.0-1_all.udeb:
+
+$(KEYRINGDEB) $(KEYRINGUDEB):
 	cd karmalb-keyring; \
-		dpkg-buildpackage -rfakeroot -b
+		dpkg-buildpackage -rfakeroot -b -uc
+	dpkg-sig --sign builder $(KEYRINGDEB)
 	rm -rf karmalb-keyring/build/
 	rm -rf karmalb-keyring/debian/files karmalb-keyring/debian/karmalb-keyring-udeb \
 		karmalb-keyring/debian/karmalb-keyring/
@@ -13,13 +18,15 @@ karmalb-keyring_1.0-1_all.deb  karmalb-keyring-udeb_1.0-1_all.udeb:
 		karmalb-keyring/debian/karmalb-keyring.substvars
 
 
-mini-httpd_1.23-1_amd64.deb:
+$(MHTTPDDEB):
 	sh make_minihttpd
+	dpkg-sig --sign builder $(MHTTPDDEB)
 
 clean:
-	rm -f karmalb-keyring_1.0-1_all.deb  karmalb-keyring-udeb_1.0-1_all.udeb mini-httpd_1.23-1_amd64.deb
+	rm -f $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB)
 	rm -f karmalb-keyring_1.0-1_amd64.changes
 	cd karmalb-keyring; \
 		dpkg-buildpackage -rfakeroot -Tclean
 	rm -rf mini_httpd-*
-	
+
+.PHONY: all clean
