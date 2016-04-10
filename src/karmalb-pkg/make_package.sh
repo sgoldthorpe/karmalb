@@ -12,6 +12,7 @@ ARCH="`lookup ARCH`"
 LONGNAME="`lookup FULLNAME`"
 SHORTNAME="`lookup PROJNAME`"
 WORKDIR=workdir
+DEB="${PKGNAME}_${VERSION}_${ARCH}.deb"
 
 if [ "x$1" = "x-k" ]; then
 	KEEPDIR=1
@@ -49,5 +50,6 @@ cat filelist | while read T F X; do
 done
 ( cd $WORKDIR; find . -name DEBIAN -prune -o -type f -printf '%P ' | xargs md5sum > DEBIAN/md5sums )
 fakeroot dpkg-deb -b $WORKDIR .
+test "$KARMALBKEY" && dpkg-sig -k $KARMALBKEY --sign builder $DEB
 
 test $KEEPDIR -eq 1 || rm -rf $WORKDIR
