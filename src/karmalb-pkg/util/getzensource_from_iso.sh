@@ -74,7 +74,8 @@ mv ${TMPDIR}/${OLDPATH} ${TMPDIR}/${NEWPATH}
 		if [ -d "$TMPDIR/$F" ]; then	
 			echo "d $F"
 		elif [ -L "$TMPDIR/$F" ]; then
-			echo "l $F `readlink \"$TMPDIR/$F\"`"
+			LINK="`readlink \"$TMPDIR/$F\"| sed \"s@\$OLDPATH@\$NEWPATH@g\"`"
+			echo "l $F $LINK"
 		elif [ -f "$TMPDIR/$F" ]; then
 			ELF="`file $TMPDIR/$F|grep ELF`"
 			if [ "$ELF" ]; then
