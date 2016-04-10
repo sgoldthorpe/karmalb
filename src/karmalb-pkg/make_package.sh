@@ -47,6 +47,7 @@ cat filelist | while read T F X; do
 			;;
 	esac
 done
+( cd $WORKDIR; find . -name DEBIAN -prune -o -type f -printf '%P ' | xargs md5sum > DEBIAN/md5sums )
 fakeroot dpkg-deb -b $WORKDIR .
 
 test $KEEPDIR -eq 1 || rm -rf $WORKDIR
