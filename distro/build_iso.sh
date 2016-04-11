@@ -31,7 +31,7 @@ LABEL="`echo ${PKGNAME} ${PROJREL} ${ARCH}`"
 
 fetch_pkg() {
 	VER=`apt-cache show --no-all-versions $1|awk '/^Version/ { print $2 }'|sed 's/.*://'`
-	FOUND="`find $PKGCACHE -name $1_$VER_\*.deb`"
+	FOUND="`find $PKGCACHE -name ${1}_${VER}_\*.deb`"
 	if [ ! "$FOUND" ]; then
 		( cd $PKGCACHE; apt-get download $1 )
 		# epoch version confuses matters - rename if found
@@ -40,7 +40,7 @@ fetch_pkg() {
 			NEWNAME="`echo $RENAME | sed 's/_[0-9]*%3a/_/'`"
 			mv $RENAME $NEWNAME
 		fi
-		FOUND="`find $PKGCACHE -name $1_${VER}\*.deb`"
+		FOUND="`find $PKGCACHE -name ${1}_${VER}\*.deb`"
 	fi
 	sudo cp -p $FOUND $2
 }
