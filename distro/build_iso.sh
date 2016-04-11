@@ -80,7 +80,7 @@ mkdir -p $PKGCACHE
 echo "Upgrading packages..."
 find $DEST/pool -type f -name \*.deb | while read PKG; do
 	BASE=`basename $PKG|sed 's/_.*//'`
-	VER=`apt-cache show --no-all-versions $BASE|awk '/^Version/ { print $2 }'|sed 's/.*://'`2
+	VER=`apt-cache show --no-all-versions $BASE|awk '/^Version/ { print $2 }'|sed 's/.*://'`
 	if [ ! "`echo $PKG|grep _${VER}_`" ]; then
 		echo "upgrade $BASE to $VER"
 		DIR=`dirname $PKG`
