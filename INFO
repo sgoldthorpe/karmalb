@@ -7,7 +7,8 @@ build environment on a standard Jessie Operating System.  If anything is missing
 please update the script.
 
 src - contains all source files.  These are used to build custom packages used
-in the installation of the Karma Load Balancer.
+in the installation of the Karma Load Balancer.  To generate signed packages,
+define the environment variable KARMALBKEY with the keyid to sign with.
 
 distro - contains scripts to build the iso image itself.  You will need to
 build all the sources before running the scripts here as they will be expected
