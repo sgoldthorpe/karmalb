@@ -344,12 +344,13 @@ if ( -e $filecluster )
 			$ssh->read_all();    #Clean the ssh buffer
 			my $rhostname = $ssh->exec( "hostname" );
 			@rhostname = split ( "\ ", $rhostname );
-			$rhostname = @rhostname[0];
+			$rhostname = @rhostname[1];
 			chomp ( $rhostname );
 			@ifcl = split ( ":", $ifname );
 			$ifcl = @ifcl[0];
-			my $ripeth0 = $ssh->exec( "ip addr show $ifcl | grep $ifcl\$ | cut -d'/' -f1 | sed  's/\ //g' | sed 's/inet//g' " );
+			my $ripeth0 = $ssh->exec( "ip addr show $ifcl | grep $ifcl\$" );
 			@ripeth0 = split ( "\ ", $ripeth0 );
+			@ripeth0 = split ( "\/", @ripeth0[8] );
 			$ripeth0 = @ripeth0[0];
 			chomp ( $ripeth0 );
 
@@ -560,7 +561,7 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 	#zenlatency is running on local:
 	my @ucarppidl = `$pidof -x ucarp`;
 	print "Zen latency ";
-	if ( @ucarppidl[0] =~ /^[0-9]/ )
+	if ( @ucarppidl )
 	{
 		print "is <b>UP</b>\n";
 	}
@@ -576,7 +577,7 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 	#zenlatency is running on remote?:
 	my @ucarppidr = `ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \"pidof -x ucarp \" 2>&1`;
 	print "Zen latency ";
-	if ( @ucarppidr[0] =~ /^[0-9]/ )
+	if ( @ucarppidr )
 	{
 		print "is <b>UP</b>\n";
 	}
@@ -609,7 +610,7 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 		$activecl = $lhost;
 	}
 
-	my @vipwhereis2 = `ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \"$ip_bin addr list\" 2>/dev/null`;
+	my @vipwhereis2 = `ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \"$ip_bin addr list\" `;
 	if ( grep ( /$vipcl\//, @vipwhereis2 ) )
 	{
 		$vipclrun2 = $rhost;
@@ -638,7 +639,7 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 	$activeino  = "false";
 	$activeino1 = "false";
 	$activeino2 = "false";
-	if ( @zeninopidl[0] =~ /^[0-9]/ )
+	if ( @zeninopidl )
 	{
 		print "<b>$lhost</b>\n";
 		$zeninorun  = "true";
@@ -646,8 +647,8 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 		$activeino1 = $lhost;
 	}
 
-	my @zeninopidr = `ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip "pidof -x zeninotify.pl " 2>/dev/null `;
-	if ( @zeninopidr[0] =~ /^[0-9]/ )
+	my @zeninopidr = `ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip "pidof -x zeninotify.pl" `;
+	if ( @zeninopidr )
 	{
 		print "<b>$rhost</b>\n";
 		$zeninorun  = "true";
@@ -662,7 +663,7 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 		$zeninorun = "false";
 	}
 
-	if ( @zeninopidr[0] =~ /^[0-9]/ && @zeninopidl[0] =~ /^[0-9]/ )
+	if ( @zeninopidr && @zeninopidl )
 	{
 		$error = "true";
 	}
