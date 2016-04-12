@@ -3,8 +3,8 @@ PKGNAME=karmalb
 PKGVERS=1.0a2
 PKGMAIN="KarmaLB Developers <dev@karmalb.org.uk>"
 #
-ZENPKG=zenloadbalancer_3.10.deb
-ZENISO=zenloadbalancer-distro_3.10.iso
+ZENPKG=zenloadbalancer_3.10.1.deb
+ZENISO=zendistrov3.10.1.iso
 #
 TMPDIR=tmp
 FILELIST=../filelist
