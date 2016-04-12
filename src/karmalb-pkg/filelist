@@ -17,7 +17,7 @@ d etc/rc4.d
 l etc/rc4.d/S01zenloadbalancer ../init.d/zenloadbalancer
 d etc/rc5.d
 l etc/rc5.d/S01zenloadbalancer ../init.d/zenloadbalancer
-l license.txt usr/local/zenloadbalancer/license.txt
+l license.txt opt/klb/license.txt
 d opt
 d opt/klb
 d opt/klb/app
