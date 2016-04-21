@@ -10,6 +10,9 @@
 # ignore the pkgcache directory
 /distro/pkgcache/
 
+# ignore the repo directory
+/distro/repo/
+
 # ignore our apt-config config files as they are generated
 /distro/apt-configs/*.conf
 
