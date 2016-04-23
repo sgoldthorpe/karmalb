@@ -80,8 +80,8 @@ if ! grep -qi "inet[[:space:]][[:space:]]*static" $NCONF; then
 		MASK="255.255.255.0"
 	fi
 	echo "$IF::$IP:$MASK:up::" > $CDIR/if_${IF}_conf
-	sed -i "s/defaultgw=.*/defaultgw=$GW/" $CDIR/global.conf
-	sed -i "s/defaultgwif=.*/defaultgwif=$IF/" $CDIR/global.conf
+	sed -i "s/defaultgw=.*/defaultgw=${GW};/" $CDIR/global.conf
+	sed -i "s/defaultgwif=.*/defaultgwif=${IF};/" $CDIR/global.conf
 	echo "#zenmodified" > $NCONF
 	echo "auto lo" >> $NCONF
 	echo "iface lo inet loopback" >> $NCONF
