@@ -61,6 +61,6 @@ echo "Rebuilding apt archive..."
 export GZIP="-9v" # ensure we shrink things as small as they will go
 reprepro -b $DEST includedeb $DIST $PKGLIST
 
-test "$KARMALBREPOSYNC" && rsync -av --delete-delay repo/{dists,pool} $KARMALBREPOSYNC
+test "$KARMALBREPOSYNC" && rsync -av --delete-delay repo/dists repo/pool $KARMALBREPOSYNC
 
 echo "Done."
