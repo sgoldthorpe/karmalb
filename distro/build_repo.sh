@@ -61,6 +61,14 @@ echo "Rebuilding apt archive..."
 export GZIP="-9v" # ensure we shrink things as small as they will go
 reprepro -b $DEST includedeb $DIST $PKGLIST
 
-test "$KARMALBREPOSYNC" && rsync -av --delete-delay repo/dists repo/pool $KARMALBREPOSYNC
+if [ "$KARMALBREPOSYNC" ]; then
+	echo "Syncing to local repo..."
+	rsync -av --delete-delay repo/dists repo/pool $KARMALBREPOSYNC
+fi
+if [ "$KARMALBPXESEEDTARGET" ]; then
+	echo "Copying PXE preseed file..."
+	scp karmalb_pxe_preseed.cfg $KARMALBPXESEEDTARGET
+fi
 
 echo "Done."
+exit 0
