@@ -295,7 +295,7 @@ if ( $eject eq "startlocal" )
 	open FR, "</etc/apt/sources.list";
 	my @repo = <FR>;
 	close FR;
-	if ( !( grep ( /zenloadbalancer\.sourceforge\.net\/apt\/x86\ v31\//, @repo ) ) )
+	if ( !( grep ( /apt\.karmalb\.org\.uk\/\ jessie/, @repo ) ) )
 	{
 		open FR, ">/etc/apt/sources.list";
 		print FR "#official repository for Debian\n";
@@ -303,8 +303,8 @@ if ( $eject eq "startlocal" )
 		print FR "deb-src http://ftp.debian.org/debian/ jessie main non-free\n";
 		print FR "deb http://security.debian.org/ jessie/updates main\n";
 		print FR "deb-src http://security.debian.org/ jessie/updates main\n";
-		print FR "#official repository for Zen Load Balancer Updates\n";
-		print FR "deb http://zenloadbalancer.sourceforge.net/apt/x86 v31/\n";
+		print FR "#official repository for Karma Load Balancer Updates\n";
+		print FR "deb http://apt.karmalb.org.uk/ jessie main\n";
 		close FR;
 	}
 

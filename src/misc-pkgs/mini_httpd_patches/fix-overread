@@ -1,0 +1,47 @@
+--- mini_httpd-1.23/mini_httpd.c	2016-04-25 22:05:57.064421226 +0100
++++ mini_httpd-1.23/mini_httpd.c.new	2016-04-25 22:38:41.977165349 +0100
+@@ -1993,6 +1993,9 @@
+ 	int s;
+ 	char* title;
+ 	char* cp;
++	int overread_off;
++	int overread = 0;
++    	char buf2[1024];
+ 
+ 	/* Slurp in all headers. */
+ 	headers_size = 0;
+@@ -2014,7 +2017,16 @@
+ 	    add_str( &headers, &headers_size, &headers_len, buf );
+ 	    if ( ( br = strstr( headers, "\015\012\015\012" ) ) != (char*) 0 ||
+ 		 ( br = strstr( headers, "\012\012" ) ) != (char*) 0 )
++		{
++		if (br[0] == '\015')
++		    overread_off = (br - headers) + 4;
++		else
++		    overread_off = (br - headers) + 2;
++		overread = r - overread_off;
++		headers_len = overread_off;
++		headers[headers_len] = '\0';
+ 		break;
++		}
+ 	    }
+ 
+ 	/* If there were no headers, bail. */
+@@ -2054,11 +2066,15 @@
+ 	    default: title = "Something"; break;
+ 	    }
+ 	(void) snprintf(
+-	    buf, sizeof(buf), "HTTP/1.0 %d %s\015\012", s, title );
+-	(void) my_write( buf, strlen( buf ) );
++	    buf2, sizeof(buf2), "HTTP/1.0 %d %s\015\012", s, title );
++	(void) my_write( buf2, strlen( buf2 ) );
+ 
+ 	/* Write the saved headers. */
+ 	(void) my_write( headers, headers_len );
++    	if (overread > 0)
++    	    {
++	    (void) my_write( &(buf[overread_off]), overread );
++    	    }
+ 	}
+ 
+     /* Echo the rest of the output. */

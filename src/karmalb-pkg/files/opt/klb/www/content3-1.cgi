@@ -51,7 +51,7 @@ if ( $action =~ /^Modify$/ )
 		foreach $aptserv ( @arrayapt )
 		{
 			print "line $aptserv\n";
-			if ( $aptserv =~ /zenloadbalancer\.sourceforge\.net/ )
+			if ( $aptserv =~ /apt\.karmalb\.org\.uk/ )
 			{
 				splice ( @arrayapt, $i, $i );
 			}
