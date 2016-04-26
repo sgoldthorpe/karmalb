@@ -202,6 +202,7 @@ libxcb-shm0
 libxml2
 libxpm4
 libxrender1
+monitoring-plugins-basic
 mysql-common
 netstat-nat
 ntpdate
