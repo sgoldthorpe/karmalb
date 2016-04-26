@@ -3,29 +3,29 @@
 
 #::INI Global information
 #Document Root for Web Aplication  directory
-$basedir="/opt/klb/www";
+$basedir="/opt/klb/www";#update
 #configuration directory.In this section all config files are saved.
-$configdir="/opt/klb/config";
+$configdir="/opt/klb/config";#update
 #Log directory
-$logdir="/opt/klb/logs/";
+$logdir="/opt/klb/logs/";#update
 #log filename for this Graphic user interface.Some action with this GUI will be saved here.
-$logfile="/opt/klb/logs/zenloadbalancer.log";
+$logfile="/opt/klb/logs/zenloadbalancer.log";#update
 #.<b>Time out execution ZEN GUI CGIs.</b> <font size=1>When timeout is exceded the cgi execution is killed automatically.</font>
 $timeouterrors="60";
 #File configuration Zen Cluster
-$filecluster="/opt/klb/config/cluster.conf";
+$filecluster="/opt/klb/config/cluster.conf";#update
 #File configuration GUI
-$confhttp="/opt/klb/app/mini_httpd/mini_httpd.conf";
+$confhttp="/opt/klb/app/mini_httpd/mini_httpd.conf";#update
 #.<b>ntp server</b>
 $ntp="pool.ntp.org";
 #Do backup to
 $backupfor="$configdir $confhttp /etc/iproute2/rt_tables";
 #Save backups on
-$backupdir="/opt/klb/backups/";
+$backupdir="/opt/klb/backups/";#update
 #rt tables file
 $rttables = "/etc/iproute2/rt_tables";
 #this file
-$globalcfg = "/opt/klb/config/global.conf";
+$globalcfg = "/opt/klb/config/global.conf";#update
 #version ZEN
 $version="3.10.1";#update
 #Cipher PCI
@@ -43,12 +43,12 @@ $fileapt="/etc/apt/sources.list";
 $tar="/bin/tar";
 #where is ifconfig binary?
 $ifconfig_bin="/sbin/ifconfig";
-#Where is ip bynary?
+#Where is ip binary?
 $ip_bin="/sbin/ip";
 #Where is pen (tcp) load balancer?
-$pen_bin="/opt/klb/app/pen/bin/pen";
+$pen_bin="/opt/klb/app/pen/bin/pen";#update
 #Where is pen control load balancer?
-$pen_ctl="/opt/klb/app/pen/bin/penctl";
+$pen_ctl="/opt/klb/app/pen/bin/penctl";#update
 #Where is fdisk binary?
 $fdisk_bin="/sbin/fdisk";
 #Where is df binary?
@@ -96,7 +96,7 @@ $lsmod="/sbin/lsmod";
 #Where is gdnsd?
 $gdnsd="/usr/sbin/gdnsd";
 #Where is l4sd?
-$l4sd="/opt/klb/app/l4s/bin/l4sd";
+$l4sd="/opt/klb/app/l4s/bin/l4sd";#update
 #Where is conntrack?
 $conntrack="/usr/sbin/conntrack";
 #Where is insserv?
@@ -107,7 +107,7 @@ $pound="/usr/sbin/pound";
 #where is pound ctl?
 $poundctl="/usr/sbin/poundctl";
 #pound file configuration template?
-$poundtpl="/opt/klb/app/pound/etc/poundtpl.cfg";
+$poundtpl="/opt/klb/app/pound/etc/poundtpl.cfg";#update
 #piddir
 $piddir="/var/run/";
 
@@ -122,14 +122,14 @@ $defaultgwif="";
 $pingc="1";
 
 #Directory where is check script. In this directory you can save your own check scripts. 
-$libexec_dir="/opt/klb/app/libexec";
+$libexec_dir="/opt/klb/app/libexec";#update
 #FarmGuardian binary, create advanced check for backend servers
-$farmguardian="/opt/klb/app/farmguardian/bin/farmguardian";
+$farmguardian="/opt/klb/app/farmguardian/bin/farmguardian";#update
 #Directory where FarmGuadian save the logs
-$farmguardian_logs="/opt/klb/logs";
+$farmguardian_logs="/opt/klb/logs";#update
 
 #Where is ZenRRD Directory?. There is a perl script that create rrd database and images from Monitoring section
-$rrdap_dir="/opt/klb/app/zenrrd/";
+$rrdap_dir="/opt/klb/app/zenrrd/";#update
 #Relative path in Web Root directory ($basedir) where is graphs from ZenRRD *no modify
 $img_dir="/img/graphs/";
 #Relative path where is rrd databases from ZenRRD * no modify
@@ -138,23 +138,23 @@ $rrd_dir="rrd/";
 $log_rrd="";
 
 #Zen service replication
-$zenino="/opt/klb/app/zeninotify/zeninotify.pl"; 
+$zenino="/opt/klb/app/zeninotify/zeninotify.pl"; #update
 #Zen Inotify pid file 
 $zeninopid="/var/run/zeninotify.pid";
 #Zen inotify log file
-$zeninolog="/opt/klb/logs/zeninotify.log";
+$zeninolog="/opt/klb/logs/zeninotify.log";#update
 #.<b>Rsync replication parameters</b>
 $zenrsync="-auzv --delete";
 
 #zen latency service start
-$zenlatup="/opt/klb/app/zenlatency/zenlatency-start.pl";
+$zenlatup="/opt/klb/app/zenlatency/zenlatency-start.pl";#update
 #zen latency service stop
-$zenlatdown="/opt/klb/app/zenlatency/zenlatency-stop.pl";
+$zenlatdown="/opt/klb/app/zenlatency/zenlatency-stop.pl";#update
 #Zen latency log file
-$zenlatlog="/opt/klb/logs/zenlatency.log";
+$zenlatlog="/opt/klb/logs/zenlatency.log";#update
 
 #Zen backup
-$zenbackup="/opt/klb/app/zenbackup/zenbackup.pl";
+$zenbackup="/opt/klb/app/zenbackup/zenbackup.pl";#update
 
 #SNMP service
 $snmpdconfig_file="/etc/snmp/snmpd.conf";
