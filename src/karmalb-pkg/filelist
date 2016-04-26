@@ -41,8 +41,8 @@ d opt/klb/app/gdnsd/sbin
 #f opt/klb/app/gdnsd/sbin/gdnsd
 d opt/klb/app/libexec
 l opt/klb/app/libexec/check_http /usr/lib/nagios/plugins/check_http
-#f opt/klb/app/libexec/check_ldap
-#f opt/klb/app/libexec/check_ldaps
+l opt/klb/app/libexec/check_ldap /usr/lib/nagios/plugins/check_ldap
+l opt/klb/app/libexec/check_ldaps /usr/lib/nagios/plugins/check_ldap
 l opt/klb/app/libexec/check_smtp /usr/lib/nagios/plugins/check_smtp
 l opt/klb/app/libexec/check_tcp /usr/lib/nagios/plugins/check_tcp
 l opt/klb/app/libexec/check_udp /usr/lib/nagios/plugins/check_udp

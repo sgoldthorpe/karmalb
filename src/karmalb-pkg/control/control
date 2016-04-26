@@ -6,4 +6,4 @@ Section: admin
 Priority: optional
 Description: Multilayered load balancer with web GUI 
  @LONGNAME@ is a multilayered and high performance load balancer whith an easy configuration, usability and user-friendly web GUI.
-Depends: rrdtool, libnet-netmask-perl, libnet-ssh-perl, libexpect-perl, expect, libnet-ssh-expect-perl, libproc-daemon-perl, libnetwork-ipv4addr-perl, librrds-perl, libio-interface-perl, libgd-3dbargrapher-perl, libfile-grep-perl, libdata-validate-ip-perl, rsync, libpcap0.8, ntpdate, liblinux-inotify2-perl, libfile-grep-perl, iputils-arping, openssl, unzip, snmpd, conntrack, pound, ucarp, gdnsd, libgd-perl, apt-transport-https, monitoring-plugins-basic
+Depends: rrdtool, libnet-netmask-perl, libnet-ssh-perl, libexpect-perl, expect, libnet-ssh-expect-perl, libproc-daemon-perl, libnetwork-ipv4addr-perl, librrds-perl, libio-interface-perl, libgd-3dbargrapher-perl, libfile-grep-perl, libdata-validate-ip-perl, rsync, libpcap0.8, ntpdate, liblinux-inotify2-perl, libfile-grep-perl, iputils-arping, openssl, unzip, snmpd, conntrack, pound, ucarp, gdnsd, libgd-perl, apt-transport-https, monitoring-plugins-basic, monitoring-plugins-standard

@@ -1,0 +1,57 @@
+#!/bin/sh -e
+PKGNAME=monitoring-plugins-ldap-karmalb
+PKGVER=1.0-1
+ARCH=amd64
+PKGCACHE=pkgcache
+DEB=${PKGNAME}_${PKGVER}_${ARCH}.deb
+WORKDIR=monitoring-plugins-ldap
+FULLPKG=monitoring-plugins-standard
+
+if [ "x$1" = "x-k" ]; then
+	KEEP=1
+else
+	KEEP=0
+fi
+
+mkdir -p $PKGCACHE
+FULLDEB="`ls ${PKGCACHE}/${FULLPKG}*.deb 2>/dev/null`"
+if [ ! "$FULLDEB" ]; then
+	( cd $PKGCACHE; apt-get download $FULLPKG )
+	FULLDEB="`ls $PKGCACHE/${FULLPKG}*.deb 2>/dev/null`"
+else
+	MD5=`apt-cache show --no-all-versions $FULLPKG|awk '/^MD5sum/ { print $2 }'`
+	FILEMD5=`md5sum $PKGCACHE/${FULLPKG}*.deb|awk '{ print $1 }'`
+	if [ "x$MD5" != "x$FILEMD5" ]; then
+		( cd $PKGCACHE; apt-get download $FULLPKG )
+		FULLDEB="`ls ${FULLPKG}*.deb 2>/dev/null`"
+	fi
+fi
+
+rm -rf $WORKDIR
+mkdir $WORKDIR
+dpkg -x $FULLDEB $WORKDIR
+rm -rf $WORKDIR/etc $WORKDIR/usr/share `ls $WORKDIR/usr/lib/nagios/plugins/* 2>/dev/null|grep -v check_ldap`
+
+mkdir $WORKDIR/DEBIAN
+cat > $WORKDIR/DEBIAN/control <<!EOF
+Package: $PKGNAME
+Version: $PKGVER
+Maintainer: Steve Goldthorpe <steve@karmalb.org.uk>
+Architecture: $ARCH
+Section: net
+Priority: extra
+Description: ldap plugins for nagios compatible monitoring systems 
+ Cutdown version of monitoring-plugins-standard to provide ldap checks   without all the dependencies of monitoring-plugins-standard.  If you
+ need the extra tests, just remove and replace with the full package.
+Depends: libldap-2.4-2, zlib1g
+Conlicts: monitoring-plugins-standard
+Provides: monitoring-plugins-standard
+!EOF
+
+( cd $WORKDIR; find . -name DEBIAN -prune -o -type f -printf '%P ' | xargs md5sum > DEBIAN/md5sums )
+fakeroot dpkg-deb -b $WORKDIR .
+test "$KARMALBKEY" && dpkg-sig -k $KARMALBKEY --sign builder $DEB
+
+test $KEEP -eq 0 && rm -rf $WORKDIR
+
+exit 0
