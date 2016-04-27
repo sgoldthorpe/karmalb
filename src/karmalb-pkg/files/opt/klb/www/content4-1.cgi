@@ -1,8 +1,11 @@
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -38,7 +41,7 @@ print "
 ##content 3-2 INI
 print "<div class=\"container_12\">";
 print "	<div class=\"grid_12\">";
-print "		<div class=\"box-header\">Zen Load Balancer license</div>";
+print "		<div class=\"box-header\">Karma Load Balancer license</div>";
 print "		<div class=\"box stats\">";
 
 #print content

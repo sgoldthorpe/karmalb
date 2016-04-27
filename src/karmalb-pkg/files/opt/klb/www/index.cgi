@@ -2,9 +2,12 @@
 
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -244,7 +247,7 @@ if ( !-f "$basedir/lock" )
 }
 else
 {
-	&errormsg( "Actually Zen GUI is locked, please unlock with '/etc/init.d/zenloadbalancer start' command" );
+	&errormsg( "Actually KLB GUI is locked, please unlock with '/etc/init.d/zenloadbalancer start' command" );
 }
 
 #FOOTER

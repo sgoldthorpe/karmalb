@@ -1,8 +1,11 @@
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -59,26 +62,23 @@ $description = "img/graphs/graphnet.jpg";
 #
 
 ####################################
-# ZLB COMMERCIAL INFORMATION
+# KLB COMMERCIAL INFORMATION
 ####################################
 
 my $systemuuid = `/usr/sbin/dmidecode | grep UUID | awk '{print \$2}'`;
 chomp ( $systemuuid );
-print "<div class=\"box-header\">Zen Load Balancer Professional Products &amp; Services</div>";
+print "<div class=\"box-header\">Karma Load Balancer Resources</div>";
 print " <div class=\"box table\">
 	<table class=\"commerce\">
 	<thead>";
 print "		<tr>";
-print "			<td>Professional Services</td><td>Professional Products</td>";
-print "				<td>News</td>";
+print "			<td>Community Resources</td>>";
 print "		</tr>";
 print "</thead>";
 print "<tbody>";
 print "		<tr>";
 
-print "			<td><div id=\"support\"></div></td>
-			<td><div id=\"products\"></div></td>
-			<td><div id=\"news\"></div></td>";
+print "			<td><a href="https://github.com/sgoldthorpe/karmalb">https://github.com/sgoldthorpe/karmalb</a></td>
 print "		</tr>";
 print "</tbody>";
 print "</table></div>";

@@ -12,9 +12,12 @@
 
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -245,7 +248,7 @@ if ( $eject eq "start" )
 			if ( grep ( /@cliface[1]/, @eject ) )
 			{
 				print
-				  "Cluster is running on this node, running IPS and FARMS for Zen Load Balancer...\n";
+				  "Cluster is running on this node, running IPS and FARMS for Karma Load Balancer...\n";
 				$eject = "startlocal";
 			}
 		}
@@ -271,7 +274,7 @@ if ( $eject eq "stop" )
 		{
 			my @eject = `pkill -9 ucarp`;
 			my @eject = `pkill -9f zeninotify.pl`;
-			print "Stopping Zen Cluster on this node...\n";
+			print "Stopping KLB Cluster on this node...\n";
 		}
 
 	}
@@ -377,7 +380,7 @@ if ( $eject eq "startlocal" )
 	}
 
 	### Starting Network Interfaces
-	print "Starting Zen Load Balancer...\n";
+	print "Starting Karma Load Balancer...\n";
 	opendir ( DIR, $configdir );
 	@files = grep ( /^if\_.*\_conf$/, readdir ( DIR ) );
 	closedir ( DIR );
@@ -554,7 +557,7 @@ if ( $eject eq "startlocal" )
 
 if ( $eject eq "stoplocal" )
 {
-	print "Stopping Zen Load Balancer...\n";
+	print "Stopping Karma Load Balancer...\n";
 
 	### Stopping Farms
 	print "* Stopping Farms:\n";
@@ -681,7 +684,7 @@ if ( $eject eq "stoplocal" )
 				}
 				else
 				{
-					print "  no DOWN, it is the Zen GUI\n";
+					print "  no DOWN, it is the KLB GUI\n";
 				}
 
 			}
