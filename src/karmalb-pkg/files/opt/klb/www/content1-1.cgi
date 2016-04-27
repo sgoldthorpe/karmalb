@@ -72,13 +72,13 @@ print " <div class=\"box table\">
 	<table class=\"commerce\">
 	<thead>";
 print "		<tr>";
-print "			<td>Community Resources</td>>";
+print "			<td>Community Resources</td>";
 print "		</tr>";
 print "</thead>";
 print "<tbody>";
 print "		<tr>";
 
-print "			<td><a href="https://github.com/sgoldthorpe/karmalb">https://github.com/sgoldthorpe/karmalb</a></td>
+print "			<td><a href=\"https://github.com/sgoldthorpe/karmalb\">https://github.com/sgoldthorpe/karmalb</a></td>";
 print "		</tr>";
 print "</tbody>";
 print "</table></div>";
