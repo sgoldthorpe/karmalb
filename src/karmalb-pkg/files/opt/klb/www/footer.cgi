@@ -27,7 +27,7 @@
 #FOOTER
 print "
 <!-- Start Footer -->
-<div class=\"footer\">Karma Load Balancer is created under GNU/LGPL License Copyright (C) 2016 Steve  Goldthorpe <dev@karmalb.org.uk>, Copyright (C) 2014 SOFINTEL IT ENGINEERING SL </div>
+<div class=\"footer\">Karma Load Balancer is created under GNU/LGPL License Copyright (C) 2016 Steve  Goldthorpe &lt;dev\@karmalb.org.uk&gt;, Copyright (C) 2014 SOFINTEL IT ENGINEERING SL </div>
 <!-- End Footer -->
 <!-- Close div class=\"container\"
 </div> -->
