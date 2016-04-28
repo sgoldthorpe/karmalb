@@ -10,7 +10,7 @@ $configdir="/opt/klb/config";#update
 $logdir="/opt/klb/logs/";#update
 #log filename for this Graphic user interface.Some action with this GUI will be saved here.
 $logfile="/opt/klb/logs/zenloadbalancer.log";#update
-#.<b>Time out execution ZEN GUI CGIs.</b> <font size=1>When timeout is exceded the cgi execution is killed automatically.</font>
+#.<b>Time out execution KLB GUI CGIs.</b> <font size=1>When timeout is exceded the cgi execution is killed automatically.</font>
 $timeouterrors="60";
 #File configuration Zen Cluster
 $filecluster="/opt/klb/config/cluster.conf";#update
@@ -26,8 +26,8 @@ $backupdir="/opt/klb/backups/";#update
 $rttables = "/etc/iproute2/rt_tables";
 #this file
 $globalcfg = "/opt/klb/config/global.conf";#update
-#version ZEN
-$version="3.10.1";#update
+#version KLB
+$version="1.0a2";#update
 #Cipher PCI
 $cipher_pci="DEFAULT";#update
 #BUY SSL Certificates

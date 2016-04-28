@@ -241,7 +241,7 @@ if ( !-f "$basedir/lock" )
 		require "content" . $id . ".cgi";
 		alarm 0;
 	};
-	if ($@) { print "Error in content$id cgi execution, see ZEN logs\n";
+	if ($@) { print "Error in content$id cgi execution, see KLB logs\n";
 		print "<br>$@\n";
 	}	
 }
