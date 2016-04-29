@@ -129,7 +129,7 @@ echo "Adding custom packages..."
 ( 
 	MISCPKGS="`ls ../src/misc-pkgs/*.deb 2>&1`"
 	set -- $MISCPKGS
-	if [ $# -ne 2 ]; then
+	if [ $# -ne 3 ]; then
 		echo "ERROR: Not all packages found."
 		exit 5
 	else
@@ -221,6 +221,9 @@ libxcb-shm0
 libxml2
 libxpm4
 libxrender1
+monitoring-plugins-basic
+monitoring-plugins-common
+monitoring-plugins-ldap-karmalb
 mysql-common
 netstat-nat
 ntpdate

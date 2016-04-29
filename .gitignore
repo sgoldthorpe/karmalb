@@ -9,6 +9,7 @@
 
 # ignore the pkgcache directory
 /distro/pkgcache/
+/src/misc-pkgs/pkgcache/
 
 # ignore the repo directory
 /distro/repo/
@@ -32,6 +33,7 @@
 /src/misc-pkgs/karmalb*.deb
 /src/karmalb-pkg/karmalb_*.deb
 /src/misc-pkgs/mini-httpd_*.deb
+/src/misc-pkgs/monitoring-plugins-ldap-karmalb_*.deb
 
 # and downloaded tarballs
 /src/misc-pkgs/mini_httpd*.tar.gz

@@ -1,8 +1,9 @@
 KEYRINGDEB = karmalb-keyring_1.0-1_all.deb
 KEYRINGUDEB = karmalb-keyring-udeb_1.0-1_all.udeb
 MHTTPDDEB = mini-httpd_1.23-1_amd64.deb
+MONPLUGDEB= monitoring-plugins-ldap-karmalb_1.0-1_amd64.deb
 
-all: $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB)
+all: $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB) $(MONPLUGDEB)
 
 
 $(KEYRINGDEB) $(KEYRINGUDEB):
@@ -23,10 +24,13 @@ $(MHTTPDDEB):
 	test "$(KARMALBKEY)" && dpkg-sig -k $(KARMALBKEY) --sign builder $(MHTTPDDEB)
 
 clean:
-	rm -f $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB)
+	rm -f $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB) $(MONPLUGDEB)
 	rm -f karmalb-keyring_1.0-1_amd64.changes
 	cd karmalb-keyring; \
 		dpkg-buildpackage -rfakeroot -Tclean
-	rm -rf mini_httpd-*
+	rm -rf mini_httpd-* monitoring-plugins-ldap
+
+$(MONPLUGDEB):
+	sh make_ldap_plugins
 
 .PHONY: all clean
