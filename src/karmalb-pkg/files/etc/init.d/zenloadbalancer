@@ -316,6 +316,7 @@ if ( $eject eq "startlocal" )
 		close FR;
 		if ( !grep ( /zenmodified/, @file ) )
 		{
+			$ifname = '';
 			foreach $line ( @file )
 			{
 				chomp ( $line );
@@ -345,34 +346,39 @@ if ( $eject eq "startlocal" )
 				}
 			}
 
-			#deleting interfaces file
-			open FW, ">/etc/network/interfaces";
-			print FW "#zenmodified\n";
-			print FW "auto lo\n";
-			print FW "iface lo inet loopback\n";
-			close FW;
-
-			#creating configuration interface file:
-			open FW, ">$configdir\/if\_$ifname\_conf";
-			print FW "$ifname\:\:$ip\:$netmask\:up\:\:\n";
-			close FW;
-
-			#gw
-			tie @contents, 'Tie::File', "$globalcfg";
-			for ( @contents )
+			# don't create interface file if something went wrong
+			if (length($ifname) > 0)
 			{
-				if ( grep /^\$defaultgw/, $_ )
-				{
-					s/^\$defaultgw=.*/\$defaultgw=\"$gateway\"\;/g;
-					s/^\$defaultgwif=.*/\$defaultgwif=\"$ifname\"\;/g;
-				}
-			}
-			untie @contents;
 
-			#routes
-			open FW, ">>/etc/iproute2/rt_tables";
-			print FW "200\ttable_$ifname\n";
-			close FW;
+				#deleting interfaces file
+				open FW, ">/etc/network/interfaces";
+				print FW "#zenmodified\n";
+				print FW "auto lo\n";
+				print FW "iface lo inet loopback\n";
+				close FW;
+
+				#creating configuration interface file:
+				open FW, ">$configdir\/if\_$ifname\_conf";
+				print FW "$ifname\:\:$ip\:$netmask\:up\:\:\n";
+				close FW;
+
+				#gw
+				tie @contents, 'Tie::File', "$globalcfg";
+				for ( @contents )
+				{
+					if ( grep /^\$defaultgw/, $_ )
+					{
+						s/^\$defaultgw=.*/\$defaultgw=\"$gateway\"\;/g;
+						s/^\$defaultgwif=.*/\$defaultgwif=\"$ifname\"\;/g;
+					}
+				}
+				untie @contents;
+
+				#routes
+				open FW, ">>/etc/iproute2/rt_tables";
+				print FW "200\ttable_$ifname\n";
+				close FW;
+			}
 		}
 	}
 
