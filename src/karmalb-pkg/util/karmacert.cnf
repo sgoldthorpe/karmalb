@@ -1,0 +1,21 @@
+[req]
+distinguished_name      = req_distinguished_name
+#Don't encrypt the key
+encrypt_key             = no
+prompt                  = no
+string_mask             = nombstr
+x509_extensions = v3_ca
+
+[req_distinguished_name]
+countryName             = GB
+stateOrProvinceName     = United Kingdom
+commonName              = Karma Load Balancer
+emailAddress            = dev@karmalb.org.uk
+
+[v3_req]
+basicConstraints       = basicconstraints
+
+[v3_ca]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+basicConstraints=CA:true

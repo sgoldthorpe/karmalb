@@ -12,9 +12,12 @@
 
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -61,16 +64,16 @@ if ($eject eq "start")
 	}
 	if (grep(/host=\*/,@file))	
 		{
-		print "Zen GUI is running over all network interfaces, you have to change it to a real interface on Zen GUI > Settings > Server, otherwise all interfaces will be stopped when Zen Load Balancer stops...\n"
+		print "KLB GUI is running over all network interfaces, you have to change it to a real interface on KLB GUI > Settings > Server, otherwise all interfaces will be stopped when Karma Load Balancer stops...\n"
 		}
 	my @run = system("/opt/klb/app/mini_httpd/mini_httpd -C /opt/klb/app/mini_httpd/mini_httpd.conf 2> /dev/null");
 	if ($? == 0)
 		{
-		print "Zen Load Balancer GUI running now\n";
+		print "Karma Load Balancer GUI running now\n";
 		}
 	else
 		{
-		print "Error running Zen Load Balancer GUI\n";
+		print "Error running Karma Load Balancer GUI\n";
 		}
 	#firt: check interfaces configured and running
 

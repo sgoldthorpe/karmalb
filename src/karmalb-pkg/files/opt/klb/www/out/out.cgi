@@ -1,9 +1,12 @@
 #!/usr/bin/perl
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -37,7 +40,7 @@ print "
 
 <link type=\"text/css\" rel=\"stylesheet\" media=\"all\" href=\"css/base.css\" />
 <link type=\"text/css\" rel=\"stylesheet\" media=\"all\" href=\"css/grid.css\" />
-<title>Zen Logout</title></head>";
+<title>KLB Logout</title></head>";
 
 print "<BODY>";
 
@@ -57,7 +60,7 @@ print "<br>";
 print "<br>";
 
 print "<center>";
-print "<strong>Good bye Zen Master!</strong><br>";
+print "<strong>Good bye.</strong><br>";
 print "<br><br>";
 print "<strong><a href=\"../index.cgi\">Login</a></strong><br>";
 print "</center>";

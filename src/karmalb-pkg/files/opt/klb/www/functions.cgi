@@ -1,8 +1,11 @@
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -252,7 +255,7 @@ sub createMenuFarmCert($fname,$cname)
 sub createmenubackup($file)
 {
 	( $file ) = @_;
-	print "<a href=\"index.cgi?id=$id&action=apply&file=$file\"><img src=\"img/icons/small/accept2.png\" title=\"Apply $file backup and restart Zen Load Balancer service\"></a> ";
+	print "<a href=\"index.cgi?id=$id&action=apply&file=$file\"><img src=\"img/icons/small/accept2.png\" title=\"Apply $file backup and restart Karma Load Balancer service\"></a> ";
 	print "<a href=\"downloads.cgi?filename=$file\"><img src=\"img/icons/small/arrow_down.png\" title=\"Download $file backup\"></a>";
 	print "<a href=\"index.cgi?id=$id&action=del&file=$file\" onclick=\"return confirm('Are you sure you wish to delete this backup?')\"><img src=\"img/icons/small/cross_octagon.png\" title=\"Delete $file backup\"></a> ";
 

@@ -1,9 +1,12 @@
 #!/usr/bin/perl
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -102,7 +105,7 @@ if (grep (/$ifname/,@eject))
                 }
 	#run command;
         my @eject = `$zenino &`;
-        print "Running Zen inotify syncronization service\n";
+        print "Running KLB inotify syncronization service\n";
 	print "$zenino &";
         #@array[2] =~ s/:DOWN//;
 	#@array[2] =~ s/:UP//;
@@ -117,7 +120,7 @@ if (grep (/$ifname/,@eject))
 	}
 else
 	{
-	print "Zen inotify is not running because Zen latency is not running over $ifname[6]";
+	print "KLB inotify is not running because KLB latency is not running over $ifname[6]";
 	#@array[2] =~ s/:DOWN//;
 	#@array[2] =~ s/:UP//;
 

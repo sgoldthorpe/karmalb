@@ -1,8 +1,11 @@
 ###############################################################################
 #
-#     Zen Load Balancer Software License
-#     This file is part of the Zen Load Balancer software package.
+#     Karma Load Balancer CE Software License
+#     This file is part of the Karma Load Balancer CE software package, a true
+#     Community Edition derived from the Zen Load Balancer software package.
+#     Sources available at https://github.com/sgoldthorpe/karmalb
 #
+#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -37,18 +40,18 @@ print "
 
 if ( $action eq "apply" )
 {
-	&successmsg( "Backup will be decompressed and Zen Load Balancer will be restarted, Zen Cluster node could switch..." );
+	&successmsg( "Backup will be decompressed and Karma Load Balancer will be restarted, ZLB Cluster node could switch..." );
 	my @eject = `$tar -xvzf $backupdir$file -C /`;
 	&logfile( "Restoring backup $backupdir$file" );
 	&logfile( "unpacking files: @eject" );
 	my @eject = `/etc/init.d/zenloadbalancer restart 2> /dev/null`;
 	if ( $? == 0 )
 	{
-		&successmsg( "Backup applied and Zen Load Balancer restarted..." );
+		&successmsg( "Backup applied and Karma Load Balancer restarted..." );
 	}
 	else
 	{
-		&errormsg( "Problem restarting Zen Load Balancer service" );
+		&errormsg( "Problem restarting Karma Load Balancer service" );
 	}
 
 }
