@@ -32,7 +32,7 @@
 /src/misc-pkgs/karmalb*.udeb
 /src/misc-pkgs/karmalb*.deb
 /src/karmalb-pkg/karmalb_*.deb
-/src/misc-pkgs/mini-httpd_*.deb
+/src/misc-pkgs/mini-httpd*.deb
 /src/misc-pkgs/monitoring-plugins-ldap-karmalb_*.deb
 
 # and downloaded tarballs
