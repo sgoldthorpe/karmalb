@@ -185,7 +185,7 @@ f opt/klb/www/downloads.cgi
 f opt/klb/www/farmguardian_functions.cgi
 f opt/klb/www/farms_functions.cgi
 d opt/klb/www/font
-d opt/klb/www/font/font-aw
+l opt/klb/www/font/font-aw font-awesome-4.3.0
 d opt/klb/www/font/font-awesome-4.3.0
 d opt/klb/www/font/font-awesome-4.3.0/css
 f opt/klb/www/font/font-awesome-4.3.0/css/font-awesome.css
