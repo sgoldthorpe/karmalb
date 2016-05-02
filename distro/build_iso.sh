@@ -127,7 +127,7 @@ echo "Adding custom packages..."
 )
 # MISC
 ( 
-	MISCPKGS="`ls ../src/misc-pkgs/*.deb 2>&1`"
+	MISCPKGS="`ls ../src/misc-pkgs/*.deb 2>&1 | grep -v debug`"
 	set -- $MISCPKGS
 	if [ $# -ne 3 ]; then
 		echo "ERROR: Not all packages found."
