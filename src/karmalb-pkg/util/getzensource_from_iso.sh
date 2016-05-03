@@ -48,10 +48,10 @@ dpkg -x $ZENPKG $TMPDIR
 # build filelist file
 ( cd $TMPDIR; find * -print ) | sort | \
 	while read F; do
-		if [ -d "$TMPDIR/$F" ]; then	
-			echo "d $F"
-		elif [ -L "$TMPDIR/$F" ]; then
+		if [ -L "$TMPDIR/$F" ]; then
 			echo "l $F `readlink \"$TMPDIR/$F\"`"
+		elif [ -d "$TMPDIR/$F" ]; then	
+			echo "d $F"
 		elif [ -f "$TMPDIR/$F" ]; then
 			ELF="`file $TMPDIR/$F|grep ELF`"
 			if [ "$ELF" ]; then
