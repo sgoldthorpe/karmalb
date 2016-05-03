@@ -34,7 +34,7 @@ sub getCertFiles()
 	opendir ( DIR, $configdir );
 	push ( @files, grep ( /.*\.csr$/, readdir ( DIR ) ) );
 	closedir ( DIR );
-	return @files;
+	return sort ( @files );
 }
 
 #Delete all blancs from the beginning and from the end of a variable.
