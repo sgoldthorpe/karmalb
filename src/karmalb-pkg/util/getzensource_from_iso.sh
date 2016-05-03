@@ -53,7 +53,7 @@ dpkg -x $ZENPKG $TMPDIR
 		elif [ -d "$TMPDIR/$F" ]; then	
 			echo "d $F"
 		elif [ -f "$TMPDIR/$F" ]; then
-			ELF="`file $TMPDIR/$F|grep ELF`"
+			ELF="`file $TMPDIR/$F|grep ELF||true`"
 			if [ "$ELF" ]; then
 				echo "#f $F"
 			else
