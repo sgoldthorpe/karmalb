@@ -71,11 +71,11 @@ mv ${TMPDIR}/${OLDPATH} ${TMPDIR}/${NEWPATH}
 # build filelist file
 ( cd $TMPDIR; find * -print ) | sort | \
 	while read F; do
-		if [ -d "$TMPDIR/$F" ]; then	
-			echo "d $F"
-		elif [ -L "$TMPDIR/$F" ]; then
+		if [ -L "$TMPDIR/$F" ]; then
 			LINK="`readlink \"$TMPDIR/$F\"| sed \"s@\$OLDPATH@\$NEWPATH@g\"`"
 			echo "l $F $LINK"
+		elif [ -d "$TMPDIR/$F" ]; then	
+			echo "d $F"
 		elif [ -f "$TMPDIR/$F" ]; then
 			ELF="`file $TMPDIR/$F|grep ELF`"
 			if [ "$ELF" ]; then
