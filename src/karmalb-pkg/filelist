@@ -186,7 +186,6 @@ f usr/local/zenloadbalancer/www/downloads.cgi
 f usr/local/zenloadbalancer/www/farmguardian_functions.cgi
 f usr/local/zenloadbalancer/www/farms_functions.cgi
 d usr/local/zenloadbalancer/www/font
-d usr/local/zenloadbalancer/www/font/font-aw
 d usr/local/zenloadbalancer/www/font/font-awesome-4.3.0
 d usr/local/zenloadbalancer/www/font/font-awesome-4.3.0/css
 f usr/local/zenloadbalancer/www/font/font-awesome-4.3.0/css/font-awesome.css
@@ -226,6 +225,7 @@ f usr/local/zenloadbalancer/www/font/font-awesome-4.3.0/scss/_path.scss
 f usr/local/zenloadbalancer/www/font/font-awesome-4.3.0/scss/_rotated-flipped.scss
 f usr/local/zenloadbalancer/www/font/font-awesome-4.3.0/scss/_stacked.scss
 f usr/local/zenloadbalancer/www/font/font-awesome-4.3.0/scss/_variables.scss
+l usr/local/zenloadbalancer/www/font/font-aw font-awesome-4.3.0
 f usr/local/zenloadbalancer/www/footer.cgi
 f usr/local/zenloadbalancer/www/functions.cgi
 f usr/local/zenloadbalancer/www/gslb_functions.cgi
