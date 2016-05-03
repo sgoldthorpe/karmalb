@@ -1,4 +1,4 @@
-#/!bin/sh -e
+#!/bin/sh -e
 PKGNAME=karmalb
 PKGVERS=1.0a2
 PKGMAIN="KarmaLB Developers <dev@karmalb.org.uk>"
