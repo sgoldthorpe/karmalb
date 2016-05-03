@@ -58,7 +58,7 @@ if [ ! -f $ZENPKG ]; then
 	rmdir iso
 fi
 
-# extract files from package 
+# extract files from package
 rm -rf $TMPDIR
 mkdir $TMPDIR
 dpkg -x $ZENPKG $TMPDIR
@@ -77,7 +77,7 @@ mv ${TMPDIR}/${OLDPATH} ${TMPDIR}/${NEWPATH}
 		elif [ -d "$TMPDIR/$F" ]; then	
 			echo "d $F"
 		elif [ -f "$TMPDIR/$F" ]; then
-			ELF="`file $TMPDIR/$F|grep ELF`"
+			ELF="`file $TMPDIR/$F|grep ELF||true`"
 			if [ "$ELF" ]; then
 				echo "#f $F"
 			else
