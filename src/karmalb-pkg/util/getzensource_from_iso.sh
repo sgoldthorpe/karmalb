@@ -13,8 +13,8 @@ NEWPREFIX=opt
 OLDPATH=${OLDPREFIX}/zenloadbalancer
 NEWPATH=${NEWPREFIX}/klb
 #
-ZENPKG=zenloadbalancer_3.10.deb
-ZENISO=zenloadbalancer-distro_3.10.iso
+ZENPKG=zenloadbalancer_3.10.1.deb
+ZENISO=zenloadbalancer-distro_3.10.1.iso
 #
 TMPDIR=tmp
 FILELIST=../filelist
