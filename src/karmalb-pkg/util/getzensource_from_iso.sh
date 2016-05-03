@@ -1,4 +1,4 @@
-#/!bin/sh -e
+#!/bin/sh -e
 
 lookup() {
         awk "/^$1=/ { split(\$0,s,\"=\"); print s[2]; exit }" $VF
