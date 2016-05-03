@@ -139,7 +139,6 @@ print "<tr><td colspan=6></td><td>\n\n";
 
 &uploadPEMCerts();
 print "		<a href=\"index.cgi?id=$id&action=Show_Form\"><img src=\"img/icons/small/page_white_add.png\" title=\"Create CSR\"></a>";
-print "		<a href=\"$buy_ssl\" target=\"_blank\"><img src=\"img/icons/small/cart_put.png\" title=\"Buy SSL Certificate\"></a>";
 print "</td></tr>";
 
 #print "<tr><td colspan=2></td><td><a href=\"index.cgi?id=$id&action=uploadcert\"><img src=\"img/icons/small/arrow_up.png\" title=\"Upload new certificate\"></a></td></tr>";
