@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 ### BEGIN INIT INFO
 # Provides:          zenloadbalancer
-# Required-Start:
-# Required-Stop:
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: zenloadbalancer
@@ -307,7 +307,7 @@ if ( $eject eq "startlocal" )
 		print FR "deb http://security.debian.org/ jessie/updates main\n";
 		print FR "deb-src http://security.debian.org/ jessie/updates main\n";
 		print FR "#official repository for Karma Load Balancer Updates\n";
-		print FR "deb http://apt.karmalb.org.uk/ jessie main\n";
+		print FR "deb http://apt.karmalb.org.uk/debian/ jessie main\n";
 		close FR;
 	}
 
