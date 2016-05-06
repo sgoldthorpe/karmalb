@@ -45,26 +45,6 @@ fetch_pkg() {
 	sudo cp -p $FOUND $2
 }
 
-
-# FUNCTIONS
-
-fetch_pkg() {
-	VER=`apt-cache show --no-all-versions $1|awk '/^Version/ { print $2 }'|sed 's/.*://'`
-	FOUND="`find $PKGCACHE -name $1_$VER_\*.deb`"
-	if [ ! "$FOUND" ]; then
-		( cd $PKGCACHE; apt-get download $1 )
-		# epoch version confuses matters - rename if found
-		RENAME="`find $PKGCACHE -name $1_[0-9]*%3a*.deb`"
-		if [ "$RENAME" ]; then
-			NEWNAME="`echo $RENAME | sed 's/_[0-9]*%3a/_/'`"
-			mv $RENAME $NEWNAME
-		fi
-		FOUND="`find $PKGCACHE -name $1_${VER}\*.deb`"
-	fi
-	sudo cp -p $FOUND $2
-}
-
-
 # MAIN SCRIPT
 
 # fetch Debian iso if not already downloaded
@@ -151,7 +131,7 @@ else
 fi
 
 # ADD PKG DEPENDENCIES HERE
-PKGLIST="`cat <<!EOM
+PKGLIST="
 apt-transport-https
 conntrack
 expect
@@ -240,8 +220,7 @@ tcl-expect
 ucarp
 unzip
 xdg-user-dirs
-!EOM
-`"
+"
 
 echo "Adding package dependencies..."
 INSTALL=""
