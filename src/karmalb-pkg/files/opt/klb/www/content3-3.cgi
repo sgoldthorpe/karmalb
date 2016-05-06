@@ -217,7 +217,7 @@ if ( -e $filecluster )
 		$user = "root";
 
 		#sshopen2("root\@$rip", *READER, *WRITER, "ls") || die "ssh: $!";
-		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'$pen_bin\' 2>&1 `;
+		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'/bin/true\' 2>&1 `;
 
 		#@eject = system("ssh root\@$rip 'touch /tmp/kk' 2>&1 ");
 		if ( $? == 0 )
@@ -432,7 +432,7 @@ if ( -e $filecluster )
 			$ignoreifstate = "";
 		}
 		@ifname = split ( ":", $ifname );
-		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'$pen_bin\' 2>&1 `;
+		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'/bin/true\' 2>&1 `;
 		if ( $? == 0 )
 		{
 
