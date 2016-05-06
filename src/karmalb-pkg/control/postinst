@@ -5,4 +5,7 @@
 
 update-rc.d zenloadbalancer defaults
 
+sed -i -e '1i\
+@LONGNAME@ @VERSION@' /etc/issue
+
 exit 0

@@ -17,9 +17,11 @@ insserv -r networking
 #insserv -r atd
 insserv -r rsync
 insserv -r x11-common
-insserv -r exim4
-systemctl disable exim4
-/etc/init.d/exim4 stop
+if dpkg -s exim4 >/dev/null 2>&1; then
+	insserv -r exim4
+	systemctl disable exim4
+	/etc/init.d/exim4 stop
+fi
 insserv -r snmpd
 systemctl disable snmpd
 /etc/init.d/snmpd stop

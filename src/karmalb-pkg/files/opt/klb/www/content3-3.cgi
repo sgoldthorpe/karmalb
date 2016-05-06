@@ -217,7 +217,7 @@ if ( -e $filecluster )
 		$user = "root";
 
 		#sshopen2("root\@$rip", *READER, *WRITER, "ls") || die "ssh: $!";
-		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'$pen_bin\' 2>&1 `;
+		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'/bin/true\' 2>&1 `;
 
 		#@eject = system("ssh root\@$rip 'touch /tmp/kk' 2>&1 ");
 		if ( $? == 0 )
@@ -353,7 +353,6 @@ if ( -e $filecluster )
 			$ifcl = @ifcl[0];
 			my $ripeth0 = $ssh->exec( "ip addr show $ifcl | grep $ifcl\$ | cut -d'/' -f1 | sed  's/\ //g' | sed 's/inet//g' " );
 			@ripeth0 = split ( "\ ", $ripeth0 );
-			@ripeth0 = split ( "\/", @ripeth0[8] );
 			$ripeth0 = @ripeth0[0];
 			chomp ( $ripeth0 );
 
@@ -433,7 +432,7 @@ if ( -e $filecluster )
 			$ignoreifstate = "";
 		}
 		@ifname = split ( ":", $ifname );
-		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'$pen_bin\' 2>&1 `;
+		@eject = `$ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \'/bin/true\' 2>&1 `;
 		if ( $? == 0 )
 		{
 
@@ -580,7 +579,7 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 	#zenlatency is running on remote?:
 	my @ucarppidr = `ssh -o \"ConnectTimeout=10\" -o \"StrictHostKeyChecking=no\" root\@$rip \"pidof -x ucarp \" 2>&1`;
 	print "KLB latency ";
-	if ( @ucarppidl[0] =~ /^[0-9]/ )
+	if ( @ucarppidr[0] =~ /^[0-9]/ )
 	{
 		print "is <b>UP</b>\n";
 	}

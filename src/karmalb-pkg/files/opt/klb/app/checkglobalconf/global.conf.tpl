@@ -30,10 +30,6 @@ $globalcfg = "/opt/klb/config/global.conf";#update
 $version="1.0a2";#update
 #Cipher PCI
 $cipher_pci="DEFAULT";#update
-#BUY SSL Certificates
-$buy_ssl="http://ecommerce.sofintel.net/ssl/ssl-certificate.aspx?ci=8347&prog_id=503889";
-#URL of dinamic content in global view
-$url="https://www.sofintel.net/json/eeinfo.php";
 
 #dns file server?
 $filedns="/etc/resolv.conf";
