@@ -40,7 +40,9 @@ sed -i 's/^\# Required-Stop:.*/# Required-Stop:\t\$network \$remote_fs \$syslog 
 insserv -r snmpd
 
 # add an interface file if we were installed with DHCP etc.
-CDIR=/opt/klb/config
+KDIR=/opt/klb
+CDIR=$KDIR/config
+MCFG=$KDIR/app/mini_httpd/mini_httpd.conf
 NCONF=/etc/network/interfaces
 
 if ! grep -qi "inet[[:space:]][[:space:]]*static" $NCONF; then
@@ -88,6 +90,7 @@ if ! grep -qi "inet[[:space:]][[:space:]]*static" $NCONF; then
 	echo "auto lo" >> $NCONF
 	echo "iface lo inet loopback" >> $NCONF
 	pkill dhclient >/dev/null 2>&1
+	sed -i "s/^host=.*/host=$IP/" $MCFG
 fi
 
 #
