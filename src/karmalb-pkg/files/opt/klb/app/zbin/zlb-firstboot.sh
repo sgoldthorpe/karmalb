@@ -6,12 +6,12 @@ then
 	exit 0
 fi
 
-#stop installed services in stallation process
+#stop installed services now taken over
 insserv -r pound
 #insserv -r ucarp	
 insserv -r gdnsd
-systemctl disable gdnsd
-/etc/init.d/gdnsd stop
+systemctl disable gdnsd >/dev/null 2>&1
+/etc/init.d/gdnsd stop >/dev/null 2>&1
 insserv -r networking
 #insserv -r nfs-common
 #insserv -r atd
@@ -19,12 +19,12 @@ insserv -r rsync
 insserv -r x11-common
 if dpkg -s exim4 >/dev/null 2>&1; then
 	insserv -r exim4
-	systemctl disable exim4
-	/etc/init.d/exim4 stop
+	systemctl disable exim4 >/dev/null 2>&1
+	/etc/init.d/exim4 stop >/dev/null 2>&1
 fi
 insserv -r snmpd
-systemctl disable snmpd
-/etc/init.d/snmpd stop
+systemctl disable snmpd >/dev/null 2>&1
+/etc/init.d/snmpd stop >/dev/null 2>&1
 rm -f /etc/snmp/snmpd.conf
 
 
@@ -33,7 +33,7 @@ sed  -i 's/$remote_fs $syslog/$remote_fs $syslog zenloadbalancer/g' /etc/init.d/
 sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
 cp /etc/motd.tail /etc/motd
-invoke-rc.d ssh restart
+invoke-rc.d ssh restart >/dev/null 2>&1
 
 sed -i 's/^\# Required-Start:.*/# Required-Start:\t\$network \$remote_fs \$syslog zenloadbalancer/g' /etc/init.d/snmpd
 sed -i 's/^\# Required-Stop:.*/# Required-Stop:\t\$network \$remote_fs \$syslog zenloadbalancer/g' /etc/init.d/snmpd
