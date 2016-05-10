@@ -27,16 +27,11 @@ systemctl disable snmpd >/dev/null 2>&1
 /etc/init.d/snmpd stop >/dev/null 2>&1
 rm -f /etc/snmp/snmpd.conf
 
-
-#change init scripts 
-sed  -i 's/$remote_fs $syslog/$remote_fs $syslog zenloadbalancer/g' /etc/init.d/ssh
 sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
 cp /etc/motd.tail /etc/motd
 invoke-rc.d ssh restart >/dev/null 2>&1
 
-sed -i 's/^\# Required-Start:.*/# Required-Start:\t\$network \$remote_fs \$syslog zenloadbalancer/g' /etc/init.d/snmpd
-sed -i 's/^\# Required-Stop:.*/# Required-Stop:\t\$network \$remote_fs \$syslog zenloadbalancer/g' /etc/init.d/snmpd
 insserv -r snmpd
 
 # add an interface file if we were installed with DHCP etc.

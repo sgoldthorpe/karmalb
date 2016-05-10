@@ -35,6 +35,7 @@ for F in control/*; do
 		$F > $WORKDIR/DEBIAN/`basename $F`
 done
 chmod +x $WORKDIR/DEBIAN/postinst
+chmod +x $WORKDIR/DEBIAN/prerm
 
 cat filelist | while read T F X; do
 	case $T in

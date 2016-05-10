@@ -1,9 +1,37 @@
 #!/bin/bash
 
+[ "$1" == "configure" ] && echo "Concluding @SHORTNAME@ installation..."
 
-[ "$1" == "configure" ] && echo "Concluding @SHORTNAME@ installation..." 
-
+update-rc.d -f zenloadbalancer remove
 update-rc.d zenloadbalancer defaults
+
+OVERRIDEDIR=/etc/insserv/overrides
+cat > $OVERRIDEDIR/ssh <<!EOF
+### BEGIN INIT INFO
+# Provides:		sshd
+# Required-Start:	$remote_fs $syslog zenloadbalancer
+# Required-Stop:	$remote_fs $syslog zenloadbalancer
+# Default-Start:	2 3 4 5
+# Default-Stop:		
+# Short-Description:	OpenBSD Secure Shell server
+### END INIT INFO
+!EOF
+update-rc.d ssh defaults
+
+cat > $OVERRIDEDIR/snmpd <<!EOF
+### BEGIN INIT INFO
+# Provides:           snmpd
+# Required-Start:     $network $remote_fs $syslog zenloadbalancer
+# Required-Stop:      $network $remote_fs $syslog zenloadbalancer
+# Default-Start:      2 3 4 5
+# Default-Stop:       0 1 6
+# Short-Description:  SNMP agents
+# Description:        NET SNMP (Simple Network Management Protocol) Agents
+### END INIT INFO
+!EOF
+update-rc.d snmpd defaults
+
+invoke-rc.d zenloadbalancer start
 
 sed -i -e '1i\
 @LONGNAME@ @VERSION@' /etc/issue
