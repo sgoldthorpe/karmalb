@@ -25,7 +25,7 @@ fi
 insserv -r snmpd
 systemctl disable snmpd
 /etc/init.d/snmpd stop
-rm /etc/snmp/snmpd.conf
+rm -f /etc/snmp/snmpd.conf
 
 
 #change init scripts 
