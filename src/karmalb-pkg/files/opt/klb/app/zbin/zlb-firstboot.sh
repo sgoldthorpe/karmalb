@@ -87,6 +87,7 @@ if ! grep -qi "inet[[:space:]][[:space:]]*static" $NCONF; then
 	echo "#zenmodified" > $NCONF
 	echo "auto lo" >> $NCONF
 	echo "iface lo inet loopback" >> $NCONF
+	pkill dhclient >/dev/null 2>&1
 fi
 
 #
