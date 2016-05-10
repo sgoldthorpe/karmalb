@@ -1,0 +1,3 @@
+opt/klb/app/mini_httpd/mini_httpd.conf
+opt/klb/config/global.conf
+opt/klb/www/.htpasswd
