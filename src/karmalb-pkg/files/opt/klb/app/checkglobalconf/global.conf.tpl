@@ -27,7 +27,7 @@ $rttables = "/etc/iproute2/rt_tables";
 #this file
 $globalcfg = "/opt/klb/config/global.conf";#update
 #version KLB
-$version="1.0a2";#update
+$version="1.0a3";#update
 #Cipher PCI
 $cipher_pci="DEFAULT";#update
 
@@ -41,10 +41,8 @@ $tar="/bin/tar";
 $ifconfig_bin="/sbin/ifconfig";
 #Where is ip binary?
 $ip_bin="/sbin/ip";
-#Where is pen (tcp) load balancer?
-$pen_bin="/opt/klb/app/pen/bin/pen";#update
-#Where is pen control load balancer?
-$pen_ctl="/opt/klb/app/pen/bin/penctl";#update
+$pen_bin="/opt/klb/app/pen/bin/pen";#delete
+$pen_ctl="/opt/klb/app/pen/bin/penctl";#delete
 #Where is fdisk binary?
 $fdisk_bin="/sbin/fdisk";
 #Where is df binary?
