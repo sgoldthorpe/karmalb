@@ -34,6 +34,8 @@
 #vble on globa.conf persist.
 #*if end of line on vble global.conf.tpl is #update, vble is updated
 #on global.conf
+#*if end of line on vble global.conf.tpl is #delete, line is removed 
+#on global.conf
 
 use File::Copy;
 
@@ -72,11 +74,18 @@ while ($linetpl=<FTPL>)
 					$linetpl =~ s/\#update//i;
 					$newline = $linetpl;
 					}
-				}
+				} elsif (@vble[1] =~ /\#delete/i)
+					{
+					$newline = undef;
+					}
+
 			}
 		
 		}
-	print FW "$newline";
+	if (defined $newline)
+		{
+		print FW "$newline";
+		}
 	}
 
 
