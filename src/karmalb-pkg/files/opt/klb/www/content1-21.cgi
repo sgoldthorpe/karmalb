@@ -53,7 +53,7 @@ if ( $action eq "Save" )
 		$action = "addfarm";
 	}
 
-	if ( $farmprotocol =~ /TCP|HTTP|UDP|HTTPS|GSLB|L4xNAT/ )
+	if ( $farmprotocol =~ /HTTP|HTTPS|GSLB|L4xNAT/ )
 	{
 		if ( &isnumber( $vipp ) eq "true" )
 		{
@@ -125,7 +125,6 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 	{
 		print "<select name=\"farmprotocol\">";
 		print "<option value=\"L4xNAT\">L4xNAT (Default)</option>\n";
-		#print "<option value=\"TCP\">TCP</option>\n";
 		print "<option value=\"HTTP\">HTTP</option>\n";
 		print "<option value=\"DATALINK\">DATALINK</option>\n";
 

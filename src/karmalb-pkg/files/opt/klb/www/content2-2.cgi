@@ -44,10 +44,6 @@ if ( $action eq "managefarm" )
 	else
 	{
 		$file = &getFarmFile( $farmname );
-		if ( $type eq "tcp" || $type eq "udp" )
-		{
-			require "./content1-23.cgi";
-		}
 		if ( $type eq "http" || $type eq "https" )
 		{
 			require "./content1-25.cgi";
