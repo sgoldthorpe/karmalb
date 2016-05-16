@@ -17,6 +17,8 @@ d etc/rc4.d
 l etc/rc4.d/S01zenloadbalancer ../init.d/zenloadbalancer
 d etc/rc5.d
 l etc/rc5.d/S01zenloadbalancer ../init.d/zenloadbalancer
+d etc/sysctl.d
+f etc/sysctl.d/70-karmalb.conf
 l license.txt opt/klb/license.txt
 d opt
 d opt/klb

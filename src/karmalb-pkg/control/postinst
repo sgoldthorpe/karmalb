@@ -31,6 +31,8 @@ cat > $OVERRIDEDIR/snmpd <<!EOF
 !EOF
 update-rc.d snmpd defaults
 
+invoke-rc.d procps reload
+
 invoke-rc.d zenloadbalancer start
 
 sed -i -e '1i\
