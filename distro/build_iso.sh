@@ -141,6 +141,8 @@ fonts-dejavu-core
 gdnsd
 geoip-database
 iputils-arping
+irqbalance
+libcap-ng0
 libcairo2
 libcommon-sense-perl
 libcurl3-gnutls
@@ -172,6 +174,7 @@ libnet-ipv6addr-perl
 libnet-netmask-perl
 libnet-ssh-perl
 libnetwork-ipv4addr-perl
+libnuma1
 libpango-1.0-0
 libpangocairo-1.0-0
 libpangoft2-1.0-0
