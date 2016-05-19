@@ -54,7 +54,7 @@ d opt/klb/app/mini_httpd
 f opt/klb/app/mini_httpd/.htpasswd
 l opt/klb/app/mini_httpd/mini_httpd /usr/sbin/mini_httpd
 f opt/klb/app/mini_httpd/mini_httpd.conf
-f opt/klb/app/mini_httpd/zenguicert.pem
+f opt/klb/app/mini_httpd/lbguicert.pem
 d opt/klb/app/openssl
 d opt/klb/app/openssl/openssl
 d opt/klb/app/openssl/openssl/misc
@@ -118,7 +118,7 @@ l opt/klb/backups/.htpasswd ../www/.htpasswd
 d opt/klb/config
 f opt/klb/config/global.conf
 f opt/klb/config/timeservers.conf
-f opt/klb/config/zencert.pem
+f opt/klb/config/lbcert.pem
 f opt/klb/config/zlb-start
 f opt/klb/config/zlb-stop
 f opt/klb/license.txt
