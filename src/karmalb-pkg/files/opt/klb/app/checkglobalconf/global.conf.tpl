@@ -9,7 +9,7 @@ $configdir="/opt/klb/config";#update
 #Log directory
 $logdir="/opt/klb/logs/";#update
 #log filename for this Graphic user interface.Some action with this GUI will be saved here.
-$logfile="/opt/klb/logs/zenloadbalancer.log";#update
+$logfile="/opt/klb/logs/karmaloadbalancer.log";#update
 #.<b>Time out execution KLB GUI CGIs.</b> <font size=1>When timeout is exceded the cgi execution is killed automatically.</font>
 $timeouterrors="60";
 #File configuration Zen Cluster
