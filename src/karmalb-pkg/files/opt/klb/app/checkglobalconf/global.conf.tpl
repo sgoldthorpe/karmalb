@@ -16,8 +16,9 @@ $timeouterrors="60";
 $filecluster="/opt/klb/config/cluster.conf";#update
 #File configuration GUI
 $confhttp="/opt/klb/app/mini_httpd/mini_httpd.conf";#update
-#.<b>ntp server</b>
-$ntp="pool.ntp.org";
+$ntp="pool.ntp.org"; #delete
+#chrony server file extract
+$filetimeserv="/opt/klb/config/timeservers.conf";
 #Do backup to
 $backupfor="$configdir $confhttp /etc/iproute2/rt_tables /etc/sysctl.d/70-karmalb.conf";
 #Save backups on
@@ -65,8 +66,7 @@ $ps="/bin/ps";
 $tail="/usr/bin/tail";
 #Where is zcat binary?
 $zcat="/bin/zcat";
-#Where is ntpserver?
-$datentp="/usr/sbin/ntpdate";
+$datentp="/usr/sbin/ntpdate";#delete
 #Where is arping?
 $arping_bin="/usr/bin/arping";
 #Where is ping?

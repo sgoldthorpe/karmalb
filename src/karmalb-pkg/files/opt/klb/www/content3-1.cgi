@@ -98,6 +98,26 @@ if ( $var eq "Save DNS" )
 	close FW;
 }
 
+#action Save Time
+if ( $var eq "Save Time" )
+{
+	open FW, ">$filetimeserv";
+	print FW "$line";
+	close FW;
+	my $output = `/opt/klb/app/zbin/update-chrony.sh $filetimeserv 2>/dev/null`;
+	my $ret = $? >> 8;
+	if ($? != 0 )
+	{
+		&errormsg( "Time settings update failed.  Please check the logs" );
+		&logfile( $output );
+gfil
+	}
+	else
+	{
+		&successmsg( "Time settings updated." );
+	}
+}
+
 #action Save APT
 if ( $var eq "Save APT" )
 {
@@ -214,7 +234,7 @@ while ( <FR> )
 
 	if ( $_ =~ /^\$/ && $nextline eq "true" )
 	{
-		$nextline = "fase";
+		$nextline = "false";
 		my @linea = split ( /=/, $_ );
 		$linea[1] =~ s/"||\;//g;
 		$linea[0] =~ s/^\$//g;
@@ -404,11 +424,24 @@ print "<br>";
 print "<form method=\"get\" action=\"index.cgi\">";
 print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
 print "<input type=\"hidden\" name=\"var\" value=\"Save DNS\">";
-print "<textarea  name=\"line\" cols=\"30\" rows=\"2\" align=\"center\">";
+print "<textarea  name=\"line\" cols=\"30\" rows=\"3\" align=\"center\">";
 open FR, "$filedns";
 print <FR>;
 print "</textarea>";
 print "<input type=\"submit\" value=\"Save DNS\" name=\"action\" class=\"button small\">";
+print "</form>";
+
+#time
+print "<b>Time server(s)</b>";
+print "<br>";
+print "<form method=\"get\" action=\"index.cgi\">";
+print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
+print "<input type=\"hidden\" name=\"var\" value=\"Save Time\">";
+print "<textarea  name=\"line\" cols=\"60\" rows=\"5\" align=\"center\">";
+open FR, "$filetimeserv";
+print <FR>;
+print "</textarea>";
+print "<input type=\"submit\" value=\"Save Time\" name=\"action\" class=\"button small\">";
 print "</form>";
 
 #apt

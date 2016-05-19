@@ -93,6 +93,7 @@ d opt/klb/app/ucarp
 d opt/klb/app/ucarp/sbin
 #f opt/klb/app/ucarp/sbin/ucarp
 d opt/klb/app/zbin
+f opt/klb/app/zbin/update-chrony.sh
 f opt/klb/app/zbin/zlb-firstboot.sh
 d opt/klb/app/zenbackup
 f opt/klb/app/zenbackup/zenbackup.pl
@@ -101,8 +102,6 @@ f opt/klb/app/zeninotify/zeninotify.pl
 d opt/klb/app/zenlatency
 f opt/klb/app/zenlatency/zenlatency-start.pl
 f opt/klb/app/zenlatency/zenlatency-stop.pl
-d opt/klb/app/zenntp
-f opt/klb/app/zenntp/zenntp.pl
 d opt/klb/app/zenrrd
 f opt/klb/app/zenrrd/cpu-rrd.pl
 f opt/klb/app/zenrrd/disk-rrd.pl
@@ -118,6 +117,7 @@ d opt/klb/backups
 l opt/klb/backups/.htpasswd ../www/.htpasswd
 d opt/klb/config
 f opt/klb/config/global.conf
+f opt/klb/config/timeservers.conf
 f opt/klb/config/zencert.pem
 f opt/klb/config/zlb-start
 f opt/klb/config/zlb-stop

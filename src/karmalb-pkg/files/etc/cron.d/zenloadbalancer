@@ -1,2 +1,1 @@
 */5 * * * *	root	/opt/klb/app/zenrrd/zenrrd.pl &>/dev/null
-*/10  * * * * 	root	/opt/klb/app/zenntp/zenntp.pl &>/dev/null

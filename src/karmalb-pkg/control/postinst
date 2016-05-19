@@ -33,6 +33,21 @@ update-rc.d snmpd defaults
 
 invoke-rc.d procps reload
 
+CHRONYCONF=/etc/chrony/chrony.conf
+if [ -f $CHRONYCONF ]; then
+	RESTARTCHRONY=0
+	if grep -q '^allow' $CHRONYCONF >/dev/null 2>&1; then
+		sed -i 's/^allow/#allow/' $CHRONYCONF
+		RESTARTCHRONY=1
+	fi
+	TSCONF=/opt/klb/config/timeservers.conf
+	if [ -f $TSCONF ]; then
+		/opt/klb/app/zbin/update-chrony.sh $TSCONF
+	else
+		test $RESTARTCHRONY -eq 1 && invoke-rc.d chrony restart
+	fi
+fi
+
 invoke-rc.d zenloadbalancer start
 
 sed -i -e '1i\
