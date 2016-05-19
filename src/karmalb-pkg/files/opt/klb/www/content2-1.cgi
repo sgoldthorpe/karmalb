@@ -37,6 +37,15 @@ print "
 #@files = grep(/\_d.png$/,readdir(DIR));
 #closedir(DIR);
 
+# print warning if RRD graphs don't exist yet (up to 1st 5 minutes of runtime).
+# still a few seconds where this page won't work, but better than nothing.
+if ( !&checkRRDsExist( ) )
+{
+	print "Graphs have not been generated yet.  Please return later.";
+}
+else
+{
+
 if ( $action && $action ne "Select Graph type" )
 {
 	print " <div class=\"container_12\">
@@ -133,6 +142,8 @@ else
 		}
 	}
 	print "</div></div></div>";
+}
+
 }
 
 print "<br class=\"cl\" >";

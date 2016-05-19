@@ -33,6 +33,15 @@ my $height = "150";
 $imagetype = "PNG";
 
 #
+sub checkRRDsExist()
+{
+	opendir ( DIR, "$rrdap_dir$rrd_dir" );
+	my @files = grep ( /.rrd$/, readdir ( DIR ) );
+	closedir ( DIR );
+	return ( scalar ( @files ) > 0 );
+}
+
+#
 sub printImgFile($file)
 {
 	my ( $file ) = @_;
