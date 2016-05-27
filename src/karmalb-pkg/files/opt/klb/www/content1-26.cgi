@@ -221,16 +221,16 @@ print "<div class=\"box stats\">";
 print "<div class=\"row\">";
 
 #Change farm's name form
-print "<b>Farm's name.</b><br>";
+print "<b>Farm's name.</b><br />";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"action\" value=\"editfarm-Name\">";
-print "<input type=\"text\" value=\"$farmname\" size=\"25\" name=\"newfarmname\">";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
+print "<input type=\"hidden\" name=\"action\" value=\"editfarm-Name\" />";
+print "<input type=\"text\" value=\"$farmname\" size=\"25\" name=\"newfarmname\" />";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
 
-#print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\">";
-print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\"></form>";
-print "<br><br>";
+#print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\" />";
+print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
+print "<br /><br />";
 
 #load balance algoritm
 $lb = &getFarmAlgorithm( $farmname );
@@ -240,9 +240,9 @@ if ( $lb == -1 )
 }
 $weight   = "Weight: connection dispatching by weight";
 $priority = "Priority: connections to the highest priority available";
-print "<b>Load Balance Algorithm.</b><br>";
+print "<b>Load Balance Algorithm.</b><br />";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"action\" value=\"editfarm-algorithm\">";
+print "<input type=\"hidden\" name=\"action\" value=\"editfarm-algorithm\" />";
 print "<select name=\"lb\">";
 if ( $lb eq "weight" )
 {
@@ -262,26 +262,26 @@ else
 }
 
 print "</select>";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\"></form>";
-print "<br>";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
+print "<br />";
 
 #change ip or port for VIP
 $vip   = &getFarmVip( "vip",  $farmname );
 $vport = &getFarmVip( "vipp", $farmname );
-print "<b>Farm Virtual IP and Interface</b> <font size=1> *service will be restarted</font><b>.</b>";
+print "<b>Farm Virtual IP and Interface</b> <font size=\"1\"> *service will be restarted</font><b>.</b>";
 
 #my @listinterfaces = &listallips();
 $clrip = &clrip();
 $guiip = &GUIip();
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"action\" value=\"editfarm-changevipvipp\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"action\" value=\"editfarm-changevipvipp\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
 
-#print "<input type=\"hidden\" value=\"$vip\" size=\"12\" name=\"vip\">";
-#print "<br>";
+#print "<input type=\"hidden\" value=\"$vip\" size=\"12\" name=\"vip\" />";
+#print "<br />";
 
 $nvips = &listactiveips( "phvlan" );
 my @vips = split ( " ", $nvips );
@@ -303,15 +303,15 @@ for ( $i = 0 ; $i <= $#vips ; $i++ )
 	}
 }
 print "</select>";
-print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\"></form>";
+print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
 
 #print "</form>";
 
 ####end form for global parameters
 
-print "</div><br>";
+print "</div><br />";
 print "</div>";
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 
 ##paint the server configuration
 my @run = &getFarmServers( $farmname );
@@ -323,12 +323,12 @@ print "<div class=\"box table\">";
 print "  <table cellspacing=\"0\">";
 print "    <thead>";
 print "    <tr>";
-print "		<td>Server</td>";
-print "		<td>Address</td>";
-print "		<td>Local Interface</td>";
-print "		<td>Weight</td>";
-print "		<td>Priority</td>";
-print "		<td>Actions</td>";
+print "		<th>Server</th>";
+print "		<th>Address</th>";
+print "		<th>Local Interface</th>";
+print "		<th>Weight</th>";
+print "		<th>Priority</th>";
+print "		<th>Actions</th>";
 print "    </tr>";
 print "    </thead>";
 print "	   <tbody>";
@@ -349,13 +349,13 @@ foreach $l_servers ( @run )
 
 		#id server
 		print "<td>@l_serv[0]</td>";
-		print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\">";
+		print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\" />";
 
 		#real server ip
-		print "<td><input type=\"text\" size=\"12\"  name=\"rip_server\" value=\"@l_serv[1]\"> </td>";
+		print "<td><input type=\"text\" size=\"12\"  name=\"rip_server\" value=\"@l_serv[1]\" /> </td>";
 
 		#local interface
-		#print "<td><input type=\"text\" size=\"4\"  name=\"port_server\" value=\"@l_serv[2]\"> </td>";
+		#print "<td><input type=\"text\" size=\"4\"  name=\"port_server\" value=\"@l_serv[2]\" /> </td>";
 		print "<td>";
 		print "<select name=\"if\">";
 		foreach $iface ( @laifaces )
@@ -373,10 +373,10 @@ foreach $l_servers ( @run )
 		print "</td>";
 
 		#Weight
-		print "<td><input type=\"text\" size=\"4\"  name=\"weight_server\" value=\"@l_serv[3]\"> </td>";
+		print "<td><input type=\"text\" size=\"4\"  name=\"weight_server\" value=\"@l_serv[3]\" /> </td>";
 
 		#Priority
-		print "<td><input type=\"text\" size=\"4\"  name=\"priority_server\" value=\"@l_serv[4]\"> </td>";
+		print "<td><input type=\"text\" size=\"4\"  name=\"priority_server\" value=\"@l_serv[4]\" /> </td>";
 		&createmenuserversfarm( "edit", $farmname, @l_serv[0] );
 	}
 	else
@@ -390,9 +390,9 @@ foreach $l_servers ( @run )
 		print "<td>@l_serv[4]</td>";
 		&createmenuserversfarm( "normal", $farmname, @l_serv[0] );
 	}
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-	print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\">";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\" />";
 	print "</form>";
 	print "</tr>";
 	$sindex = @l_serv[0];
@@ -411,13 +411,13 @@ if ( $action eq "editfarm-addserver" )
 
 	#id server
 	print "<td>$sindex</td>";
-	print "<input type=\"hidden\" name=\"id_server\" value=\"$sindex\">";
+	print "<input type=\"hidden\" name=\"id_server\" value=\"$sindex\" />";
 
 	#real server ip
-	print "<td><input type=\"text\" size=\"12\"  name=\"rip_server\" value=\"\"> </td>";
+	print "<td><input type=\"text\" size=\"12\"  name=\"rip_server\" value=\"\" /> </td>";
 
 	#local interface
-	#print "<td><input type=\"text\" size=\"4\"  name=\"if\" value=\"\"> </td>";
+	#print "<td><input type=\"text\" size=\"4\"  name=\"if\" value=\"\" /> </td>";
 	print "<td>";
 	print "<select name=\"if\">";
 	my $first = "true";
@@ -437,14 +437,14 @@ if ( $action eq "editfarm-addserver" )
 	print "</td>";
 
 	#Weight
-	print "<td><input type=\"text\" size=\"4\"  name=\"weight_server\" value=\"\"></td>";
+	print "<td><input type=\"text\" size=\"4\"  name=\"weight_server\" value=\"\" /></td>";
 
 	#Priority
-	print "<td><input type=\"text\" size=\"4\"  name=\"priority_server\" value=\"\"> </td>";
+	print "<td><input type=\"text\" size=\"4\"  name=\"priority_server\" value=\"\" /> </td>";
 	&createmenuserversfarm( "add", $farmname, $sindex );
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-	print "<input type=\"hidden\" name=\"id_server\" value=\"$sindex\">";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<input type=\"hidden\" name=\"id_server\" value=\"$sindex\" />";
 	print "</form>";
 	print "</tr>";
 }
@@ -453,9 +453,9 @@ print "<tr>";
 print "<td  colspan=\"5\"></td>";
 print "<form method=\"get\" action=\"index.cgi\#backendlist\">";
 &createmenuserversfarm( "new", $farmname, "" );
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-print "<input type=\"hidden\" name=\"id_server\" value=\"\">";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+print "<input type=\"hidden\" name=\"id_server\" value=\"\" />";
 print "</form>";
 print "</tr>";
 
@@ -469,8 +469,8 @@ print "</div>";
 #
 print "</div>";
 
-print "<div id=\"page-header\"></div>";
-print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
+print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
+print "<div class=\"page-header\"></div>";
 print "</form>";
 print "</div>";

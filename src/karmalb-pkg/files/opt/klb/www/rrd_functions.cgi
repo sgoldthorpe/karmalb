@@ -48,7 +48,7 @@ sub printImgFile($file)
 
 	open PNG, "<$file" or print_error( "Can't open $file: $!" );
 	$raw_string = do { local $/ = undef; <PNG>; };
-	$encoded = encode_base64( $raw_string );
+	$encoded = encode_base64( $raw_string, '' );
 	close PNG;
 	unlink ( $file );
 	return "$encoded";

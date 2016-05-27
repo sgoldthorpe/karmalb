@@ -74,14 +74,14 @@ my $thereisdl = "false";
 print "<table cellspacing=\"0\">";
 print "<thead>";
 print "<tr>";
-print "<td width=85>Name</td>";
-print "<td width=85>Virtual IP</td>";
-print "<td>Virtual Port(s)</td>";
-print "<td>Pending Conns</td>";
-print "<td>Established Conns</td>";
-print "<td>Status</td>";
-print "<td>Profile</td>";
-print "<td>Actions</td>";
+print "<th width=\"85\">Name</th>";
+print "<th width=\"85\">Virtual IP</th>";
+print "<th>Virtual Port(s)</th>";
+print "<th>Pending Conns</th>";
+print "<th>Established Conns</th>";
+print "<th>Status</th>";
+print "<th>Profile</th>";
+print "<th>Actions</th>";
 print "</tr>";
 print "</thead>";
 print "<tbody>";
@@ -146,11 +146,11 @@ foreach $file ( @files )
 			#print status of a farm
 			if ( $status ne "up" )
 			{
-				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\"></td>";
+				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" /></td>";
 			}
 			else
 			{
-				print "<td><img src=\"img/icons/small/start.png\" title=\"up\"></td>";
+				print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" /></td>";
 			}
 
 			#type of farm
@@ -175,13 +175,13 @@ if ( $thereisdl eq "true" )
 {
 	print "<thead>";
 	print "<tr>";
-	print "<td width=85>Name</td>";
-	print "<td width=85 colspan=2>IP</td>";
-	print "<td>Rx Bytes/sec</td>";
-	print "<td>Tx Bytes/sec</td>";
-	print "<td>Status</td>";
-	print "<td>Profile</td>";
-	print "<td></td>";
+	print "<th width=\"85\">Name</th>";
+	print "<th width=\"85\" colspan=\"2\">IP</th>";
+	print "<th>Rx Bytes/sec</th>";
+	print "<th>Tx Bytes/sec</th>";
+	print "<th>Status</th>";
+	print "<th>Profile</th>";
+	print "<th></th>";
 	print "</tr>";
 	print "</thead>";
 	print "<tbody>";
@@ -242,11 +242,11 @@ if ( $thereisdl eq "true" )
 			#print status of a farm
 			if ( $status ne "up" )
 			{
-				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\"></td>";
+				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" /></td>";
 			}
 			else
 			{
-				print "<td><img src=\"img/icons/small/start.png\" title=\"up\"></td>";
+				print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" /></td>";
 			}
 
 			#type of farm
@@ -264,16 +264,16 @@ if ( $thereisdl eq "true" )
 	print "</tbody>";
 }
 
-#~ print "<tr><td colspan=\"8\"></td><td><a href=\"index.cgi?id=$id&action=addfarm\"><img src=\"img/icons/small/farm_add.png\" title=\"Add new Farm\"></a></td></tr>";
+#~ print "<tr><td colspan=\"8\"></td><td><a href=\"index.cgi?id=$id&amp;action=addfarm\"><img src=\"img/icons/small/farm_add.png\" title=\"Add new Farm\" alt=\"*\" /></a></td></tr>";
 
 print "</table>";
 print "</div>";
 
 
-print "<br class=\"cl\" >";
+print "<br class=\"cl\" />";
 print "</div>";
 
-#print "<br class=\"cl\">";
+#print "<br class=\"cl\" />";
 #rint "        </div>
 #    <!--Content END-->";
 #  </div>

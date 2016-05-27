@@ -31,7 +31,8 @@ use CGI qw(:standard escapeHTML);
 print "Content-type: text/html\n\n";
 
 print "
-<HTML>
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
 <head>
 <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />
 
@@ -39,19 +40,19 @@ print "
 <link type=\"text/css\" rel=\"stylesheet\" media=\"all\" href=\"css/grid.css\" />
 <title>Upload Certificates</title></head>";
 
-print "<BODY onunload=\"opener.location=('index.cgi?id=1-3')\">";
+print "<body onunload=\"opener.location=('index.cgi?id=1-3')\">";
 
 print "<div id=\"header\">
 	 <div class=\"header-top tr\">";
 
-print "<br><br><br>";
-print "<div id=\"page-header\"></div>
+print "<br /><br /><br />";
+print "<div class=\"page-header\"></div>
 
 	 </div>
       </div>";
 
 #print "<b>Upload Backup.</b>";
-#print "<div id=\"page-header\"></div>";
+#print "<div class=\"page-header\"></div>";
 
 my $query             = new CGI;
 my $upload_dir        = $configdir;
@@ -80,7 +81,7 @@ if ( $action eq "Upload" && $filename !~ /^$/ && $certname !~ /^$/ )
 			print UPLOADFILE;
 		}
 		close UPLOADFILE;
-		print "<br>";
+		print "<br />";
 		my $tmpdir = "/tmp/$certname";
 		mkdir ( $tmpdir );
 		&successmsg( "File $filename uploaded!" );
@@ -176,24 +177,24 @@ if ( $action eq "Upload" && $filename !~ /^$/ && $certname !~ /^$/ )
 	}
 	else
 	{
-		print "<br>";
+		print "<br />";
 		&errormsg( "File without correct extension!" );
 	}
 }
 
-print "<br>";
-print "<br>";
+print "<br />";
+print "<br />";
 
 print "<form method=\"post\" action=\"uploadcertsfromcsr.cgi\" enctype=\"multipart/form-data\">";
 
-print "<b>Upload file on pem, crt or zip format. <font size=1> filename.pem, filename.crt, filename.zip</fon>:</b> <input   type=\"file\" name=\"fileup\" value=\"Ex\" >";
-print "<br>";
-print "<br>";
-print "<input type=\"hidden\" value=\"$certname\" name=\"certname\">";
-print "<input type=\"submit\" value=\"Upload\" name=\"action\" class=\"button small\">";
+print "<b>Upload file on pem, crt or zip format. <font size=\"1\"> filename.pem, filename.crt, filename.zip</font>:</b> <input   type=\"file\" name=\"fileup\" value=\"Ex\" />";
+print "<br />";
+print "<br />";
+print "<input type=\"hidden\" value=\"$certname\" name=\"certname\" />";
+print "<input type=\"submit\" value=\"Upload\" name=\"action\" class=\"button small\" />";
 print "</form>";
-print "<br>";
+print "<br />";
 
-print "</BODY>";
-print "</HTML>";
+print "</body>";
+print "</html>";
 

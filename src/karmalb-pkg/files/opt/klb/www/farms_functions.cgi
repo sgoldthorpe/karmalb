@@ -1138,7 +1138,7 @@ sub getFarmServers($fname)
 			if ( $line ne "" && $line =~ /^\;server\;/ && $first ne "true" )
 			{
 
-				#print "$line<br>";
+				#print "$line<br />";
 				$line =~ s/^\;server/$sindex/g, $line;
 				push ( @output, $line );
 				$sindex = $sindex + 1;
@@ -1631,7 +1631,7 @@ sub setFarmErr($fname,$content,$nerr)
 		{
 			$output = 0;
 			my @err = split ( "\n", "$content" );
-			print "<br><br>";
+			print "<br /><br />";
 			open FO, ">$configdir\/$fname\_Err$nerr.html";
 			foreach $line ( @err )
 			{

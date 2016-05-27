@@ -212,9 +212,9 @@ sub createMenuCert($action,$certfile)
 	{
 		&uploadCertFromCSR( $certfile );
 	}
-	print "<a href=\"index.cgi?id=$id&action=deletecert&certname=$certfile\"><img src=\"img/icons/small/page_white_delete.png\" title=\"Delete $certtype $certfile\" onclick=\"return confirm('Are you sure you want to delete the certificate: $certfile?')\"></a> ";
-	print "<a href=\"index.cgi?id=$id&action=View_Cert&certname=$certfile\"><img src=\"img/icons/small/page_white_find.png\" title=\"View $certtype $certfile content\"></a> ";
-	print "<a href=\"downloadcerts.cgi?certname=$certfile\" target=\"_blank\"><img src=\"img/icons/small/page_white_put.png\" title=\"Download $certtype $certfile\"></a> ";
+	print "<a href=\"index.cgi?id=$id&amp;action=deletecert&amp;certname=$certfile\"><img src=\"img/icons/small/page_white_delete.png\" title=\"Delete $certtype $certfile\" onclick=\"return confirm('Are you sure you want to delete the certificate: $certfile?')\" alt=\"[Del]\" /></a> ";
+	print "<a href=\"index.cgi?id=$id&amp;action=View_Cert&amp;certname=$certfile\"><img src=\"img/icons/small/page_white_find.png\" title=\"View $certtype $certfile content\" alt=\"[View]\" /></a> ";
+	print "<a href=\"downloadcerts.cgi?certname=$certfile\" target=\"_blank\"><img src=\"img/icons/small/page_white_put.png\" title=\"Download $certtype $certfile\" alt=\"[Download]\" /></a> ";
 
 	#&downloadCert($certfile);
 }
@@ -222,7 +222,7 @@ sub createMenuCert($action,$certfile)
 sub uploadCertFromCSR($certfile)
 {
 	( $certfile ) = @_;
-	print "<script language=\"javascript\">
+	print "<script type=\"text/javascript\">
 	                var popupWindow = null;
 	                function positionedPopup(url,winName,w,h,t,l,scroll)
 	                {
@@ -232,13 +232,13 @@ sub uploadCertFromCSR($certfile)
 	        </script>";
 
 	#print the information icon with the popup with info.
-	print "<a href=\"uploadcertsfromcsr.cgi?certname=$certfile\" onclick=\"positionedPopup(this.href,'myWindow','500','300','100','200','yes');return false\"><img src='img/icons/small/page_white_get.png' title=\"Upload certificate for CSR $certfile\"></a> ";
+	print "<a href=\"uploadcertsfromcsr.cgi?certname=$certfile\" onclick=\"positionedPopup(this.href,'myWindow','500','300','100','200','yes');return false\"><img src='img/icons/small/page_white_get.png' title=\"Upload certificate for CSR $certfile\" alt=\"[Upload]\" /></a> ";
 }
 
 sub uploadPEMCerts($certfile)
 {
 	( $certfile ) = @_;
-	print "<script language=\"javascript\">
+	print "<script type=\"text/javascript\">
 	                var popupWindow = null;
 	                function positionedPopup(url,winName,w,h,t,l,scroll)
 	                {
@@ -248,13 +248,13 @@ sub uploadPEMCerts($certfile)
 	        </script>";
 
 	#print the information icon with the popup with info.
-	print "<a href=\"uploadcerts.cgi\" onclick=\"positionedPopup(this.href,'myWindow','500','300','100','200','yes');return false\"><img src='img/icons/small/page_white_get.png' title=\"Upload .pem certificate\"></a> ";
+	print "<a href=\"uploadcerts.cgi\" onclick=\"positionedPopup(this.href,'myWindow','500','300','100','200','yes');return false\"><img src='img/icons/small/page_white_get.png' title=\"Upload .pem certificate\" alt=\"[Upload PEM]\" /></a> ";
 }
 
 sub downloadCert($certfile)
 {
 	( $certfile ) = @_;
-	print "<script language=\"javascript\">
+	print "<script type=\"text/javascript\">
 	                var popupWindow = null;
 	                function positionedPopup(url,winName,w,h,t,l,scroll)
 	                {
@@ -264,7 +264,7 @@ sub downloadCert($certfile)
 	        </script>";
 
 	#print the information icon with the popup with info.
-	print "<a href=\"downloadcerts.cgi?certname=$certfile\" onclick=\"positionedPopup(this.href,'myWindow','500','300','100','200','yes');return false\"><img src='img/icons/small/page_white_put.png' title=\"Download $certfile\"></a> ";
+	print "<a href=\"downloadcerts.cgi?certname=$certfile\" onclick=\"positionedPopup(this.href,'myWindow','500','300','100','200','yes');return false\"><img src='img/icons/small/page_white_put.png' title=\"Download $certfile\" alt=\"[Download]\" /></a> ";
 }
 
 sub getCertData($certfile)

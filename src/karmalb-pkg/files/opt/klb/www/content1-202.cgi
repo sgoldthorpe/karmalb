@@ -436,29 +436,29 @@ print "<div class=\"row\">";
 print "<div style=\"float:left;\">";
 
 #Change farm's name form
-print "<b>Farm's name</b><font size=1> *service will be restarted</font><b>.</b><br>";
+print "<b>Farm's name</b><font size=\"1\"> *service will be restarted</font><b>.</b><br />";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"action\" value=\"editfarm-Name\">";
-print "<input type=\"text\" value=\"$farmname\" size=\"25\" name=\"newfarmname\">";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-print "<input type=\"hidden\" name=\"done\" value=\"yes\">";
-print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\">";
-print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\"></form>";
-print "<br>";
+print "<input type=\"hidden\" name=\"action\" value=\"editfarm-Name\" />";
+print "<input type=\"text\" value=\"$farmname\" size=\"25\" name=\"newfarmname\" />";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+print "<input type=\"hidden\" name=\"done\" value=\"yes\" />";
+print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\" />";
+print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
+print "<br />";
 
 print "<b>Farm Virtual IP and Virtual port.</b>";
 $vip   = &getFarmVip( "vip",  $farmname );
 $vport = &getFarmVip( "vipp", $farmname );
-print "<br>";
+print "<br />";
 @listinterfaces = &listallips();
 
 #print @listinterfaces;
 $clrip = &clrip();
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"action\" value=\"editfarm-changevipvipp\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"action\" value=\"editfarm-changevipvipp\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
 print "<select name=\"vip\">";
 foreach $ip ( @listinterfaces )
 {
@@ -476,31 +476,31 @@ foreach $ip ( @listinterfaces )
 	}
 }
 print "</select>";
-print " <input type=\"text\" value=\"$vport\" size=\"4\" name=\"vipp\">";
-print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\"></form>";
+print " <input type=\"text\" value=\"$vport\" size=\"4\" name=\"vipp\" />";
+print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
 
 #Add SERVICES
-print "<br>";
-print "<b>Add service and algorithm.</b> <font size=1>*manage services and backends</font>";
+print "<br />";
+print "<b>Add service and algorithm.</b> <font size=\"1\">*manage services and backends</font>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"action\" value=\"editfarm-addservice\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-print "<input type=\"hidden\" name=\"service_type\" value=\"service\">";
-print "<input type=\"text\" value=\"\" size=\"25\" name=\"service\">";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"action\" value=\"editfarm-addservice\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+print "<input type=\"hidden\" name=\"service_type\" value=\"service\" />";
+print "<input type=\"text\" value=\"\" size=\"25\" name=\"service\" />";
 print " <select name=\"lb\"><option value=\"roundrobin\" selected=\"selected\">Round Robin: equal sharing</option><option value=\"prio\">Priority: connections always to the most prio available</option></select>";
-print "<input type=\"submit\" value=\"Add\" name=\"buttom\" class=\"button small\"></form>";
+print "<input type=\"submit\" value=\"Add\" name=\"buttom\" class=\"button small\" /></form>";
 
 #Add ZONES
-print "<br>";
-print "<b>Add zone.</b> <font size=1>*manage DNS zones</font>";
+print "<br >";
+print "<b>Add zone.</b> <font size=\"1\">*manage DNS zones</font>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"hidden\" name=\"action\" value=\"editfarm-addservice\">";
-print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-print "<input type=\"hidden\" name=\"service_type\" value=\"zone\">";
-print "<input type=\"text\" value=\"\" size=\"25\" name=\"zone\">";
-print "<input type=\"submit\" value=\"Add\" name=\"buttom\" class=\"button small\"></form>";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"hidden\" name=\"action\" value=\"editfarm-addservice\" />";
+print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+print "<input type=\"hidden\" name=\"service_type\" value=\"zone\" />";
+print "<input type=\"text\" value=\"\" size=\"25\" name=\"zone\" />";
+print "<input type=\"submit\" value=\"Add\" name=\"buttom\" class=\"button small\" /></form>";
 
 print "</div><div style=\"align:right; margin-left: 50%; \">";
 
@@ -509,14 +509,14 @@ print "<div style=\"clear:both;\"></div>";
 
 #Services
 #$service=$farmname;
-print "</div><br>";
+print "</div><br />";
 print "</div>";
 
 ####end form for global parameters
 
 # SERVICES
 print "<a name=\"servicelist-$service\"></a>";
-print "<div id=\"page-header\"></div>\n";
+print "<div class=\"page-header\"></div>\n";
 
 my $id_serverr = $id_server;
 
@@ -529,8 +529,8 @@ foreach $srv ( @services )
 	my $lb   = &getFarmVS( $farmname, $srv, "algorithm" );
 	print "<div class=\"box-header\">";
 
-	#print "<a href=index.cgi?id=1-2&action=editfarm&service_type=service&service=$srv&farmname=$farmname><img src=\"img/icons/small/bullet_toggle_plus.png \" title=\"Maximize service $srv\"></a>";
-	print "<a href=index.cgi?id=1-2&action=editfarm-deleteservice&service_type=service&service=$srv&farmname=$farmname><img src=\"img/icons/small/cross_octagon.png \" title=\"Delete service $srv\" onclick=\"return confirm('Are you sure you want to delete the Service $srv?')\" ></a> &nbsp;";
+	#print "<a href=\"index.cgi?id=1-2&amp;action=editfarm&amp;service_type=service&amp;service=$srv&amp;farmname=$farmname\"><img src=\"img/icons/small/bullet_toggle_plus.png \" title=\"Maximize service $srv\" /></a>";
+	print "<a href=\"index.cgi?id=1-2&amp;action=editfarm-deleteservice&amp;service_type=service&amp;service=$srv&amp;farmname=$farmname\"><img src=\"img/icons/small/cross_octagon.png \" title=\"Delete service $srv\" onclick=\"return confirm('Are you sure you want to delete the Service $srv?')\" /></a> &nbsp;";
 	print " Service \"$srv\" with ";
 	if ( $lb eq "roundrobin" )
 	{
@@ -554,20 +554,20 @@ foreach $srv ( @services )
 	# Default port health check
 	my $dpc = &getFarmVS( $farmname, $srv, "dpc" );
 	print "<form method=\"get\" action=\"index.cgi\">";
-	print "<b>Default TCP port health check.</b>  <font size=1>*empty value disabled</font> <br><input type=\"text\" size=\"20\"  name=\"string\" value=\"$dpc\">";
-	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-dpc\">";
-	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-	print "<input type=\"hidden\" name=\"service\" value=\"$srv\">";
-	print "<input type=\"hidden\" name=\"service_type\" value=\"service\">";
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\">";
+	print "<b>Default TCP port health check.</b>  <font size=\"1\">*empty value disabled</font> <br /><input type=\"text\" size=\"20\"  name=\"string\" value=\"$dpc\" />";
+	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-dpc\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<input type=\"hidden\" name=\"service\" value=\"$srv\" />";
+	print "<input type=\"hidden\" name=\"service_type\" value=\"service\" />";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" />";
 	print "</form>";
 	print "</div>";
 
 	# Maximize button
 	#if ($service_type eq "service" && $service eq "$srv"){
-	print "<div class=\"box table\"> <table cellpadding=0 >";
-	print "<thead><tr><td>ID</td><td>IP Address</td><td>Actions</td></tr></thead><tbody>";
+	print "<div class=\"box table\"> <table cellpadding=\"0\" >";
+	print "<thead><tr><th>ID</th><th>IP Address</th><th>Actions</th></tr></thead><tbody>";
 	my $backendsvs = &getFarmVS( $farmname, $srv, "backends" );
 	my @be = split ( "\n", $backendsvs );
 	foreach $subline ( @be )
@@ -585,7 +585,7 @@ foreach $srv ( @services )
 			print "<form method=\"get\" action=\"index.cgi\#servicelist-$srv\">";
 			print "<tr class=\"selected\">";
 
-			#print "<td><input type=\"text\" size=\"20\"  name=\"id_server\" value=\"@subbe[0]\" disabled></td>";
+			#print "<td><input type=\"text\" size=\"20\"  name=\"id_server\" value=\"@subbe[0]\" disabled=\"disabled\" /></td>";
 			if ( $lb eq "prio" )
 			{
 				print "<td><select name=\"id_server\" disabled>";
@@ -606,13 +606,13 @@ foreach $srv ( @services )
 				print "<td>@subbe[0]</td>";
 			}
 
-			print "<td><input type=\"text\" size=\"20\"  name=\"rip_server\" value=\"@subbe[1]\"></td>";
-			print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-			print "<input type=\"hidden\" name=\"service\" value=\"$service\">";
-			print "<input type=\"hidden\" name=\"lb\" value=\"$lb\">";
-			print "<input type=\"hidden\" name=\"id_server\" value=\"$id_serverr\">";
-			print "<input type=\"hidden\" name=\"service_type\" value=\"service\">";
+			print "<td><input type=\"text\" size=\"20\"  name=\"rip_server\" value=\"@subbe[1]\" /></td>";
+			print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+			print "<input type=\"hidden\" name=\"service\" value=\"$service\" />";
+			print "<input type=\"hidden\" name=\"lb\" value=\"$lb\" />";
+			print "<input type=\"hidden\" name=\"id_server\" value=\"$id_serverr\" />";
+			print "<input type=\"hidden\" name=\"service_type\" value=\"service\" />";
 			$sv = $srv;
 			&createmenuserversfarm( "edit", $farmname, $id_serverr );
 			print "</tr>";
@@ -625,12 +625,12 @@ foreach $srv ( @services )
 			$sv = $srv;
 			&createmenuserversfarm( "normal", $farmname, @subbe[0] );
 			print "</tr>";
-			print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-			print "<input type=\"hidden\" name=\"service\" value=\"$srv\">";
-			print "<input type=\"hidden\" name=\"lb\" value=\"$lb\">";
-			print "<input type=\"hidden\" name=\"id_server\" value=\"@subbe[0]\">";
-			print "<input type=\"hidden\" name=\"service_type\" value=\"service\">";
+			print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+			print "<input type=\"hidden\" name=\"service\" value=\"$srv\" />";
+			print "<input type=\"hidden\" name=\"lb\" value=\"$lb\" />";
+			print "<input type=\"hidden\" name=\"id_server\" value=\"@subbe[0]\" />";
+			print "<input type=\"hidden\" name=\"service_type\" value=\"service\" />";
 			print "</form>";
 		}
 	}
@@ -663,15 +663,15 @@ foreach $srv ( @services )
 		{
 			print "<td>-</td>";
 		}
-		print "<td><input type=\"text\" size=\"20\" name=\"rip_server\" value=\"\"></td>";
+		print "<td><input type=\"text\" size=\"20\" name=\"rip_server\" value=\"\" /></td>";
 		$sv = $srv;
 		&createmenuserversfarm( "add", $farmname, @l_serv[0] );
-		print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-		print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-		print "<input type=\"hidden\" name=\"service\" value=\"$service\">";
-		print "<input type=\"hidden\" name=\"lb\" value=\"$lb\">";
-		print "<input type=\"hidden\" name=\"id_server\" value=\"$id_srv\">";
-		print "<input type=\"hidden\" name=\"service_type\" value=\"service\">";
+		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+		print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+		print "<input type=\"hidden\" name=\"service\" value=\"$service\" />";
+		print "<input type=\"hidden\" name=\"lb\" value=\"$lb\" />";
+		print "<input type=\"hidden\" name=\"id_server\" value=\"$id_srv\" />";
+		print "<input type=\"hidden\" name=\"service_type\" value=\"service\" />";
 		print "</form>";
 		print "</tr>";
 	}
@@ -682,13 +682,13 @@ foreach $srv ( @services )
 		print "<tr><td colspan=\"2\"></td>";
 		print "<form method=\"get\" action=\"index.cgi\#servicelist-$service\">";
 		&createmenuserversfarm( "new", $farmname, "" );
-		print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-		print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-		print "<input type=\"hidden\" name=\"service_type\" value=\"service\">";
-		print "<input type=\"hidden\" name=\"service\" value=\"$srv\">";
-		print "<input type=\"hidden\" name=\"lb\" value=\"$lb\">";
+		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+		print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+		print "<input type=\"hidden\" name=\"service_type\" value=\"service\" />";
+		print "<input type=\"hidden\" name=\"service\" value=\"$srv\" />";
+		print "<input type=\"hidden\" name=\"lb\" value=\"$lb\" />";
 
-		#print "<input type=\"hidden\" name=\"action\" value=\"editfarm-addserver\">";
+		#print "<input type=\"hidden\" name=\"action\" value=\"editfarm-addserver\" />";
 		print "</form>";
 		print "</tr>";
 	}
@@ -696,12 +696,12 @@ foreach $srv ( @services )
 	print "</div>";
 
 	#}
-	print "<br>";
+	print "<br />";
 }
 
 # ZONES
 print "<a name=\"zonelist-$zone\"></a>";
-print "<div id=\"page-header\"></div>\n";
+print "<div class=\"page-header\"></div>\n";
 
 my @zones   = &getFarmZones( $farmname );
 my $first   = 0;
@@ -715,8 +715,8 @@ foreach $zone ( @zones )
 	$first = 1;
 	print "<div class=\"box-header\">";
 
-	#print "<a href=index.cgi?id=1-2&action=editfarm&service_type=zone&service=$zone&farmname=$farmname><img src=\"img/icons/small/bullet_toggle_plus.png \" title=\"Maximize zone $zone\"></a>";
-	print "<a href=index.cgi?id=1-2&action=editfarm-deleteservice&service_type=zone&service=$zone&farmname=$farmname><img src=\"img/icons/small/cross_octagon.png \" title=\"Delete zone $zone\" onclick=\"return confirm('Are you sure you want to delete the Zone $zone?')\" ></a> &nbsp;";
+	#print "<a href=\"index.cgi?id=1-2&amp;action=editfarm&service_type=zone&amp;service=$zone&amp;farmname=$farmname\"><img src=\"img/icons/small/bullet_toggle_plus.png \" title=\"Maximize zone $zone\" /></a>";
+	print "<a href=\"index.cgi?id=1-2&amp;action=editfarm-deleteservice&amp;service_type=zone&amp;service=$zone&amp;farmname=$farmname\"><img src=\"img/icons/small/cross_octagon.png \" title=\"Delete zone $zone\" onclick=\"return confirm('Are you sure you want to delete the Zone $zone?')\" /></a> &nbsp;";
 	print " Zone \"$zone\"</div>";
 
 	#Maximize button
@@ -727,18 +727,18 @@ foreach $zone ( @zones )
 	# Default name server
 	my $ns = &getFarmVS( $farmname, $zone, "ns" );
 	print "<form method=\"get\" action=\"index.cgi\">";
-	print "<b>Default Name Server.</b>  <font size=1>*empty value disabled</font> <br><input type=\"text\" size=\"20\"  name=\"string\" value=\"$ns\">";
-	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-ns\">";
-	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-	print "<input type=\"hidden\" name=\"service\" value=\"$zone\">";
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<input type=\"hidden\" name=\"service_type\" value=\"zone\">";
-	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\">";
+	print "<b>Default Name Server.</b>  <font size=\"1\">*empty value disabled</font> <br /><input type=\"text\" size=\"20\"  name=\"string\" value=\"$ns\" />";
+	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-ns\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<input type=\"hidden\" name=\"service\" value=\"$zone\" />";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"service_type\" value=\"zone\" />";
+	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" />";
 	print "</form>";
 	print "</div>";
 
-	print "<div class=\"box table\"> <table cellpadding=0 >";
-	print "<thead ><tr><td>Resource Name</td><td>TTL</td><td>Type</td><td>RData</td><td>Actions</td></tr></thead><tbody>";
+	print "<div class=\"box table\"> <table cellpadding=\"0\" >";
+	print "<thead ><tr><th>Resource Name</th><th>TTL</th><th>Type</th><th>RData</th><th>Actions</th></tr></thead><tbody>";
 	my $backendsvs = &getFarmVS( $farmname, $zone, "resources" );
 	my @be = split ( "\n", $backendsvs );
 	foreach $subline ( @be )
@@ -762,15 +762,15 @@ foreach $zone ( @zones )
 		{
 			print "<form method=\"get\" action=\"index.cgi\#zonelist-$zone\">";
 			print "<tr class=\"selected\">";
-			print "<td><input type=\"text\" size=\"10\"  name=\"resource_server\" value=\"$la_resource\"> </td>";
+			print "<td><input type=\"text\" size=\"10\"  name=\"resource_server\" value=\"$la_resource\" /> </td>";
 			if ( @subbe1[1] ne "NS" && @subbe1[1] ne "A" && @subbe1[1] ne "CNAME" && @subbe1[1] ne "DYNA" && @subbe1[1] ne "DYNC" )
 			{
-				print "<td><input type=\"text\" size=\"10\" name=\"ttl_server\" value=\"$la_ttl\"> </td>";
+				print "<td><input type=\"text\" size=\"10\" name=\"ttl_server\" value=\"$la_ttl\" /> </td>";
 				$ztype = @subbe1[2];
 			}
 			else
 			{
-				print "<td><input type=\"text\" size=\"10\" name=\"ttl_server\" value=\"\"></td>";
+				print "<td><input type=\"text\" size=\"10\" name=\"ttl_server\" value=\"\" /></td>";
 			}
 			my $la_type = $ztype;
 			if ( $type_server ne "" ) { $la_type = $type_server; }
@@ -848,16 +848,16 @@ foreach $zone ( @zones )
 			}
 			else
 			{
-				print "<input type=\"text\" size=\"10\" name=\"rdata_server\" value=\"$rdata\">";
+				print "<input type=\"text\" size=\"10\" name=\"rdata_server\" value=\"$rdata\" />";
 			}
 			print "</td>";
 			$nserv = @subbe2[1];
 			&createmenuserversfarm( "edit", $farmname, $nserv );
-			print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-			print "<input type=\"hidden\" name=\"id_server\" value=\"$subbe2[1]\">";
-			print "<input type=\"hidden\" name=\"service\" value=\"$zone\">";
-			print "<input type=\"hidden\" name=\"service_type\" value=\"zone\">";
+			print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+			print "<input type=\"hidden\" name=\"id_server\" value=\"$subbe2[1]\" />";
+			print "<input type=\"hidden\" name=\"service\" value=\"$zone\" />";
+			print "<input type=\"hidden\" name=\"service_type\" value=\"zone\" />";
 			print "</tr>";
 			print "</form>";
 		}
@@ -892,11 +892,11 @@ foreach $zone ( @zones )
 			$sv    = $zone;
 			&createmenuserversfarm( "normal", $farmname, $nserv );
 			print "</tr>";
-			print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-			print "<input type=\"hidden\" name=\"id_server\" value=\"@subbe2[1]\">";
-			print "<input type=\"hidden\" name=\"service\" value=\"$zone\">";
-			print "<input type=\"hidden\" name=\"service_type\" value=\"zone\">";
+			print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+			print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+			print "<input type=\"hidden\" name=\"id_server\" value=\"@subbe2[1]\" />";
+			print "<input type=\"hidden\" name=\"service\" value=\"$zone\" />";
+			print "<input type=\"hidden\" name=\"service_type\" value=\"zone\" />";
 			print "</form>";
 		}
 	}
@@ -907,8 +907,8 @@ foreach $zone ( @zones )
 	{
 		print "<form method=\"get\" action=\"index.cgi\#zonelist-$zone\">";
 		print "<tr class=\"selected\">";
-		print "<td><input type=\"text\" size=\"10\" name=\"resource_server\" value=\"$resource_server\"> </td>";
-		print "<td><input type=\"text\" size=\"10\" name=\"ttl_server\" value=\"$ttl_server\"> </td>";
+		print "<td><input type=\"text\" size=\"10\" name=\"resource_server\" value=\"$resource_server\" /> </td>";
+		print "<td><input type=\"text\" size=\"10\" name=\"ttl_server\" value=\"$ttl_server\" /> </td>";
 		print "<td><select name=\"type_server\" onchange=\"this.form.submit()\">";
 		if ( $type_server eq "NS" )
 		{
@@ -964,14 +964,14 @@ foreach $zone ( @zones )
 		}
 		else
 		{
-			print "<input type=\"text\" size=\"10\" name=\"rdata_server\" value=\"$rdata_server\">";
+			print "<input type=\"text\" size=\"10\" name=\"rdata_server\" value=\"$rdata_server\" />";
 		}
 		print "</td>";
 		&createmenuserversfarm( "add", $farmname, @l_serv[0] );
-		print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-		print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-		print "<input type=\"hidden\" name=\"service\" value=\"$zone\">";
-		print "<input type=\"hidden\" name=\"service_type\" value=\"zone\">";
+		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+		print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+		print "<input type=\"hidden\" name=\"service\" value=\"$zone\" />";
+		print "<input type=\"hidden\" name=\"service_type\" value=\"zone\" />";
 		print "</form>";
 		print "</tr>";
 	}
@@ -980,11 +980,11 @@ foreach $zone ( @zones )
 	print "<tr><td colspan=\"4\"></td>";
 	print "<form method=\"get\" action=\"index.cgi\#zonelist-$zone\">";
 	&createmenuserversfarm( "new", $farmname, @l_serv[0] );
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\">";
-	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-	print "<input type=\"hidden\" name=\"service_type\" value=\"zone\">";
-	print "<input type=\"hidden\" name=\"service\" value=\"$zone\">";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"id_server\" value=\"@l_serv[0]\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<input type=\"hidden\" name=\"service_type\" value=\"zone\" />";
+	print "<input type=\"hidden\" name=\"service\" value=\"$zone\" />";
 	print "</form>";
 	print "</tr>";
 	print "</tbody></table>";
@@ -1000,14 +1000,14 @@ foreach $zone ( @zones )
 #BACKENDS:
 ##################################################################
 
-print "<br></div>";
+print "<br /></div>";
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" value=\"1-2\" name=\"id\">";
-print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+print "<input type=\"hidden\" value=\"1-2\" name=\"id\" />";
+print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 print "</form>";
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 print "</div>";
 
 print "

@@ -72,7 +72,7 @@ print " <div class=\"box table\">
 	<table class=\"commerce\">
 	<thead>";
 print "		<tr>";
-print "			<td>Community Resources</td>";
+print "			<th>Community Resources</th>";
 print "		</tr>";
 print "</thead>";
 print "<tbody>";
@@ -82,7 +82,7 @@ print "			<td><a href=\"https://github.com/sgoldthorpe/karmalb\">https://github.
 print "		</tr>";
 print "</tbody>";
 print "</table></div>";
-print "<br>";
+print "<br />";
 
 ####################################
 # GLOBAL FARMS INFORMATION
@@ -96,12 +96,14 @@ print "	<div class=\"box table\">
 @files = &getFarmList();
 
 print "<tr>";
-print "<td>Farm</td>";
-print "<td>Profile</td>";
-print "<td>Status</td>";
+print "<th>Farm</th>";
+print "<th>Profile</th>";
+print "<th>Status</th>";
 print "</tr>";
 print "</thead>";
 print "<tbody>";
+if ( scalar ( @files ) > 0 )
+{
 foreach $file ( @files )
 {
 	print "<tr>";
@@ -112,18 +114,23 @@ foreach $file ( @files )
 	$status = &getFarmStatus( $farmname );
 	if ( $status ne "up" )
 	{
-		print "<td class=\"tc\"><img src=\"img/icons/small/stop.png\" title=\"down\"></td>";
+		print "<td class=\"tc\"><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"*\" /></td>";
 	}
 	else
 	{
-		print "<td class=\"tc\"><img src=\"img/icons/small/start.png\" title=\"up\"></td>";
+		print "<td class=\"tc\"><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"*\" /></td>";
 	}
 
 	print "</tr>";
 }
 
+}
+else
+{
+	print "<tr><td colspan=\"3\">There are no farms defined.</td></tr>";
+}
 print "</tbody></table></div>";
-print "<br>";
+print "<br />";
 
 ####################################
 # MEM INFORMATION
@@ -133,13 +140,13 @@ print "<div class=\"box-header\">Memory (mb)</div>";
 print " <div class=\"box table\">
         <table>
         <thead>";
-print "<tr><td>$data_mem[0][0]</td><td>$data_mem[1][0]</td><td>$data_mem[2][0]</td><td>$data_mem[3][0]</td><td>$data_mem[4][0]</td><td>$data_mem[5][0]</td><td>$data_mem[6][0]</td><td>$data_mem[7][0]</td>    </tr>";
+print "<tr><th>$data_mem[0][0]</th><th>$data_mem[1][0]</th><th>$data_mem[2][0]</th><th>$data_mem[3][0]</th><th>$data_mem[4][0]</th><th>$data_mem[5][0]</th><th>$data_mem[6][0]</th><th>$data_mem[7][0]</th>    </tr>";
 print "</thead>";
 
 print "<tbody>";
 
 print "<tr><td>$data_mem[0][1]</td><td>$data_mem[1][1]</td><td>$data_mem[2][1]</td><td>$data_mem[3][1]</td><td>$data_mem[4][1]</td><td>$data_mem[5][1]</td><td>$data_mem[6][1]</td><td>$data_mem[7][1]</td>    </tr>";
-print "<tr style=\"background:none\;\"><td colspan=\"8\" style=\"text-align:center;\"><img src=\"img/graphs/graphmem.jpg\">  </tr>";
+print "<tr style=\"background:none\;\"><td colspan=\"8\" style=\"text-align:center;\"><img src=\"img/graphs/graphmem.jpg\" alt=\"[Memory Graph]\" /></td></tr>";
 
 print "</tbody>";
 print "</table>";
@@ -149,11 +156,11 @@ print "<div class=\"box-header\">Load</div>";
 print " <div class=\"box table\">
         <table>
         <thead>";
-print "<tr><td colspan=3>Load last minute</td><td colspan=2>Load Last 5 minutes</td><td colspan=3>Load Last 15 minutes</td></tr>";
+print "<tr><th colspan=\"3\">Load last minute</th><th colspan=\"2\">Load Last 5 minutes</th><th colspan=\"3\">Load Last 15 minutes</th></tr>";
 print "</thead>";
 print "<tbody>";
-print "<tr><td colspan=3>$data_load[0][1]</td><td colspan=2>$data_load[1][1]</td><td colspan=3>$data_load[2][1]</td></tr>";
-print "<tr style=\"background:none;\"><td colspan=8 style=\"text-align:center;\"><img src=\"img/graphs/graphload.jpg\"></td></tr>";
+print "<tr><td colspan=\"3\">$data_load[0][1]</td><td colspan=\"2\">$data_load[1][1]</td><td colspan=\"3\">$data_load[2][1]</td></tr>";
+print "<tr style=\"background:none;\"><td colspan=\"8\" style=\"text-align:center;\"><img src=\"img/graphs/graphload.jpg\" alt=\"[Load Graph]\" /></td></tr>";
 print "</tbody>";
 
 print "</table>";
@@ -168,7 +175,7 @@ print "<div class=\"box-header\">Network traffic interfaces (mb) from " . &uptim
 print " <div class=\"box table\">
         <table>
         <thead>";
-print "<tr><td>Interface</td><td>Input</td><td>Output</td></tr>";
+print "<tr><th>Interface</th><th>Input</th><th>Output</th></tr>";
 print "</thead>";
 print "<tbody>";
 my $indice = @data_net;
@@ -180,10 +187,10 @@ for ( my $i = 0 ; $i < $indice - 1 ; $i = $i + 2 )
 	print "</tr>";
 }
 
-print "<tr style=\"background:none;\"><td colspan=3 style=\"text-align:center;\"><img src=\"img/graphs/graphnet.jpg\"></td></tr>";
+print "<tr style=\"background:none;\"><td colspan=\"3\" style=\"text-align:center;\"><img src=\"img/graphs/graphnet.jpg\" alt=\"[Network Graph\]\" /></td></tr>";
 
 print "</tbody>";
 print "</table>";
 print "</div>";
 
-print "<br class=\"cl\" ></div>\n";
+print "<br class=\"cl\" /></div>\n";

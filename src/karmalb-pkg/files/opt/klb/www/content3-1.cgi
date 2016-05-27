@@ -239,13 +239,13 @@ while ( <FR> )
 		$linea[1] =~ s/"||\;//g;
 		$linea[0] =~ s/^\$//g;
 		print "<form method=\"get\" action=\"index.cgi\">";
-		print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
-		print "<input type=\"text\" value=\"$linea[1]\" size=\"20\" name=\"line\">";
-		print "<input type=\"hidden\" name=\"var\" value=\"$linea[0]\">";
-		print "<input type=\"submit\" value=\"Modify\" name=\"action\" class=\"button small\">";
+		print "<input type=\"hidden\" name=\"id\" value=\"3-1\" />";
+		print "<input type=\"text\" value=\"$linea[1]\" size=\"20\" name=\"line\" />";
+		print "<input type=\"hidden\" name=\"var\" value=\"$linea[0]\" />";
+		print "<input type=\"submit\" value=\"Modify\" name=\"action\" class=\"button small\" />";
 		print "</form>";
 		print "</div>";
-		print "<br>";
+		print "<br />";
 	}
 
 	if ( $_ =~ /^#::END/ )
@@ -270,7 +270,7 @@ close FR;
 print "<b>Management interface where is running GUI service and SNMP (if enabled).</b>";
 print "<font size=\"1\"> If cluster is up you only can select \"--All interfaces--\" option, or \"the cluster interface\". Changes need restart management services.</font>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
+print "<input type=\"hidden\" name=\"id\" value=\"3-1\" />";
 
 opendir ( DIR, "$configdir" );
 @files = grep ( /^if.*/, readdir ( DIR ) );
@@ -356,10 +356,10 @@ else
 
 print "</select>";
 
-print "<input type=\"submit\" value=\"Save Management IP\" name=\"action\" class=\"button small\">";
-print "<input type=\"submit\" value=\"Restart Management Services\" name=\"action\" class=\"button small\">";
-print "<br>";
-print "<br>";
+print "<input type=\"submit\" value=\"Save Management IP\" name=\"action\" class=\"button small\" />";
+print "<input type=\"submit\" value=\"Restart Management Services\" name=\"action\" class=\"button small\" />";
+print "<br />";
+print "<br />";
 print "</form>";
 
 #https port for GUI interface
@@ -370,12 +370,12 @@ if ( $guiport =~ /^$/ )
 }
 print "<b>HTTPS Port where is running GUI service.</b><font size=\"1\"> Default is 444. Changes need restart GUI service.</font>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
-print "<input type=\"text\" name=\"guiport\" value=\"$guiport\" size=12>";
-print "<input type=\"submit\" value=\"Change GUI https port\" name=\"action\" class=\"button small\">";
-print "<input type=\"submit\" value=\"Restart GUI Service\" name=\"action\" class=\"button small\">";
+print "<input type=\"hidden\" name=\"id\" value=\"3-1\" />";
+print "<input type=\"text\" name=\"guiport\" value=\"$guiport\" size=\"12\" />";
+print "<input type=\"submit\" value=\"Change GUI https port\" name=\"action\" class=\"button small\" />";
+print "<input type=\"submit\" value=\"Restart GUI Service\" name=\"action\" class=\"button small\" />";
 print "</form>";
-print "<br>";
+print "<br />";
 
 ## START SNMP ##
 print "<form method=\"get\" action=\"index.cgi\">";
@@ -386,80 +386,81 @@ print "<form method=\"get\" action=\"index.cgi\">";
 # SNMPD Switch
 if ( &getSnmpdStatus() eq "true" )
 {
-	print "<input type=\"checkbox\" name=\"snmpd_enabled\" value=\"true\" checked>";
+	print "<input type=\"checkbox\" name=\"snmpd_enabled\" value=\"true\" checked=\"checked\" />";
 }
 else
 {
-	print "<input type=\"checkbox\" name=\"snmpd_enabled\" value=\"true\"> ";
+	print "<input type=\"checkbox\" name=\"snmpd_enabled\" value=\"true\" /> ";
 }
-print "&nbsp;<b>SNMP Service</b><br>";
+print "&nbsp;<b>SNMP Service</b><br />";
 
 # SNMP port
-print "<font size=1>Port: </font>";
-print "<input type=\"number\" name=\"snmpd_port\" value=\"$snmpd_port\" size=\"5\" min=\"1\" max=\"65535\" required>";
-print "<br>";
+print "<font size=\"1\">Port: </font>";
+# number input type isn't proper XHTML and will cause validation errors.
+print "<input type=\"number\" name=\"snmpd_port\" value=\"$snmpd_port\" size=\"5\" min=\"1\" max=\"65535\" required=\"required\" />";
+print "<br />";
 
 # SNMP community
-print "<font size=1>Community name: </font>";
-print "<input type=\"text\" name=\"snmpd_community\" value=\"$snmpd_community\" size=\"12\" required >";
-print "<br>";
+print "<font size=\"1\">Community name: </font>";
+print "<input type=\"text\" name=\"snmpd_community\" value=\"$snmpd_community\" size=\"12\" required=\"required\" />";
+print "<br />";
 
 # IP or subnet with access to SNMP server
-print "<font size=1>IP or subnet with access (IP/bit): </font>";
-print "<input type=\"text\" name=\"snmpd_scope\" value=\"$snmpd_scope\" size=\"12\" required>";
-print "<br>";
+print "<font size=\"1\">IP or subnet with access (IP/bit): </font>";
+print "<input type=\"text\" name=\"snmpd_scope\" value=\"$snmpd_scope\" size=\"12\" required=\"required\" />";
+print "<br />";
 
-print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
-print "<input type=\"hidden\" name=\"action\" value=\"edit-snmp\">";
+print "<input type=\"hidden\" name=\"id\" value=\"3-1\" />";
+print "<input type=\"hidden\" name=\"action\" value=\"edit-snmp\" />";
 
 # Submit
-print "<input type=\"submit\" name=\"button\" value=\"Modify\" class=\"button small\">";
+print "<input type=\"submit\" name=\"button\" value=\"Modify\" class=\"button small\" />";
 print "</form>";
-print "<br>";
+print "<br />";
 ## END SNMP ##
 
 #dns
 print "<b>DNS servers</b>";
-print "<br>";
+print "<br />";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
-print "<input type=\"hidden\" name=\"var\" value=\"Save DNS\">";
-print "<textarea  name=\"line\" cols=\"30\" rows=\"3\" align=\"center\">";
+print "<input type=\"hidden\" name=\"id\" value=\"3-1\" />";
+print "<input type=\"hidden\" name=\"var\" value=\"Save DNS\" />";
+print "<textarea  name=\"line\" cols=\"30\" rows=\"3\">";
 open FR, "$filedns";
 print <FR>;
 print "</textarea>";
-print "<input type=\"submit\" value=\"Save DNS\" name=\"action\" class=\"button small\">";
+print "<input type=\"submit\" value=\"Save DNS\" name=\"action\" class=\"button small\" />";
 print "</form>";
 
 #time
 print "<b>Time server(s)</b>";
-print "<br>";
+print "<br />";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
-print "<input type=\"hidden\" name=\"var\" value=\"Save Time\">";
-print "<textarea  name=\"line\" cols=\"60\" rows=\"5\" align=\"center\">";
+print "<input type=\"hidden\" name=\"id\" value=\"3-1\" />";
+print "<input type=\"hidden\" name=\"var\" value=\"Save Time\" />";
+print "<textarea  name=\"line\" cols=\"60\" rows=\"5\">";
 open FR, "$filetimeserv";
 print <FR>;
 print "</textarea>";
-print "<input type=\"submit\" value=\"Save Time\" name=\"action\" class=\"button small\">";
+print "<input type=\"submit\" value=\"Save Time\" name=\"action\" class=\"button small\" />";
 print "</form>";
 
 #apt
-print "<br>";
+print "<br />";
 print "<b>APT repository</b>";
-print "<br>";
+print "<br />";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"3-1\">";
-print "<input type=\"hidden\" name=\"var\" value=\"Save APT\">";
-print "<textarea  name=\"line\" cols=\"60\" rows=\"6\" align=\"center\">";
+print "<input type=\"hidden\" name=\"id\" value=\"3-1\" />";
+print "<input type=\"hidden\" name=\"var\" value=\"Save APT\" />";
+print "<textarea  name=\"line\" cols=\"60\" rows=\"7\">";
 open FR, "$fileapt";
 print <FR>;
 print "</textarea>";
-print "<input type=\"submit\" value=\"Save APT\" name=\"action\" class=\"button small\">";
+print "<input type=\"submit\" value=\"Save APT\" name=\"action\" class=\"button small\" />";
 print "</form>";
 
 print "</div></div></div>";
 
-print "<br class=\"cl\">";
-print "</div><!--Content END--></div></div>";
+print "<br class=\"cl\" />";
+print "</div><!--Content END-->";
 ### END Local configuration ###

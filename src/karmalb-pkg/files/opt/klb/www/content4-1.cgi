@@ -49,15 +49,15 @@ print "<div align=\"center\">";
 print "<form method=\"get\" action=\"index.cgi\">";
 
 #print "<input type=\"hidden\" name=\"id\" value=\"$id\"
-print "<textarea  name=\"license\" cols=\"80\" rows=\"20\" align=\"center\" readonly>";
+print "<textarea  name=\"license\" cols=\"80\" rows=\"20\" readonly=\"readonly\">";
 open FR, "/opt/klb/license.txt";
 while ( <FR> )
 {
-	print "$_";
+	print CGI::escapeHTML( $_ );
 }
 close FR;
 print "</textarea>";
-print "<br>";
+print "<br />";
 print "<b>*If you use this program, you accept the GNU/LGPL license</b>";
 print "</form>";
 print "</div>";
@@ -65,14 +65,12 @@ print "		</div>";
 print "	</div>";
 print "</div>";
 
-print "<br class=\"cl\">";
+print "<br class=\"cl\" />";
 
 #content 3-4 END
 print "
-        <br><br><br>
+        <br /><br /><br />
         </div>
     <!--Content END-->
-  </div>
-</div>
 ";
 

@@ -110,7 +110,7 @@ print "<div class=\"box table\">";
 print "<table cellspacing=\"0\">";
 print "<thead>";
 print "<tr>";
-print "<td>File</td><td>Type</td><td>Common Name</td><td>Issuer</td><td>Created on</td><td>Expire on</td><td>Actions</td>";
+print "<th>File</th><th>Type</th><th>Common Name</th><th>Issuer</th><th>Created on</th><th>Expire on</th><th>Actions</th>";
 print "</tr>";
 print "</thead>";
 
@@ -125,23 +125,23 @@ foreach ( @files )
 	$dateexpiration = &getCertExpiration( $filepath );
 
 	print "<tr><td>$_</td><td>$cert_type</td><td>$commonname</td><td>$issuer</td><td>$datecreation</td><td>$dateexpiration</td><td>";
-	if ( $_ ne "zencert\.pem" )
+	if ( $_ ne "lbcert\.pem" )
 	{
 
-		#print "<a href=\"index.cgi?id=$id&action=deletecert&certname=$_ \"><img src=\"img/icons/small/cross_octagon.png\" title=\"Delete $_ certificate\" onclick=\"return confirm('Are you sure you want to delete the certificate: $_?')\"></a>"
+		#print "<a href=\"index.cgi?id=$id&amp;action=deletecert&amp;certname=$_ \"><img src=\"img/icons/small/cross_octagon.png\" title=\"Delete $_ certificate\" onclick=\"return confirm('Are you sure you want to delete the certificate: $_?')\" alt=\"[Del]\" /></a>"
 		&createMenuCert( "", $_ );
 	}
 
 	print "</td></tr>";
 }
 
-print "<tr><td colspan=6></td><td>\n\n";
+print "<tr><td colspan=\"6\"></td><td>\n\n";
 
 &uploadPEMCerts();
-print "		<a href=\"index.cgi?id=$id&action=Show_Form\"><img src=\"img/icons/small/page_white_add.png\" title=\"Create CSR\"></a>";
+print "		<a href=\"index.cgi?id=$id&amp;action=Show_Form\"><img src=\"img/icons/small/page_white_add.png\" title=\"Create CSR\" alt=\"[Create CSR]\" /></a>";
 print "</td></tr>";
 
-#print "<tr><td colspan=2></td><td><a href=\"index.cgi?id=$id&action=uploadcert\"><img src=\"img/icons/small/arrow_up.png\" title=\"Upload new certificate\"></a></td></tr>";
+#print "<tr><td colspan=\"2\"></td><td><a href=\"index.cgi?id=$id&amp;action=uploadcert\"><img src=\"img/icons/small/arrow_up.png\" title=\"Upload new certificate\" alt=\"[Upload]\" /></a></td></tr>";
 print "</tbody>";
 print "</table>";
 
@@ -155,26 +155,28 @@ if ( $action eq "View_Cert" )
 	my @eject  = &getCertData( $certname );
 	my $numrow = @eject;
 	my $isinto = 0;
+	print "<pre style=\"line-height:1;font-family:monospace;\">";
 	foreach ( @eject )
 	{
 		if ( $_ =~ /^-----BEGIN CERTIFICATE/ )
 		{
-			print "<br>CERTIFICATE CONTENT:<br><textarea rows=\"$numrow\" cols=\"70\" readonly>";
+			print "</pre>";
+			print "<br />CERTIFICATE CONTENT:<br /><textarea rows=\"$numrow\" cols=\"70\" readonly=\"readonly\">";
 			$isinto = 1;
 		}
 		print "$_";
 		$numrow--;
 		if ( $isinto eq 0 )
 		{
-			print "<br>";
+			print "<br />";
 		}
 	}
 	print "</textarea>";
 
-	print "         <br><div id=\"page-header\"></div>";
+	print "         <br /><div class=\"page-header\"></div>";
 	print "         <form method=\"get\" action=\"index.cgi\">";
-	print "         <input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "         <input type=\"submit\" value=\"Close\" name=\"button\" class=\"button small\">";
+	print "         <input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "         <input type=\"submit\" value=\"Close\" name=\"button\" class=\"button small\" />";
 	print "         </form>";
 
 	print "</div>";
@@ -187,35 +189,35 @@ if ( $action eq "Show_Form" )
 	print "<div class=\"box-header\">CSR Generation </div>";
 	print "	<div class=\"box stats\">";
 	print "		<form method=\"post\" action=\"index.cgi\">";
-	print "		<b>Certificate Name.</b><font size=1> *Descriptive text, this name will be used in the future to identify this certificate.</font><br><input type=\"text\" value=\"$cert_name\" size=\"60\" name=\"cert_name\"><br><br>";
-	print "		<b>Certificate Issuer.</b><br>";
+	print "		<b>Certificate Name.</b><font size=\"1\"> *Descriptive text, this name will be used in the future to identify this certificate.</font><br /><input type=\"text\" value=\"$cert_name\" size=\"60\" name=\"cert_name\" /><br /><br />";
+	print "		<b>Certificate Issuer.</b><br />";
 	print "		<select name=\"cert_issuer\">";
 	print "			<option value=\"Sofintel\" >Sofintel - Starfield Tech. </option>";
 	print "			<option value=\"Others\" >Others </option>";
-	print "		</select><br><br>";
-	print "		<b>Common Name.</b><font size=1> *FQDN of the server. Example: domain.com, mail.domain.com, or *.domain.com.</font><br><input type=\"text\" value=\"$cert_fqdn\" size=\"60\" name=\"cert_fqdn\"><br><br>";
-	print "		<b>Division.</b><font size=1> *Your department; such as 'IT','Web', 'Office', etc.</font><br><input type=\"text\" value=\"$cert_division\" size=\"60\" name=\"cert_division\"><br><br>";
-	print "		<b>Organization.</b><font size=1> *The full legal name of your organization/company (ex.: Sofintel IT Co.)</font><br><input type=\"text\" value=\"$cert_organization\" size=\"60\" name=\"cert_organization\"><br><br>";
-	print "		<b>Locality.</b><font size=1> *City where your organization is located.</font><br><input type=\"text\" value=\"$cert_locality\" size=\"60\" name=\"cert_locality\"><br><br>";
-	print "		<b>State/Province.</b><font size=1> *State or province where your organization is located.</font><br><input type=\"text\" value=\"$cert_state\" size=\"60\" name=\"cert_state\"><br><br>";
-	print "		<b>Country.</b><font size=1> *Country (two characters code, example: US) where your organization is located.</font><br><input type=\"text\" value=\"$cert_country\" size=\"2\" maxlength=\"2\" name=\"cert_country\"><br><br>";
-	print "		<b>E-mail Address.</b><br><input type=\"text\" value=\"$cert_mail\" size=\"60\" name=\"cert_mail\"><br><br>";
+	print "		</select><br /><br />";
+	print "		<b>Common Name.</b><font size=\"1\"> *FQDN of the server. Example: domain.com, mail.domain.com, or *.domain.com.</font><br /><input type=\"text\" value=\"$cert_fqdn\" size=\"60\" name=\"cert_fqdn\" /><br /><br />";
+	print "		<b>Division.</b><font size=\"1\"> *Your department; such as 'IT','Web', 'Office', etc.</font><br /><input type=\"text\" value=\"$cert_division\" size=\"60\" name=\"cert_division\" /><br /><br />";
+	print "		<b>Organization.</b><font size=\"1\"> *The full legal name of your organization/company (ex.: Sofintel IT Co.)</font><br /><input type=\"text\" value=\"$cert_organization\" size=\"60\" name=\"cert_organization\" /><br /><br />";
+	print "		<b>Locality.</b><font size=\"1\"> *City where your organization is located.</font><br /><input type=\"text\" value=\"$cert_locality\" size=\"60\" name=\"cert_locality\" /><br /><br />";
+	print "		<b>State/Province.</b><font size=\"1\"> *State or province where your organization is located.</font><br /><input type=\"text\" value=\"$cert_state\" size=\"60\" name=\"cert_state\" /><br /><br />";
+	print "		<b>Country.</b><font size=\"1\"> *Country (two characters code, example: US) where your organization is located.</font><br /><input type=\"text\" value=\"$cert_country\" size=\"2\" maxlength=\"2\" name=\"cert_country\" /><br /><br />";
+	print "		<b>E-mail Address.</b><br /><input type=\"text\" value=\"$cert_mail\" size=\"60\" name=\"cert_mail\" /><br /><br />";
 
-	#print "		<b>Password.</b><br><input type=\"password\" value=\"$cert_password\" size=\"20\" name=\"cert_password\"><br><br>";
-	#print "		<b>Confirm Password.</b><br><input type=\"password\" value=\"$cert_cpassword\" size=\"20\" name=\"cert_cpassword\"><br><br>";
-	print "		<b>Key size.</b><br>";
+	#print "		<b>Password.</b><br /><input type=\"password\" value=\"$cert_password\" size=\"20\" name=\"cert_password\" /><br /><br />";
+	#print "		<b>Confirm Password.</b><br /><input type=\"password\" value=\"$cert_cpassword\" size=\"20\" name=\"cert_cpassword\" /><br /><br />";
+	print "		<b>Key size.</b><br />";
 	print "		<select name=\"cert_key\">";
 	print "			<option value=\"2048\">2048 </option>";
-	print "		</select><br><br>";
-	print "		<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "		<input type=\"hidden\" name=\"actionpost\" value=\"Generate CSR\">";
-	print "		<input type=\"submit\" value=\"Generate CSR\" name=\"button\" class=\"button small\"><br><br>";
+	print "		</select><br /><br />";
+	print "		<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "		<input type=\"hidden\" name=\"actionpost\" value=\"Generate CSR\" />";
+	print "		<input type=\"submit\" value=\"Generate CSR\" name=\"button\" class=\"button small\" /><br /><br />";
 	print "		</form>";
 
-	print "		<br><div id=\"page-header\"></div>";
+	print "		<br /><div class=\"page-header\"></div>";
 	print "		<form method=\"get\" action=\"index.cgi\">";
-	print "		<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "		<input type=\"submit\" value=\"Cancel\" name=\"button\" class=\"button small\">";
+	print "		<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "		<input type=\"submit\" value=\"Cancel\" name=\"button\" class=\"button small\" />";
 	print "		</form>";
 
 	print "	</div>";

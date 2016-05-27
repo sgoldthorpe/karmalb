@@ -34,7 +34,8 @@ print "Content-type: text/html\n\n";
 #require "help-content.cgi";
 
 print "
-<HTML>
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
 <head>
 <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />
 
@@ -42,21 +43,21 @@ print "
 <link type=\"text/css\" rel=\"stylesheet\" media=\"all\" href=\"css/grid.css\" />
 <title>Upload File</title></head>";
 
-print "<BODY onunload=\"opener.location=('index.cgi?id=3-5')\">";
+print "<body onunload=\"opener.location=('index.cgi?id=3-5')\">";
 
 print "<div id=\"header\">
 	 <div class=\"header-top tr\">";
 
-print "<br><br><br>";
-print "<div id=\"page-header\"></div>
+print "<br /><br /><br />";
+print "<div class=\"page-header\"></div>
 
 	 </div>
       </div>";
 
 #print "<b>Upload Backup.</b>";
-#print "<div id=\"page-header\"></div>";
-print "<br>";
-print "<br>";
+#print "<div class=\"page-header\"></div>";
+print "<br />";
+print "<br />";
 
 my $query      = new CGI;
 my $upload_dir = $backupdir;
@@ -87,27 +88,27 @@ if ( $action eq "Upload Backup" )
 	}
 }
 
-print "<br>";
-print "<br>";
+print "<br />";
+print "<br />";
 
 print "<form method=\"post\" action=\"upload.cgi\" enctype=\"multipart/form-data\">";
 
 #print "<form method=\"post\" action=\"index.cgi\">";
-#print "<b>File:</b> <input  type=\"file\" name=\"file\">";
+#print "<b>File:</b> <input  type=\"file\" name=\"file\" />";
 #print qq{
-#<input type="text" id="fileName" class="file_input_textbox" readonly="readonly">
+#<input type="text" id="fileName" class="file_input_textbox" readonly="readonly" />
 #<div class="file_input_div">
 #  <input type="button" value="Search files" class="button small" />
-#  <input type="file" class="file_input_hidden" name="file" onchange="javascript: document.getElementById('fileName').value = this.value" >
+#  <input type="file" class="file_input_hidden" name="file" onchange="javascript: document.getElementById('fileName').value = this.value" />
 #</div>
 #};
-print "<b>File:</b> <input   type=\"file\" name=\"fileup\" value=\"Ex\" >";
-print "<br>";
-print "<br>";
-print "<input type=\"submit\" value=\"Upload Backup\" name=\"action\" class=\"button small\">";
+print "<b>File:</b> <input   type=\"file\" name=\"fileup\" value=\"Ex\" />";
+print "<br />";
+print "<br />";
+print "<input type=\"submit\" value=\"Upload Backup\" name=\"action\" class=\"button small\" />";
 print "</form>";
 
-print "<br>";
-print "</BODY>";
-print "</HTML>";
+print "<br />";
+print "</body>";
+print "</html>";
 

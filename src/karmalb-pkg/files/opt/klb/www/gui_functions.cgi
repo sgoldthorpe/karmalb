@@ -66,16 +66,15 @@ sub createmenuviph($name,$pid,$fproto)
 
 	if ( $pid =~ /^[1-9]/ )
 	{
-		print "<a href=\"index.cgi?id=$id&action=stopfarm&farmname=$name\" onclick=\"return confirm('Are you sure you want to stop the farm: $name?')\"><img src=\"img/icons/small/farm_delete.png\" title=\"Stop the $name Farm\"></a> ";
-		print "<a href=\"index.cgi?id=$id&action=editfarm&farmname=$name\"><img src=\"img/icons/small/farm_edit.png\" title=\"Edit the $name Farm\"></a> ";
+		print "<a href=\"index.cgi?id=$id&amp;action=stopfarm&amp;farmname=$name\" onclick=\"return confirm('Are you sure you want to stop the farm: $name?')\"><img src=\"img/icons/small/farm_delete.png\" title=\"Stop the $name Farm\" alt=\"[Stop]\"/></a> ";
+		print "<a href=\"index.cgi?id=$id&amp;action=editfarm&amp;farmname=$name\"><img src=\"img/icons/small/farm_edit.png\" title=\"Edit the $name Farm\" alt=\"[Edit]\" /></a> ";
 	}
 	else
 	{
-		print "<a href=\"index.cgi?id=$id&action=startfarm&farmname=$name\"><img src=\"img/icons/small/farm_up.png\" title=\"Start the $name Farm\"></a> ";
-		print "<a href=\"index.cgi?id=$id&action=editfarm&farmname=$name\"><img src=\"img/icons/small/farm_edit.png\" title=\"Edit the $name Farm\"></a> ";
+		print "<a href=\"index.cgi?id=$id&amp;action=startfarm&amp;farmname=$name\"><img src=\"img/icons/small/farm_up.png\" title=\"Start the $name Farm\" alt=\"[Start]\" /></a> ";
+		print "<a href=\"index.cgi?id=$id&amp;action=editfarm&amp;farmname=$name\"><img src=\"img/icons/small/farm_edit.png\" title=\"Edit the $name Farm\" alt=\"[Edit]\" /></a> ";
 	}
-	print "<a href=\"index.cgi?id=$id&action=deletefarm&farmname=$name\"><img src=\"img/icons/small/farm_cancel.png\" title=\"Delete the $name Farm\" onclick=\"return confirm('Are you sure you want to delete the farm: $name?')\"></a> ";
-
+	print "<a href=\"index.cgi?id=$id&amp;action=deletefarm&amp;farmname=$name\"><img src=\"img/icons/small/farm_cancel.png\" title=\"Delete the $name Farm\" onclick=\"return confirm('Are you sure you want to delete the farm: $name?')\" alt=\"[Del]\" /></a> ";
 }
 
 #function that create the menu for delete, move a service in a http[s] farm
@@ -90,7 +89,7 @@ sub createmenuservice($fname,$sv,$pos)
 	my @output = grep { /Service/ } @array;
 	untie @array;
 	$serv20 =~ s/\ /%20/g;
-	print "<a href=index.cgi?id=1-2&action=editfarm-deleteservice&service=$serv20&farmname=$farmname><img src=\"img/icons/small/cross_octagon.png \" title=\"Delete service $svice\" onclick=\"return confirm('Are you sure you want to delete the Service $serv?')\" ></a> ";
+	print "<a href=\"index.cgi?id=1-2&amp;action=editfarm-deleteservice&amp;service=$serv20&amp;farmname=$farmname\"><img src=\"img/icons/small/cross_octagon.png \" title=\"Delete service $svice\" onclick=\"return confirm('Are you sure you want to delete the Service $serv?')\" alt=\"[Del]\" /></a> ";
 
 }
 
@@ -98,12 +97,12 @@ sub createmenuservice($fname,$sv,$pos)
 sub refreshstats()
 {
 	print "<form method=\"get\" action=\"index.cgi\">";
-	print "<b>Refresh stats every</b><input type=\"hidden\" name=\"id\" value=\"$id\">";
+	print "<b>Refresh stats every</b><input type=\"hidden\" name=\"id\" value=\"$id\" />";
 	print "<select name=\"refresh\" onchange=\"this.form.submit()\">";
 	print "<option value=\"Disabled\"> - </option>\n";
 	if ( $refresh eq "10" )
 	{
-		print "<option value=\"10\" selected>10</option>\n";
+		print "<option value=\"10\" selected=\"selected\">10</option>\n";
 	}
 	else
 	{
@@ -111,7 +110,7 @@ sub refreshstats()
 	}
 	if ( $refresh eq "30" )
 	{
-		print "<option value=\"30\" selected>30</option>\n";
+		print "<option value=\"30\" selected=\"selected\">30</option>\n";
 	}
 	else
 	{
@@ -119,7 +118,7 @@ sub refreshstats()
 	}
 	if ( $refresh eq "60" )
 	{
-		print "<option value=\"60\" selected>60</option>\n";
+		print "<option value=\"60\" selected=\"selected\">60</option>\n";
 	}
 	else
 	{
@@ -127,21 +126,21 @@ sub refreshstats()
 	}
 	if ( $refresh eq "120" )
 	{
-		print "<option value=\"120\" selected>120</option>\n";
+		print "<option value=\"120\" selected=\"selected\">120</option>\n";
 	}
 	else
 	{
 		print "<option value=\"120\">120</option>\n";
 	}
 
-	print "</select> <b>secs</b>, <font size=1>It can overload the zen server</font>";
+	print "</select> <b>secs</b>, <font size=\"1\">It can overload the zen server</font>";
 
-	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\">";
-	print "<input type=\"hidden\" name=\"viewtableclients\" value=\"$viewtableclients\">";
-	print "<input type=\"hidden\" name=\"viewtableconn\" value=\"$viewtableconn\">";
-	print "<input type=\"hidden\" value=\"managefarm\" name=\"action\" class=\"button small\">";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<input type=\"hidden\" name=\"viewtableclients\" value=\"$viewtableclients\" />";
+	print "<input type=\"hidden\" name=\"viewtableconn\" value=\"$viewtableconn\" />";
+	print "<input type=\"hidden\" value=\"managefarm\" name=\"action\" class=\"button small\" />";
 
-	#print "<input type=\"submit\" value=\"Submit\" name=\"button\" class=\"button small\">";
+	#print "<input type=\"submit\" value=\"Submit\" name=\"button\" class=\"button small\" />";
 	print "</form>";
 }
 

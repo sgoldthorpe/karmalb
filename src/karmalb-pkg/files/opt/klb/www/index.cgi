@@ -242,7 +242,7 @@ if ( !-f "$basedir/lock" )
 		alarm 0;
 	};
 	if ($@) { print "Error in content$id cgi execution, see KLB logs\n";
-		print "<br>$@\n";
+		print "<br />$@\n";
 	}	
 }
 else

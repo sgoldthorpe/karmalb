@@ -34,7 +34,8 @@ print "Content-type: text/html\n\n";
 
 
 print "
-<HTML>
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+<html xmlns=\"http://www.w3.org/1999/xhtml\">
 <head>
 <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />
 
@@ -42,30 +43,30 @@ print "
 <link type=\"text/css\" rel=\"stylesheet\" media=\"all\" href=\"css/grid.css\" />
 <title>KLB Logout</title></head>";
 
-print "<BODY>";
+print "<body>";
 
 print "<div id=\"header\">
 	 <div class=\"header-top tr\">";
 
-print "<br><br><br>";
-print "<div id=\"page-header\"></div>
+print "<br /><br /><br />";
+print "<div class=\"page-header\"></div>
 
 	 </div>
       </div>";
 
 
 #print "<b>Upload Backup.</b>";
-#print "<div id=\"page-header\"></div>";
-print "<br>";
-print "<br>";
+#print "<div class=\"page-header\"></div>";
+print "<br />";
+print "<br />";
 
 print "<center>";
-print "<strong>Good bye.</strong><br>";
-print "<br><br>";
-print "<strong><a href=\"../index.cgi\">Login</a></strong><br>";
+print "<strong>Good bye.</strong><br />";
+print "<br /><br />";
+print "<strong><a href=\"../index.cgi\">Login</a></strong><br />";
 print "</center>";
 
-print "<br>";
-print "</BODY>";
-print "</HTML>"; 
+print "<br />";
+print "</body>";
+print "</html>"; 
 

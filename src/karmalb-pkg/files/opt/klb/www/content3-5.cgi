@@ -112,27 +112,27 @@ print "		<div class=\"box-header\">Backup</div>";
 print "		<div class=\"box stats\">";
 
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<b>Description name: </b><input type=\"text\" name=\"name\" value=\"$lhost\">";
-print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-print "<input type=\"submit\" value=\"Create Backup\" name=\"action\" class=\"button small\">";
+print "<b>Description name: </b><input type=\"text\" name=\"name\" value=\"$lhost\" />";
+print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+print "<input type=\"submit\" value=\"Create Backup\" name=\"action\" class=\"button small\" />";
 print "</form>";
-print "<br><br>";
+print "<br /><br />";
 
 print "</div></div></div>";
-print "<br class=\"cl\">";
+print "<br class=\"cl\" />";
 
 #table
-print "<div class=\"box-header\"> Backup files <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\" title=\"refresh\"></a></div>";
+print "<div class=\"box-header\"> Backup files <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\" title=\"refresh\" alt=\"[Refresh]\" /></a></div>";
 print "<div class=\"box table\">";
 
 print "<table>";
 print "<thead>";
 
 print "<tr>";
-print "<td>Description name</td>";
-print "<td>Date</td>";
-print "<td>Host</td>";
-print "<td>Action</td>";
+print "<th>Description name</th>";
+print "<th>Date</th>";
+print "<th>Host</th>";
+print "<th>Action</th>";
 print "</tr>";
 print "</thead>";
 print "<tbody>";
@@ -158,7 +158,7 @@ foreach $file ( @files )
 	print "</tr>";
 }
 
-print "<tr><td colspan=3></td><td>";
+print "<tr><td colspan=\"3\"></td><td>";
 
 &upload();
 
@@ -168,15 +168,14 @@ print "</table>";
 print "</div>";
 
 #print "		</div>";
-#print "<br>";
+#print "<br />";
 #print "	</div>";
 #print "</div>";
 
-print "<br class=\"cl\">";
+print "<br class=\"cl\" />";
 
 #content 3-4 END
 print " </div>
     <!--Content END-->
-</div>
 ";
 

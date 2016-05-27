@@ -55,12 +55,12 @@ foreach ( @backends )
 }
 
 &refreshstats();
-print "<br>";
+print "<br />";
 
-print "<div class=\"box-header\">Real servers status<font size=1>&nbsp;&nbsp;&nbsp; $backendsize servers, $activebackends active </font></div>";
+print "<div class=\"box-header\">Real servers status<font size=\"1\">&nbsp;&nbsp;&nbsp; $backendsize servers, $activebackends active </font></div>";
 print "<div class=\"box table\"><table cellspacing=\"0\">\n";
 print "<thead>\n";
-print "<tr><td>Server</td><td>Address</td><td>Port(s)</td><td>Status</td><td>Pending Conns</td><td>Established Conns</td>";
+print "<tr><th>Server</th><th>Address</th><th>Port(s)</th><th>Status</th><th>Pending Conns</th><th>Established Conns</th>";
 print "</thead>\n";
 print "<tbody>";
 
@@ -76,19 +76,19 @@ foreach ( @backends )
 	print "<td> $port_backend </td> ";
 	if ( $backends_data[4] eq "maintenance" )
 	{
-		print "<td><img src=\"img/icons/small/warning.png\" title=\"up\"></td> ";
+		print "<td><img src=\"img/icons/small/warning.png\" title=\"up\" alt=\"!\" /></td> ";
 	}
 	elsif ( $backends_data[4] eq "up" )
 	{
-		print "<td><img src=\"img/icons/small/start.png\" title=\"up\"></td> ";
+		print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" /></td> ";
 	}
 	elsif ( $backends_data[4] eq "fgDOWN" )
 	{
-		print "<td><img src=\"img/icons/small/disconnect.png\" title=\"FarmGuardian down\"></td> ";
+		print "<td><img src=\"img/icons/small/disconnect.png\" title=\"FarmGuardian down\" alt=\"D\" /></td> ";
 	}
 	else
 	{
-		print "<td><img src=\"img/icons/small/stop.png\" title=\"down\"></td> ";
+		print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" /></td> ";
 	}
 
 	my @synnetstatback;
@@ -119,19 +119,19 @@ if ( $proto eq "sip" )
 
 	if ( $viewtableclients eq "yes" )
 	{
-		print "<a href=\"index.cgi?id=1-2&action=managefarm&farmname=$farmname&viewtableclients=no&viewtableconn=$viewtableconn\" title=\"Minimize\"><img src=\"img/icons/small/bullet_toggle_minus.png\"></a>";
+		print "<a href=\"index.cgi?id=1-2&amp;action=managefarm&amp;farmname=$farmname&amp;viewtableclients=no&amp;viewtableconn=$viewtableconn\" title=\"Minimize\"><img src=\"img/icons/small/bullet_toggle_minus.png\" alt=\"*\" /></a>";
 	}
 	else
 	{
-		print "<a href=\"index.cgi?id=1-2&action=managefarm&farmname=$farmname&viewtableclients=yes&viewtableconn=$viewtableconn\" title=\"Maximize\"><img src=\"img/icons/small/bullet_toggle_plus.png\"></a>";
+		print "<a href=\"index.cgi?id=1-2&amp;action=managefarm&amp;farmname=$farmname&amp;viewtableclients=yes&amp;viewtableconn=$viewtableconn\" title=\"Maximize\"><img src=\"img/icons/small/bullet_toggle_plus.png\" alt=\"*\" /></a>";
 	}
 
-	print "Client sessions status <font size=1>&nbsp;&nbsp;&nbsp; $totalsessions active clients</font></div>\n";
+	print "Client sessions status <font size=\"1\">&nbsp;&nbsp;&nbsp; $totalsessions active clients</font></div>\n";
 	print "<div class=\"box table\"><table cellspacing=\"0\">\n";
 	if ( $viewtableclients eq "yes" )
 	{
 		print "<thead>\n";
-		print "<tr><td>Client Address</td></tr>\n";
+		print "<tr><th>Client Address</th></tr>\n";
 		print "</thead>";
 		print "<tbody>";
 
@@ -156,11 +156,11 @@ if ( $proto eq "sip" )
 
 print "<!--END MANAGE-->";
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" value=\"1-2\" name=\"id\">";
-print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+print "<input type=\"hidden\" value=\"1-2\" name=\"id\" />";
+print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 print "</form>";
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 
 #print "@run";

@@ -316,14 +316,14 @@ if ( $action eq "addvip" or $action eq "addvlan" )
 print "<table cellspacing=\"0\">";
 print "<thead>";
 print "<tr>";
-print "<td width=85>Name</td>";
-print "<td width=85>Addr</td>";
-print "<td>HWaddr</td>";
-print "<td>Netmask</td>";
-print "<td>Gateway</td>";
-print "<td>Status</td>";
-print "<td>Actions</td>";
-print "<tr>";
+print "<th width=\"85\">Name</th>";
+print "<th width=\"85\">Addr</th>";
+print "<th>HWaddr</th>";
+print "<th>Netmask</th>";
+print "<th>Gateway</th>";
+print "<th>Status</th>";
+print "<th>Actions</th>";
+print "</tr>";
 print "</thead>";
 print "<tbody>";
 
@@ -388,11 +388,11 @@ for my $if ( @interfaces )
 			print "<td>$if";
 			if ( $ip eq $clrip || $ip eq $clvip )
 			{
-				print "&nbsp;&nbsp;<img src=\"img/icons/small/databases.png\" title=\"The cluster service interface has to be changed or disabled before to be able to modify this interface\">";
+				print "&nbsp;&nbsp;<img src=\"img/icons/small/databases.png\" title=\"The cluster service interface has to be changed or disabled before to be able to modify this interface\" alt=\"!\" />";
 			}
 			if ( $ip eq $guiip )
 			{
-				print "&nbsp;&nbsp;<img src=\"img/icons/small/application_home.png\" title=\"The GUI service interface has to be changed before to be able to modify this interface\">";
+				print "&nbsp;&nbsp;<img src=\"img/icons/small/application_home.png\" title=\"The GUI service interface has to be changed before to be able to modify this interface\" alt=\"!\" />";
 			}
 			print "</td>";
 			print "<td>$ip</td>";
@@ -411,19 +411,19 @@ for my $if ( @interfaces )
 			}
 			else
 			{
-				print "<td>&nbsp;&nbsp;<img src=\"img/icons/small/lock.png\" title=\"A datalink farm is locking the gateway of this interface\"></td>";
+				print "<td>&nbsp;&nbsp;<img src=\"img/icons/small/lock.png\" title=\"A datalink farm is locking the gateway of this interface\" alt=\"L\" /></td>";
 			}
 			if ( $status eq "up" )
 			{
-				print "<td><img src=\"img/icons/small/start.png\" title=\"up\">";
+				print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" />";
 			}
 			else
 			{
-				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\">";
+				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" />";
 			}
 			if ( $link eq "off" )
 			{
-				print "&nbsp;&nbsp;<img src=\"img/icons/small/disconnect.png\" title=\"No link\">";
+				print "&nbsp;&nbsp;<img src=\"img/icons/small/disconnect.png\" title=\"No link\" alt=\"N\" />";
 			}
 			print "</td>";
 			&createmenuif( $if, $id, $configured, $status );
@@ -435,21 +435,21 @@ for my $if ( @interfaces )
 			print "<tr class=\"selected\">";
 			if ( $action eq "addvip" )
 			{
-				print "<td>$if:<input type=\"text\" maxlength=\"10\" size=\"2\"  name=\"if\" value=\"$ifname\"></td>";
+				print "<td>$if:<input type=\"text\" maxlength=\"10\" size=\"2\"  name=\"if\" value=\"$ifname\" /></td>";
 			}
 			elsif ( $action eq "addvlan" )
 			{
-				print "<td>$if.<input type=\"text\" maxlength=\"10\" size=\"3\"  name=\"if\" value=\"$ifname\"></td>";
+				print "<td>$if.<input type=\"text\" maxlength=\"10\" size=\"3\"  name=\"if\" value=\"$ifname\" /></td>";
 			}
 
-			print "<td><input type=\"text\" size=\"10\"  name=\"newip\" > </td>";
-			print "<input type=\"hidden\" name=\"id\" value=\"3-2\">";
-			print "<input type=\"hidden\" name=\"toif\" value=\"$if\">";
-			print "<input type=\"hidden\" name=\"status\" value=\"$status\">";
+			print "<td><input type=\"text\" size=\"10\"  name=\"newip\" />";
+			print "<input type=\"hidden\" name=\"id\" value=\"3-2\" />";
+			print "<input type=\"hidden\" name=\"toif\" value=\"$if\" />";
+			print "<input type=\"hidden\" name=\"status\" value=\"$status\" /> </td>";
 			print "<td>$hwaddr</td>";
 			if ( $action eq "addvip" )
 			{
-				print "<input type=\"hidden\" name=\"netmask\" value=\"$netmask\">";
+				print "<input type=\"hidden\" name=\"netmask\" value=\"$netmask\" />";
 				print "<td>$netmask</td>";
 				my @splif = split ( ":", $if );
 				my $ifused = &uplinkUsed( @splif[0] );
@@ -459,29 +459,29 @@ for my $if ( @interfaces )
 				}
 				else
 				{
-					print "<td>&nbsp;&nbsp;<img src=\"img/icons/small/lock.png\" title=\"A datalink farm is locking the gateway of this interface\"></td>";
+					print "<td>&nbsp;&nbsp;<img src=\"img/icons/small/lock.png\" title=\"A datalink farm is locking the gateway of this interface\" alt=\"L\" />";
 				}
-				print "<input type=\"hidden\" name=\"action\" value=\"addvip2\">";
+				print "<input type=\"hidden\" name=\"action\" value=\"addvip2\" />";
 			}
 			elsif ( $action eq "addvlan" )
 			{
-				print "<td><input type=\"text\" size=\"10\"  name=\"netmask\" value=\"\" ></td>";
-				print "<td><input type=\"text\" size=\"10\"  name=\"gwaddr\" value=\"\" ></td>";
-				print "<input type=\"hidden\" name=\"action\" value=\"addvlan2\">";
+				print "<td><input type=\"text\" size=\"10\"  name=\"netmask\" value=\"\" /></td>";
+				print "<td><input type=\"text\" size=\"10\"  name=\"gwaddr\" value=\"\" /></td>";
+				print "<input type=\"hidden\" name=\"action\" value=\"addvlan2\" />";
 			}
 
 			print "<td>adding</td>";
 			print "<td>";
 			if ( $action eq "addvip" )
 			{
-				print "<input type=\"image\" src=\"img/icons/small/plugin_save.png\" onclick=\"submit();\" name=\"action\" type=\"submit\" value=\"addvip2\" title=\"save virtual interface\">";
+				print "<input type=\"image\" src=\"img/icons/small/plugin_save.png\" onclick=\"submit();\" name=\"action\" value=\"addvip2\" title=\"save virtual interface\" />";
 			}
 			elsif ( $action eq "addvlan" )
 			{
-				print "<input type=\"image\" src=\"img/icons/small/plugin_save.png\" onclick=\"submit();\" name=\"action\" type=\"submit\" value=\"addvlan2\" title=\"save vlan interface\">";
+				print "<input type=\"image\" src=\"img/icons/small/plugin_save.png\" onclick=\"submit();\" name=\"action\" value=\"addvlan2\" title=\"save vlan interface\" />";
 			}
 
-			print " <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/plugin_back.png\" title=\"cancel operation\"></a> ";
+			print " <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/plugin_back.png\" title=\"cancel operation\" alt=\"*\" /></a> ";
 			print "</td>";
 			print "</tr>";
 		}
@@ -520,29 +520,29 @@ for my $if ( @interfaces )
 					print "<td>$iff";
 					if ( $toipv eq $clrip || $toipv eq $clvip )
 					{
-						print "&nbsp;&nbsp;<img src=\"img/icons/small/databases.png\" title=\"The cluster service interface has to be changed or disabled before to be able to modify this interface\">";
+						print "&nbsp;&nbsp;<img src=\"img/icons/small/databases.png\" title=\"The cluster service interface has to be changed or disabled before to be able to modify this interface\" alt=\"!\" />";
 					}
 					if ( $toipv eq $guiip )
 					{
-						print "&nbsp;&nbsp;<img src=\"img/icons/small/application_home.png\" title=\"The GUI service interface has to be changed before to be able to modify this interface\">";
+						print "&nbsp;&nbsp;<img src=\"img/icons/small/application_home.png\" title=\"The GUI service interface has to be changed before to be able to modify this interface\" alt=\"!\" />";
 					}
 					print "</td>";
-					print "<td>$toipv</td>";
-					print "<input type=\"hidden\" name=\"id\" value=\"3-2\">";
+					print "<td>$toipv";
+					print "<input type=\"hidden\" name=\"id\" value=\"3-2\" /></td>";
 					print "<td>$hwaddr</td>";
 					print "<td>$netmask</td>";
 					print "<td>$gw</td>";
 					if ( $status eq "up" )
 					{
-						print "<td><img src=\"img/icons/small/start.png\" title=\"up\">";
+						print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" />";
 					}
 					else
 					{
-						print "<td><img src=\"img/icons/small/stop.png\" title=\"down\">";
+						print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" />";
 					}
 					if ( $link eq "off" )
 					{
-						print "&nbsp;&nbsp;<img src=\"img/icons/small/disconnect.png\" title=\"No link\">";
+						print "&nbsp;&nbsp;<img src=\"img/icons/small/disconnect.png\" title=\"No link\" alt=\"N\" />";
 					}
 					print "</td>";
 					&createmenuif( $iff, $id, $configured, $status );
@@ -568,7 +568,7 @@ print "</table>";
 print "</div>";
 
 print "
-	<div id=\"page-header\"></div>
+	<div class=\"page-header\"></div>
 ";
 #### Default GW section
 
@@ -584,9 +584,9 @@ print "<table cellspacing=\"0\">";
 print "<thead>";
 
 print "<tr>";
-print "<td width=85>Addr</td>";
-print "<td width=85>Interface</td>";
-print "<td>Actions</td>";
+print "<th width=\"85\">Addr</th>";
+print "<th width=\"85\">Interface</th>";
+print "<th>Actions</th>";
 print "</tr>";
 print "</thead>";
 print "<tbody>";
@@ -596,7 +596,7 @@ if ( $action eq "editgw" )
 	print "<tr class=\"selected\"><td>";
 	print "<input type=\"text\" size=\"10\" name=\"gwaddr\" value=\"";
 	print &getDefaultGW();
-	print "\">";
+	print "\" />";
 	print "</td><td>";
 	print "<select name=\"if\">";
 	$iface   = &getIfDefaultGW();
@@ -611,13 +611,13 @@ if ( $action eq "editgw" )
 			if ( ( $iface eq "" && $isfirst eq "true" ) || $iface eq $if )
 			{
 				$isfirst = "false";
-				print "selected";
+				print "selected=\"selected\"";
 			}
 			print ">$if</option>";
 		}
 	}
 	print "</select>";
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
 }
 else
 {
@@ -633,16 +633,16 @@ print "</td></tr>";
 
 print "</tbody>";
 print "</table>";
+print "</div>";
 if ( $action eq "editgw" )
 {
 	print "</form>";
 }
 print "</div>";
 
-print "<br class=\"cl\">";
+print "<br class=\"cl\" />";
 
 ###
 
 print "
-    <!--Content END-->
-  </div>";
+    <!--Content END-->";

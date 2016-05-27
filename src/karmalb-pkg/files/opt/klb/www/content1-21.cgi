@@ -106,21 +106,21 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 	print "<div class=\"row\">";
 
 	print "<form method=\"get\" action=\"index.cgi\">";
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
 
 	#farm name
 	print "<b>Farm Description Name: </b>";
 	if ( $farmname ne "" )
 	{
-		print "<input type=\"text\" value=\"$farmname\" size=\"40\" name=\"farmname\">";
+		print "<input type=\"text\" value=\"$farmname\" size=\"40\" name=\"farmname\" />";
 	}
 	else
 	{
-		print "<input type=\"text\" value=\"\" size=\"40\" name=\"farmname\">";
+		print "<input type=\"text\" value=\"\" size=\"40\" name=\"farmname\" />";
 	}
 
 	#farm profile
-	print "&nbsp;&nbsp;&nbsp;<b> Profile:<b>";
+	print "&nbsp;&nbsp;&nbsp;<b> Profile:</b>";
 	if ( $farmprotocol eq "" || $farmname eq "" )
 	{
 		print "<select name=\"farmprotocol\">";
@@ -148,10 +148,10 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 	}
 	else
 	{
-		print "<input type=\"text\" value=\"$farmprotocol\" size=\"10\" name=\"farmprotocol\" disabled >";
-		print "<input type=\"hidden\" name=\"farmprotocol\" value=\"$farmprotocol\">";
+		print "<input type=\"text\" value=\"$farmprotocol\" size=\"10\" name=\"farmprotocol\" disabled=\"disabled\" />";
+		print "<input type=\"hidden\" name=\"farmprotocol\" value=\"$farmprotocol\" />";
 	}
-	print "<br><br>";
+	print "<br /><br />";
 
 	if ( $farmprotocol ne "" && $farmname ne "" )
 	{
@@ -185,15 +185,15 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 		{
 			#vip port
 			print "<b> Virtual Port(s): </b>";
-			print "<input type=\"text\" value=\"\" size=\"10\" name=\"vipp\">";
+			print "<input type=\"text\" value=\"\" size=\"10\" name=\"vipp\" />";
 		}
-		print "<br><br><input type=\"submit\" value=\"Save\" name=\"action\" class=\"button small\">";
-		print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+		print "<br /><br /><input type=\"submit\" value=\"Save\" name=\"action\" class=\"button small\" />";
+		print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 	}
 	else
 	{
-		print "<input type=\"submit\" value=\"Save & continue\" name=\"action\" class=\"button small\">";
-		print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+		print "<input type=\"submit\" value=\"Save &amp; continue\" name=\"action\" class=\"button small\" />";
+		print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 	}
 
 	print "</form>";
@@ -202,5 +202,5 @@ if ( $action eq "addfarm" || $action eq "Save & continue" )
 	print "</div></div>";
 }
 
-print "<br>";
+print "<br />";
 

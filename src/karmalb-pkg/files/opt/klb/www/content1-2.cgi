@@ -187,16 +187,18 @@ print "<table cellspacing=\"0\">";
 
 print "<thead>";
 print "<tr>";
-print "<td width=85>Name</td>";
-print "<td width=85>Virtual IP</td>";
-print "<td>Virtual Port(s)</td>";
-print "<td>Status</td>";
-print "<td>Profile</td>";
-print "<td>Actions</td>";
+print "<th width=\"85\">Name</th>";
+print "<th width=\"85\">Virtual IP</th>";
+print "<th>Virtual Port(s)</th>";
+print "<th>Status</th>";
+print "<th>Profile</th>";
+print "<th>Actions</th>";
 print "</tr>";
 print "</thead>";
 print "<tbody>";
 
+if (scalar( @files ) > 0 )
+{
 foreach $file ( @files )
 {
 	$name = &getFarmName( $file );
@@ -236,11 +238,11 @@ foreach $file ( @files )
 			#print status of a farm
 			if ( $status ne "up" )
 			{
-				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\"></td>";
+				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" /></td>";
 			}
 			else
 			{
-				print "<td><img src=\"img/icons/small/start.png\" title=\"up\"></td>";
+				print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" /></td>";
 			}
 
 			#type of farm
@@ -269,7 +271,11 @@ foreach $file ( @files )
 		}
 	#}
 }
-print "</tbody>";
+}
+else
+{
+	print "<tr><td colspan=\"6\">There are no farms defined.</td></tr>";
+}
 
 # DATALINK
 
@@ -277,11 +283,11 @@ if ( $thereisdl eq "true" )
 {
 	print "<thead>";
 	print "<tr>";
-	print "<td width=85>Name</td>";
-	print "<td width=85 colspan=2>IP</td>";
-	print "<td>Status</td>";
-	print "<td>Profile</td>";
-	print "<td>Actions</td>";
+	print "<th width=\"85\">Name</th>";
+	print "<th width=\"85\" colspan=\"2\">IP</th>";
+	print "<th>Status</th>";
+	print "<th>Profile</th>";
+	print "<th>Actions</th>";
 	print "</tr>";
 	print "</thead>";
 	print "<tbody>";
@@ -298,11 +304,11 @@ if ( $thereisdl eq "true" )
 			$vipp = &getFarmVip( "vipp", $name );
 			my @startdata = &getDevData( $vipp );
 
-			#print "@startdata<br>";
+			#print "@startdata<br />";
 			sleep ( 0.5 );
 			my @enddata = &getDevData( $vipp );
 
-			#print "@enddata<br>";
+			#print "@enddata<br />";
 
 			if ( $farmname eq $name && $action ne "addfarm" && $action ne "Cancel" )
 			{
@@ -318,7 +324,7 @@ if ( $thereisdl eq "true" )
 
 			#print the virtual ip
 			$vip = &getFarmVip( "vip", $name );
-			print "<td colspan=2>$vip</td>";
+			print "<td colspan=\"2\">$vip</td>";
 
 			#print the interface to be the defaut gw
 			#print "<td>$vipp</td>";
@@ -329,11 +335,11 @@ if ( $thereisdl eq "true" )
 			#print status of a farm
 			if ( $status ne "up" )
 			{
-				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\"></td>";
+				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" /></td>";
 			}
 			else
 			{
-				print "<td><img src=\"img/icons/small/start.png\" title=\"up\"></td>";
+				print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" /></td>";
 			}
 
 			#type of farm
@@ -350,12 +356,12 @@ if ( $thereisdl eq "true" )
 
 ## END DATALINK
 
-	print "</tbody>";
 }
-print "<tr><td colspan=\"5\"></td><td><a href=\"index.cgi?id=$id&action=addfarm\"><img src=\"img/icons/small/farm_add.png\" title=\"Add new Farm\"></a></td></tr>";
+print "<tr><td colspan=\"5\"></td><td><a href=\"index.cgi?id=$id&amp;action=addfarm\"><img src=\"img/icons/small/farm_add.png\" title=\"Add new Farm\" alt=\"[Add Farm]\" /></a></td></tr>";
 
+print "</tbody>";
 print "</table>";
 print "</div>";
 
-print "<br class=\"cl\" >";
+print "<br class=\"cl\" />";
 print "</div>";
