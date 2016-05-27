@@ -16,7 +16,9 @@ insserv -r networking
 #insserv -r nfs-common
 #insserv -r atd
 insserv -r rsync
-insserv -r x11-common
+if dpkg -s x11-common >/dev/null 2>&1; then
+	insserv -r x11-common
+fi
 if dpkg -s exim4 >/dev/null 2>&1; then
 	insserv -r exim4
 	systemctl disable exim4 >/dev/null 2>&1
