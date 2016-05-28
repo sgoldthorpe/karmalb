@@ -1,6 +1,12 @@
 #!/bin/bash
 
-sed -i -e '/^@LONGNAME@/d' /etc/issue
+if [ "x$1" = "xremove" ]; then
+	ISSUE=/etc/issue
+	GRUB_DEFAULTS=/etc/default/grub
+	sed -i -e '/^@LONGNAME@/d' $ISSUE
+	sed -i -e 's/^GRUB_DISTRIBUTOR=.*/GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`' $GRUB_DEFAULTS
+	update-grub
+fi
 
 OVERRIDEDIR=/etc/insserv/overrides
 for OVERRIDE in ssh snmpd; do
