@@ -133,6 +133,7 @@ fi
 # ADD PKG DEPENDENCIES HERE
 PKGLIST="
 apt-transport-https
+chrony
 conntrack
 expect
 fontconfig
@@ -140,6 +141,9 @@ fontconfig-config
 fonts-dejavu-core
 gdnsd
 geoip-database
+grub-pc
+grub2-common
+install-info
 iputils-arping
 irqbalance
 libcap-ng0
@@ -197,6 +201,8 @@ libtcl8.6
 libthai0
 libthai-data
 libtiff5
+libtomcrypt0
+libtommath0
 liburcu2
 libvpx1
 libxcb-render0
@@ -209,7 +215,6 @@ monitoring-plugins-common
 monitoring-plugins-ldap-karmalb
 mysql-common
 netstat-nat
-ntpdate
 perl
 perl-base
 pound
@@ -220,6 +225,7 @@ snmpd
 snmptrapd
 tcl8.6
 tcl-expect
+timelimit
 ucarp
 unzip
 xdg-user-dirs
