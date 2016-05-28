@@ -276,7 +276,7 @@ echo "Building initrd..."
 	cd irmod
 	gzip -d < ../$DEST/$INITRD | \
 		sudo -n cpio --extract --make-directories --no-absolute-filenames
-	cp ../karmalb_preseed.cfg preseed.cfg
+	sed -e "s/@SHORTNAME@/$PROJNAME/g" -e "s/@VERSION@/$PROJREL/g" ../karmalb_preseed.cfg > preseed.cfg
 	find . | sudo -n cpio -H newc --create | \
 		gzip -9 > ../$DEST/$INITRD
 	cd ../
