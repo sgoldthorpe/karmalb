@@ -71,7 +71,6 @@ if ( $action eq "Download_Cert" )
 if ( $action eq "Generate CSR" )
 {
 	$cert_name         = &getCleanBlanc( $cert_name );
-	$cert_issuer       = &getCleanBlanc( $cert_issuer );
 	$cert_fqdn         = &getCleanBlanc( $cert_fqdn );
 	$cert_division     = &getCleanBlanc( $cert_division );
 	$cert_organization = &getCleanBlanc( $cert_organization );
@@ -79,7 +78,7 @@ if ( $action eq "Generate CSR" )
 	$cert_state        = &getCleanBlanc( $cert_state );
 	$cert_country      = &getCleanBlanc( $cert_country );
 	$cert_mail         = &getCleanBlanc( $cert_mail );
-	if ( $cert_name =~ /^$/ || $cert_issuer =~ /^$/ || $cert_fqdn =~ /^$/ || $cert_division =~ /^$/ || $cert_organization =~ /^$/ || $cert_locality =~ /^$/ || $cert_state =~ /^$/ || $cert_country =~ /^$/ || $cert_mail =~ /^$/ || $cert_key =~ /^$/ )
+	if ( $cert_name =~ /^$/ || $cert_fqdn =~ /^$/ || $cert_division =~ /^$/ || $cert_organization =~ /^$/ || $cert_locality =~ /^$/ || $cert_state =~ /^$/ || $cert_country =~ /^$/ || $cert_mail =~ /^$/ || $cert_key =~ /^$/ )
 	{
 		&errormsg( "Fields can not be empty. Try again." );
 		$action = "Show_Form";
@@ -190,11 +189,6 @@ if ( $action eq "Show_Form" )
 	print "	<div class=\"box stats\">";
 	print "		<form method=\"post\" action=\"index.cgi\">";
 	print "		<b>Certificate Name.</b><font size=\"1\"> *Descriptive text, this name will be used in the future to identify this certificate.</font><br /><input type=\"text\" value=\"$cert_name\" size=\"60\" name=\"cert_name\" /><br /><br />";
-	print "		<b>Certificate Issuer.</b><br />";
-	print "		<select name=\"cert_issuer\">";
-	print "			<option value=\"Sofintel\" >Sofintel - Starfield Tech. </option>";
-	print "			<option value=\"Others\" >Others </option>";
-	print "		</select><br /><br />";
 	print "		<b>Common Name.</b><font size=\"1\"> *FQDN of the server. Example: domain.com, mail.domain.com, or *.domain.com.</font><br /><input type=\"text\" value=\"$cert_fqdn\" size=\"60\" name=\"cert_fqdn\" /><br /><br />";
 	print "		<b>Division.</b><font size=\"1\"> *Your department; such as 'IT','Web', 'Office', etc.</font><br /><input type=\"text\" value=\"$cert_division\" size=\"60\" name=\"cert_division\" /><br /><br />";
 	print "		<b>Organization.</b><font size=\"1\"> *The full legal name of your organization/company (ex.: Sofintel IT Co.)</font><br /><input type=\"text\" value=\"$cert_organization\" size=\"60\" name=\"cert_organization\" /><br /><br />";
