@@ -36,18 +36,18 @@ use Time::HiRes qw (sleep);
 #my $vipp = &getFarmVip("vipp",$farmname);
 my @startdata = &getDevData( "" );
 
-#print "@startdata<br>";
+#print "@startdata<br />";
 sleep ( 0.5 );
 my @enddata = &getDevData( "" );
 
-#print "@enddata<br>";
+#print "@enddata<br />";
 
 my @content = &getFarmBackendStatusCtl( $farmname );
 
-#print"@content<br>";
+#print"@content<br />";
 my @backends = &getFarmBackendsStatus( $farmname, @content );
 
-#print"@backends<br>";
+#print"@backends<br />";
 
 my $backendsize    = @backends;
 my $activebackends = 0;
@@ -61,12 +61,12 @@ foreach ( @backends )
 }
 
 &refreshstats();
-print "<br>";
+print "<br />";
 
-print "<div class=\"box-header\">Real servers status<font size=1>&nbsp;&nbsp;&nbsp; $backendsize servers, $activebackends active </font></div>";
+print "<div class=\"box-header\">Real servers status<font size=\"1\">&nbsp;&nbsp;&nbsp; $backendsize servers, $activebackends active </font></div>";
 print "<div class=\"box table\"><table cellspacing=\"0\">\n";
 print "<thead>\n";
-print "<tr><td>Server</td><td>Address</td><td>Interface</td><td>Status</td><td>Rx Total Bytes</td><td>Rx Bytes/sec</td><td>Rx Total Packets</td><td>Rx Packets/sec</td><td>Tx Total Bytes</td><td>Tx Bytes/sec</td><td>Tx Total Packets</td><td>Tx Packets/sec</td><td>Weight</td><td>Priority</td></tr>";
+print "<tr><th>Server</th><th>Address</th><th>Interface</th><th>Status</th><th>Rx Total Bytes</th><th>Rx Bytes/sec</th><th>Rx Total Packets</th><th>Rx Packets/sec</th><th>Tx Total Bytes</th><th>Tx Bytes/sec</th><th>Tx Total Packets</th><th>Tx Packets/sec</th><th>Weight</th><th>Priority</th></tr>";
 print "</thead>\n";
 print "<tbody>";
 
@@ -115,11 +115,11 @@ foreach ( @backends )
 
 	if ( $backends_data[4] eq "up" )
 	{
-		print "<td><img src=\"img/icons/small/start.png\" title=\"up\"></td> ";
+		print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" /></td> ";
 	}
 	else
 	{
-		print "<td><img src=\"img/icons/small/stop.png\" title=\"down\"></td> ";
+		print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" /></td> ";
 	}
 	my $calc = @enddataout[0];
 	print "<td> $calc </td> ";
@@ -151,11 +151,11 @@ print "</div>";
 
 print "<!--END MANAGE-->";
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" value=\"1-2\" name=\"id\">";
-print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+print "<input type=\"hidden\" value=\"1-2\" name=\"id\" />";
+print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 print "</form>";
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 
 #print "@run";

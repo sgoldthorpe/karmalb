@@ -17,6 +17,8 @@ d etc/rc4.d
 l etc/rc4.d/S01zenloadbalancer ../init.d/zenloadbalancer
 d etc/rc5.d
 l etc/rc5.d/S01zenloadbalancer ../init.d/zenloadbalancer
+d etc/sysctl.d
+f etc/sysctl.d/70-karmalb.conf
 l license.txt opt/klb/license.txt
 d opt
 d opt/klb
@@ -52,7 +54,7 @@ d opt/klb/app/mini_httpd
 f opt/klb/app/mini_httpd/.htpasswd
 l opt/klb/app/mini_httpd/mini_httpd /usr/sbin/mini_httpd
 f opt/klb/app/mini_httpd/mini_httpd.conf
-f opt/klb/app/mini_httpd/zenguicert.pem
+f opt/klb/app/mini_httpd/lbguicert.pem
 d opt/klb/app/openssl
 d opt/klb/app/openssl/openssl
 d opt/klb/app/openssl/openssl/misc
@@ -76,33 +78,6 @@ d opt/klb/app/openssl/usr/local/lib/pkgconfig
 f opt/klb/app/openssl/usr/local/lib/pkgconfig/libcrypto.pc
 f opt/klb/app/openssl/usr/local/lib/pkgconfig/libssl.pc
 f opt/klb/app/openssl/usr/local/lib/pkgconfig/openssl.pc
-d opt/klb/app/pen
-d opt/klb/app/pen/bin
-#f opt/klb/app/pen/bin/mergelogs
-#f opt/klb/app/pen/bin/pen
-#f opt/klb/app/pen/bin/penctl
-#f opt/klb/app/pen/bin/penlog
-#f opt/klb/app/pen/bin/penlogd
-d opt/klb/app/pen/doc
-d opt/klb/app/pen/doc/pen
-f opt/klb/app/pen/doc/pen/authors
-f opt/klb/app/pen/doc/pen/ChangeLog
-f opt/klb/app/pen/doc/pen/copying
-f opt/klb/app/pen/doc/pen/howto
-f opt/klb/app/pen/doc/pen/penstats
-f opt/klb/app/pen/doc/pen/readme
-d opt/klb/app/pen/man
-f opt/klb/app/pen/man/erver
-d opt/klb/app/pen/man/man1
-f opt/klb/app/pen/man/man1/mergelogs.1
-f opt/klb/app/pen/man/man1/pen.1
-f opt/klb/app/pen/man/man1/penctl.1
-f opt/klb/app/pen/man/man1/penlog.1
-f opt/klb/app/pen/man/man1/penlogd.1
-d opt/klb/app/pen/share
-d opt/klb/app/pen/share/man
-d opt/klb/app/pen/share/man/man1
-f opt/klb/app/pen/share/man/man1/penbw.1
 d opt/klb/app/pound
 d opt/klb/app/pound/etc
 f opt/klb/app/pound/etc/poundtpl.cfg
@@ -118,6 +93,7 @@ d opt/klb/app/ucarp
 d opt/klb/app/ucarp/sbin
 #f opt/klb/app/ucarp/sbin/ucarp
 d opt/klb/app/zbin
+f opt/klb/app/zbin/update-chrony.sh
 f opt/klb/app/zbin/zlb-firstboot.sh
 d opt/klb/app/zenbackup
 f opt/klb/app/zenbackup/zenbackup.pl
@@ -126,8 +102,6 @@ f opt/klb/app/zeninotify/zeninotify.pl
 d opt/klb/app/zenlatency
 f opt/klb/app/zenlatency/zenlatency-start.pl
 f opt/klb/app/zenlatency/zenlatency-stop.pl
-d opt/klb/app/zenntp
-f opt/klb/app/zenntp/zenntp.pl
 d opt/klb/app/zenrrd
 f opt/klb/app/zenrrd/cpu-rrd.pl
 f opt/klb/app/zenrrd/disk-rrd.pl
@@ -143,7 +117,8 @@ d opt/klb/backups
 l opt/klb/backups/.htpasswd ../www/.htpasswd
 d opt/klb/config
 f opt/klb/config/global.conf
-f opt/klb/config/zencert.pem
+f opt/klb/config/timeservers.conf
+f opt/klb/config/lbcert.pem
 f opt/klb/config/zlb-start
 f opt/klb/config/zlb-stop
 f opt/klb/license.txt
@@ -154,8 +129,6 @@ f opt/klb/www/cluster_functions.cgi
 f opt/klb/www/content1-1.cgi
 f opt/klb/www/content1-202.cgi
 f opt/klb/www/content1-21.cgi
-f opt/klb/www/content1-22.cgi
-f opt/klb/www/content1-23.cgi
 f opt/klb/www/content1-24.cgi
 f opt/klb/www/content1-25.cgi
 f opt/klb/www/content1-26.cgi
@@ -231,6 +204,8 @@ f opt/klb/www/gslb_functions.cgi
 f opt/klb/www/gui_functions.cgi
 f opt/klb/www/header.cgi
 f opt/klb/www/help.cgi
+d opt/klb/www/help
+f opt/klb/www/help/clustering.html
 f opt/klb/www/help-content.cgi
 f opt/klb/www/.htpasswd
 f opt/klb/www/http_functions.cgi
@@ -412,7 +387,6 @@ f opt/klb/www/out/out.html
 f opt/klb/www/rrd_functions.cgi
 f opt/klb/www/snmp_functions.cgi
 f opt/klb/www/system_functions.cgi
-f opt/klb/www/tcpudp_functions.cgi
 f opt/klb/www/uploadcerts.cgi
 f opt/klb/www/uploadcertsfromcsr.cgi
 f opt/klb/www/upload.cgi

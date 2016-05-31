@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ "x$1" = "xremove" ]; then
+	ISSUE=/etc/issue
+	GRUB_DEFAULTS=/etc/default/grub
+	sed -i -e '/^@LONGNAME@/d' $ISSUE
+	sed -i -e 's/^GRUB_DISTRIBUTOR=.*/GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`' $GRUB_DEFAULTS
+	update-grub
+fi
+
+OVERRIDEDIR=/etc/insserv/overrides
+for OVERRIDE in ssh snmpd; do
+	grep -q zenloadbalancer $OVERRIDEDIR/$OVERRIDE >/dev/null 2>&1 && rm $OVERRIDEDIR/$OVERRIDE
+	update-rc.d $OVERRIDE defaults
+done
+
+update-rc.d -f zenloadbalancer remove
+
+invoke-rc.d zenloadbalancer stop
+/etc/init.d/minihttpd stop
+
+exit 0

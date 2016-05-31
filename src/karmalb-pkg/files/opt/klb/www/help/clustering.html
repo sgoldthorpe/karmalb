@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body {
+    background: transparent url("/img/back.png") repeat scroll left top;
+    color: #1a1a1a;
+    font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+}
+</style>
+<link href="/img/favicon.ico" rel="icon" type="/image/x-icon" />
+<title>Clustering</title>
+<head>
+<body>
+<h2>Why Cluster?</h2>
+<div>
+A load balancer is typically used to provide high availability of backend servers by sending traffic to <i>healthy</i> servers and not sending traffic to <i>faulty</i> or <i>down</i> ones.
+However should the load balancer itself go down, you'll lose this ability. However you can deploy Karma Load Balancer in a clustered pair so that should the active load balancer fail, the standby one will take over the traffic automatically. This will ensure a high level of uptime and allow for maintenance (taking each load balancer down for updates etc).
+</div>
+<h2>Clustering requirements</h2>
+<h3>For clustering to function correctly you will need to ensure the following:</h3>
+<ul>
+  <li>The time of each KLB is in sync. Configuring appropriate time servers should ensure this.</li>
+  <li>DNS should be configured appropriately and working.</li>
+  <li>Ensure that each KLB host can ping each other.</li>
+  <li>It is recommended to use a dedicated interface for clustering.</li>
+  <li>Nodes and the clustering IP address should be in the same subnet.</li>
+</ul>
+<h3>Creveats</h3>
+<ul>
+  <li>You should configure the clustering interface and server farm config on the node you wish to become the master node.</li>
+  <li>Any configuration on the slave node will be lost.</li>
+  <li>You can't do any server farm configuration on the backup node.</li>
+  <li>The cluster service uses multicast and VVRP packets so these must be supported by your network switches.</li>
+  <li>On physical servers you can use a cross-over cable between the servers if you prefer (you will need to select the option during configuration).</li>
+</ul>
+<h2>Configuration</h2>
+<ul>
+  <li>In the Web GUI, select Settings->Interfaces and add a new Virtual Interface. Name the interface appropriately (i.e. 'cl') and give it an IP address in the same range as your nodes.</li>
+  <li>Select Settings->Cluster and select the interface configured in the previous step for the Virtual IP, click on Save VIP.</li>
+  <li>Enter the Remote hostname for the slave node and IP address.</li>
+  <li>Set the cluster ID appropriately - it should be a unique number (1-255) per cluster at your site.</li>
+  <li>Set the dead ratio appropriately - this is the number of seconds each node should wait before it decides a peer is dead.</li>
+  <li>Click on Save.</li>
+  <li>Enter the root password of the slave and click on Configure RSA connection between nodes.</li>
+  <li>After several seconds you should see two SUCCESS! messages.</li>
+  <li>Enable the cluster by changing the Cluster type and clicking on configure cluster type.</li>
+  <li>After the SUCCESS! messages click on the reload icon to complete the cluster operation.</li>
+</ul>
+<h2>Other operations</h2>
+On the cluster settings page you can do the following operations:
+<dl>
+  <dt>Test RSA connections</dt>
+  <dd>This will test the communication between the two nodes.</dd>
+  <dt>Test failover</dt>
+  <dd>This will fail the active master over to the other node.  You may need to click on the refresh button to update the GUI.  If the cluster is configured in failback mode, you may not see the failover as it will automatically fail back.</dd>
+  <dt>Force node as backup for maintenance</dt>
+  <dd>Stop the current node being master and mark it as being in a maintenance state.  You will want to do this when for operations such as applying patches.  Once in maintenance mode, click on the Return from maintenance button to resume the servce on this node.</dd>
+</dl>
+<h2>Cluster Types</h2>
+You can select two different cluster modes, automatic failback or failover.  In failback mode, the active load balancer will revert back to the master when it becomes available.  In failover mode, the master won't revert back and will stay on the current node.
+<h2>Cluster mode in the GUI header</h2>
+The current cluster mode of the node is specified in the GUI header.  The three messages are as follows:
+<dl>
+  <dt>Cluster: this node is master</dt>
+  <dd> This node is the active load balancer and is currently handling traffic.  You should do farm configuration and monitoring on this server.</dd>
+  <dt>Cluster: this node is backup</dt>
+  <dd>This node is the standby node and is monitoring the master node and is ready to take over should the existing master fail.  You cannot configure or monitor farms on this node.</dd>
+  <dt>Cluster: Not configured.</dt>
+  <dd>This node is not part of any cluster.  You can configure and monitor farms on this node.  Whilst it is not mandatory to run the load balancer in a cluster, you will experience an outage should this node go down for any reason.</dd>
+</dl>
+</body>
+</html>

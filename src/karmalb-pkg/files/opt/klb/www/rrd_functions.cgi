@@ -33,13 +33,22 @@ my $height = "150";
 $imagetype = "PNG";
 
 #
+sub checkRRDsExist()
+{
+	opendir ( DIR, "$rrdap_dir$rrd_dir" );
+	my @files = grep ( /.rrd$/, readdir ( DIR ) );
+	closedir ( DIR );
+	return ( scalar ( @files ) > 0 );
+}
+
+#
 sub printImgFile($file)
 {
 	my ( $file ) = @_;
 
 	open PNG, "<$file" or print_error( "Can't open $file: $!" );
 	$raw_string = do { local $/ = undef; <PNG>; };
-	$encoded = encode_base64( $raw_string );
+	$encoded = encode_base64( $raw_string, '' );
 	close PNG;
 	unlink ( $file );
 	return "$encoded";

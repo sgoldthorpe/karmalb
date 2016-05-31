@@ -133,6 +133,7 @@ fi
 # ADD PKG DEPENDENCIES HERE
 PKGLIST="
 apt-transport-https
+chrony
 conntrack
 expect
 fontconfig
@@ -140,7 +141,12 @@ fontconfig-config
 fonts-dejavu-core
 gdnsd
 geoip-database
+grub-pc
+grub2-common
+install-info
 iputils-arping
+irqbalance
+libcap-ng0
 libcairo2
 libcommon-sense-perl
 libcurl3-gnutls
@@ -172,6 +178,7 @@ libnet-ipv6addr-perl
 libnet-netmask-perl
 libnet-ssh-perl
 libnetwork-ipv4addr-perl
+libnuma1
 libpango-1.0-0
 libpangocairo-1.0-0
 libpangoft2-1.0-0
@@ -194,6 +201,8 @@ libtcl8.6
 libthai0
 libthai-data
 libtiff5
+libtomcrypt0
+libtommath0
 liburcu2
 libvpx1
 libxcb-render0
@@ -206,7 +215,6 @@ monitoring-plugins-common
 monitoring-plugins-ldap-karmalb
 mysql-common
 netstat-nat
-ntpdate
 perl
 perl-base
 pound
@@ -217,6 +225,7 @@ snmpd
 snmptrapd
 tcl8.6
 tcl-expect
+timelimit
 ucarp
 unzip
 xdg-user-dirs
@@ -267,7 +276,7 @@ echo "Building initrd..."
 	cd irmod
 	gzip -d < ../$DEST/$INITRD | \
 		sudo -n cpio --extract --make-directories --no-absolute-filenames
-	cp ../karmalb_preseed.cfg preseed.cfg
+	sed -e "s/@SHORTNAME@/$PROJNAME/g" -e "s/@VERSION@/$PROJREL/g" ../karmalb_preseed.cfg > preseed.cfg
 	find . | sudo -n cpio -H newc --create | \
 		gzip -9 > ../$DEST/$INITRD
 	cd ../

@@ -65,17 +65,19 @@ foreach ( @backends )
 	}
 }
 &refreshstats();
-print "<br>";
+print "<br />";
 
-print "<div class=\"box-header\">Real servers status<font size=1>&nbsp;&nbsp;&nbsp; $backendsize servers, $activebackends active </font></div>";
+print "<div class=\"box-header\">Real servers status<font size=\"1\">&nbsp;&nbsp;&nbsp; $backendsize servers, $activebackends active </font></div>";
 print "<div class=\"box table\"><table cellspacing=\"0\">\n";
 print "<thead>\n";
 
-print "<tr><td>Service<td>Server</td><td>Address</td><td>Port</td><td>Status</td><td>Pending Conns</td><td>Established Conns</td>";
+print "<tr><th>Service</th><th>Server</th><th>Address</th><th>Port</th><th>Status</th><th>Pending Conns</th><th>Established Conns</th></tr>";
 print "</thead>\n";
 print "<tbody>";
 
 my $i = -1;
+if ( scalar( @backends ) )
+{
 foreach ( @backends )
 {
 	my @backends_data = split ( "\t", $_ );
@@ -94,19 +96,19 @@ foreach ( @backends )
 	print "<td> $backends_data[2] </td> ";
 	if ( $backends_data[3] eq "maintenance" )
 	{
-		print "<td><img src=\"img/icons/small/warning.png\" title=\"Maintenance\"></td> ";
+		print "<td><img src=\"img/icons/small/warning.png\" title=\"Maintenance\" alt=\"!\" /></td> ";
 	}
 	elsif ( $backends_data[3] eq "up" )
 	{
-		print "<td><img src=\"img/icons/small/start.png\" title=\"Up\"></td> ";
+		print "<td><img src=\"img/icons/small/start.png\" title=\"Up\" alt=\"U\" /></td> ";
 	}
 	elsif ( $backends_data[3] eq "fgDOWN" )
 	{
-		print "<td><img src=\"img/icons/small/disconnect.png\" title=\"FarmGuardian down\"></td> ";
+		print "<td><img src=\"img/icons/small/disconnect.png\" title=\"FarmGuardian down\" alt=\"D\" /></td> ";
 	}
 	else
 	{
-		print "<td><img src=\"img/icons/small/stop.png\" title=\"Down\"></td> ";
+		print "<td><img src=\"img/icons/small/stop.png\" title=\"Down\" alt=\"d\" /></td> ";
 	}
 	$ip_backend     = $backends_data[1];
 	$port_backend   = $backends_data[2];
@@ -119,6 +121,11 @@ foreach ( @backends )
 	print "<td>$nestab</td>";
 	print "</tr>";
 }
+}
+else
+{
+        print "<tr><td colspan=\"7\">There are no active sessions.</td></tr>";
+}
 
 print "</tbody>";
 print "</table>";
@@ -129,16 +136,16 @@ print "<div class=\"box-header\">";
 
 if ( $viewtableclients eq "yes" )
 {
-	print "<a href=\"index.cgi?id=1-2&action=managefarm&farmname=$farmname&viewtableclients=no\" title=\"Minimize\"><img src=\"img/icons/small/bullet_toggle_minus.png\"></a>";
+	print "<a href=\"index.cgi?id=1-2&amp;action=managefarm&amp;farmname=$farmname&amp;viewtableclients=no\" title=\"Minimize\"><img src=\"img/icons/small/bullet_toggle_minus.png\" alt=\"*\" /></a>";
 }
 else
 {
-	print "<a href=\"index.cgi?id=1-2&action=managefarm&farmname=$farmname&viewtableclients=yes\" title=\"Maximize\"><img src=\"img/icons/small/bullet_toggle_plus.png\"></a>";
+	print "<a href=\"index.cgi?id=1-2&amp;action=managefarm&amp;farmname=$farmname&amp;viewtableclients=yes\" title=\"Maximize\"><img src=\"img/icons/small/bullet_toggle_plus.png\" alt=\"+\" /></a>";
 }
 
 my @sessions = &getFarmBackendsClientsList( $farmname, @content );
 my $t_sessions = $#sessions + 1;
-print "Client sessions status<font size=1>&nbsp;&nbsp;&nbsp; $t_sessions active sessions</font></div>\n";
+print "Client sessions status<font size=\"1\">&nbsp;&nbsp;&nbsp; $t_sessions active sessions</font></div>\n";
 
 if ( $viewtableclients eq "yes" )
 {
@@ -147,10 +154,12 @@ if ( $viewtableclients eq "yes" )
 
 	print "<div class=\"box table\"><table cellspacing=\"0\">\n";
 	print "<thead>\n";
-	print "<tr><td>Service</td><td>Client</td><td>Session ID</td><td>Server</td>";
+	print "<tr><th>Service</th><th>Client</th><th>Session ID</th><th>Server</th></tr>";
 	print "</thead>\n";
 	print "<tbody>";
 
+	if ( scalar( @sessions ) > 0 )
+	{
 	foreach ( @sessions )
 	{
 		my @sessions_data = split ( "\t", $_ );
@@ -161,6 +170,12 @@ if ( $viewtableclients eq "yes" )
 		print "<td> $sessions_data[3] </td> ";
 		print "</tr>";
 	}
+	}
+	else
+	{
+        print "<tr><td>There are no active sessions.</td></tr>";
+	}
+
 
 	print "</tbody>";
 	print "</table>";
@@ -169,11 +184,11 @@ if ( $viewtableclients eq "yes" )
 
 print "<!--END MANAGE-->";
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" value=\"1-2\" name=\"id\">";
-print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+print "<input type=\"hidden\" value=\"1-2\" name=\"id\" />";
+print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 print "</form>";
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 
 #print "@run";

@@ -9,17 +9,18 @@ $configdir="/opt/klb/config";#update
 #Log directory
 $logdir="/opt/klb/logs/";#update
 #log filename for this Graphic user interface.Some action with this GUI will be saved here.
-$logfile="/opt/klb/logs/zenloadbalancer.log";#update
-#.<b>Time out execution KLB GUI CGIs.</b> <font size=1>When timeout is exceded the cgi execution is killed automatically.</font>
+$logfile="/opt/klb/logs/karmaloadbalancer.log";#update
+#.<b>Time out execution KLB GUI CGIs.</b> <font size="1">When timeout is exceded the cgi execution is killed automatically.</font>
 $timeouterrors="60";
 #File configuration Zen Cluster
 $filecluster="/opt/klb/config/cluster.conf";#update
 #File configuration GUI
 $confhttp="/opt/klb/app/mini_httpd/mini_httpd.conf";#update
-#.<b>ntp server</b>
-$ntp="pool.ntp.org";
+$ntp="pool.ntp.org"; #delete
+#chrony server file extract
+$filetimeserv="/opt/klb/config/timeservers.conf";
 #Do backup to
-$backupfor="$configdir $confhttp /etc/iproute2/rt_tables";
+$backupfor="$configdir $confhttp /etc/iproute2/rt_tables /etc/sysctl.d/70-karmalb.conf";
 #Save backups on
 $backupdir="/opt/klb/backups/";#update
 #rt tables file
@@ -27,7 +28,7 @@ $rttables = "/etc/iproute2/rt_tables";
 #this file
 $globalcfg = "/opt/klb/config/global.conf";#update
 #version KLB
-$version="1.0a2";#update
+$version="1.0a3";#update
 #Cipher PCI
 $cipher_pci="DEFAULT";#update
 
@@ -41,10 +42,8 @@ $tar="/bin/tar";
 $ifconfig_bin="/sbin/ifconfig";
 #Where is ip binary?
 $ip_bin="/sbin/ip";
-#Where is pen (tcp) load balancer?
-$pen_bin="/opt/klb/app/pen/bin/pen";#update
-#Where is pen control load balancer?
-$pen_ctl="/opt/klb/app/pen/bin/penctl";#update
+$pen_bin="/opt/klb/app/pen/bin/pen";#delete
+$pen_ctl="/opt/klb/app/pen/bin/penctl";#delete
 #Where is fdisk binary?
 $fdisk_bin="/sbin/fdisk";
 #Where is df binary?
@@ -67,8 +66,7 @@ $ps="/bin/ps";
 $tail="/usr/bin/tail";
 #Where is zcat binary?
 $zcat="/bin/zcat";
-#Where is ntpserver?
-$datentp="/usr/sbin/ntpdate";
+$datentp="/usr/sbin/ntpdate";#delete
 #Where is arping?
 $arping_bin="/usr/bin/arping";
 #Where is ping?

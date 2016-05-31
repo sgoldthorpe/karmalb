@@ -465,7 +465,7 @@ if ( -e $filecluster )
 				my $eject = $ssh->exec( "$ucarp -r $deadratio $ignoreifstate --interface=@ifname[0] --srcip=$rip --vhid=$idcluster --pass=secret --addr=$vipcl --upscript=/opt/klb/app/zenlatency/zenlatency-start.pl --downscript=/opt/klb/app/zenlatency/zenlatency-stop.pl -B -f local6" );
 				sleep ( 10 );
 				&successmsg( "Cluster configured on mode $lhost or $rhost can be masters" );
-				&successmsg( "Reload here <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\"></a> to apply changes" );
+				&successmsg( "Reload here <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\" alt=\"[Reload]\" /></a> to apply changes" );
 			}
 			if ( $typecl =~ /$lhost-$rhost/ )
 			{
@@ -475,7 +475,7 @@ if ( -e $filecluster )
 				my $eject = $ssh->exec( "$ucarp -r $deadratio $ignoreifstate --interface=@ifname[0] -k 50 --srcip=$rip --vhid=$idcluster --pass=secret --addr=$vipcl --upscript=/opt/klb/app/zenlatency/zenlatency-start.pl --downscript=/opt/klb/app/zenlatency/zenlatency-stop.pl -B -f local6" );
 				sleep ( 10 );
 				&successmsg( "Cluster configured on mode $lhost master and $rhost backup automatic failover" );
-				&successmsg( "Reload here <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\"></a> to apply changes" );
+				&successmsg( "Reload here <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\" alt=\"[Reload]\" /></a> to apply changes" );
 			}
 
 			if ( $typecl =~ /Disabled/ )
@@ -551,9 +551,9 @@ closedir ( DIR );
 
 #cluster information
 
-print "<b>Cluster status <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\" title=\"Refresh\"></a>:</b><br>";
+print "<b>Cluster status <a href=\"index.cgi?id=$id\"><img src=\"img/icons/small/arrow_refresh.png\" title=\"Refresh\" alt=\"[Refresh]\" /></a>:</b><br />";
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 $error = "false";
 
 #if (($rhost && $lhost && $rip && $lip && $rip && $vipcl)){
@@ -592,14 +592,14 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 
 	if ( $error eq "false" )
 	{
-		print " <img src=\"/img/icons/small/accept.png\">";
+		print " <img src=\"/img/icons/small/accept.png\" alt=\"OK\" />";
 	}
 	else
 	{
-		print " <img src=\"/img/icons/small/exclamation.png\">";
+		print " <img src=\"/img/icons/small/exclamation.png\" alt=\"!\" />";
 	}
 
-	print "<br>";
+	print "<br />";
 
 	$vipclrun  = "false";
 	$vipclrun2 = "false";
@@ -622,16 +622,16 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 
 	if ( ( $vipclrun eq "false" && $vipclrun2 eq "false" ) || ( $vipclrun ne "false" && $vipclrun2 ne "false" ) )
 	{
-		print " <img src=\"/img/icons/small/exclamation.png\">";
+		print " <img src=\"/img/icons/small/exclamation.png\" alt=\"!\" />";
 		$activecl = "false";
 		$error    = "true";
 	}
 	else
 	{
-		print " <img src=\"/img/icons/small/accept.png\">";
+		print " <img src=\"/img/icons/small/accept.png\" alt=\"OK\" />";
 	}
 
-	print "<br>";
+	print "<br />";
 
 	#where is zeninotify
 	my @zeninopidl = `$pidof -x zeninotify.pl`;
@@ -671,7 +671,7 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 	}
 	if ( ( $zeninorun eq "false" && $zeninorun2 eq "false" ) || ( $zeninorun ne "false" && $zeninorun2 ne "false" ) )
 	{
-		print " <img src=\"/img/icons/small/exclamation.png\">";
+		print " <img src=\"/img/icons/small/exclamation.png\" alt=\"!\" />";
 		$activeino = "false";
 		$error     = "true";
 	}
@@ -679,11 +679,11 @@ if ( ( $rhost && $lhost && $rip && $lip && $rip && $vipcl && $clstatus ) )
 	{
 		if ( $activeino eq $activecl )
 		{
-			print " <img src=\"/img/icons/small/accept.png\">";
+			print " <img src=\"/img/icons/small/accept.png\" alt=\"OK\" />";
 		}
 		else
 		{
-			print " <img src=\"/img/icons/small/exclamation.png\">";
+			print " <img src=\"/img/icons/small/exclamation.png\" alt=\"!\" />";
 			$error = "true";
 		}
 	}
@@ -695,18 +695,18 @@ else
 	$error = "true";
 }
 
-print "<br><b>Global status:</b>";
+print "<br /><b>Global status:</b>";
 if ( $error eq "false" )
 {
-	print " <img src=\"/img/icons/small/accept.png\">";
+	print " <img src=\"/img/icons/small/accept.png\" alt=\"OK\" />";
 	if ( &activenode() eq "true" )
 	{
-		print "<br><br>";
+		print "<br /><br />";
 
 		#form form manual sync on cluster
 		print "<form method=\"get\" action=\"index.cgi\">";
-		print "<input type=\"submit\" value=\"Force sync cluster from master to backup\" name=\"action\" class=\"button small\">";
-		print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
+		print "<input type=\"submit\" value=\"Force sync cluster from master to backup\" name=\"action\" class=\"button small\" />";
+		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
 		print "</form>";
 
 	}
@@ -714,11 +714,11 @@ if ( $error eq "false" )
 }
 else
 {
-	print " <img src=\"/img/icons/small/exclamation.png\">";
+	print " <img src=\"/img/icons/small/exclamation.png\" alt=\"!\" />";
 }
 
-print "<br>";
-print "<div id=\"page-header\"></div>";
+print "<br />";
+print "<div class=\"page-header\"></div>";
 
 #cluster form
 
@@ -727,7 +727,7 @@ if ( $error eq "true" )
 
 	print "<form method=\"get\" action=\"index.cgi\">";
 	print "<b>Virtual IP for Cluster, or create new virtual <a href=\"index.cgi?id=3-2\">here</a>.</b> <font size=\"1\">*Virtual ips with status up are listed only</font>";
-	print "<br>";
+	print "<br />";
 	print "<select name=\"vipcl\">\n";
 
 	#print "<option value=\"Disabled\">--Disabled--</option>";
@@ -754,12 +754,12 @@ if ( $error eq "true" )
 		close FINT;
 	}
 	print "</select>";
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<br>";
-	print "<br>";
-	print "<input type=\"submit\" value=\"Save VIP\" name=\"action\" class=\"button small\">";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<br />";
+	print "<br />";
+	print "<input type=\"submit\" value=\"Save VIP\" name=\"action\" class=\"button small\" />";
 	print "</form>";
-	print "<br>";
+	print "<br />";
 
 	#locate real interface for vipcl
 	opendir ( DIR, "$configdir" );
@@ -807,58 +807,58 @@ if ( $error eq "true" )
 	{
 		print "<form method=\"get\" action=\"index.cgi\">";
 		print "<b>Local hostname.</b>";
-		print "<br>";
-		print " <input type=\"text\" name=\"lhost\" value=\"$lhost\" size=12>";
+		print "<br />";
+		print " <input type=\"text\" name=\"lhost\" value=\"$lhost\" size=\"12\" />";
 		print "<b> $iface IP</b>";
-		print " <input type=\"text\" name=\"lip\" value=\"$lip\" size=12>";
-		print "<br>";
-		print "<br>";
+		print " <input type=\"text\" name=\"lip\" value=\"$lip\" size=\"12\" />";
+		print "<br />";
+		print "<br />";
 
 		#
 		print "<b>Remote hostname.</b>";
-		print "<br>";
-		print " <input type=\"text\" name=\"rhost\" value=\"$rhost\" size=12>";
+		print "<br />";
+		print " <input type=\"text\" name=\"rhost\" value=\"$rhost\" size=\"12\" />";
 		print "<b> $iface IP</b>";
-		print " <input type=\"text\" name=\"rip\" value=\"$rip\" size=12>";
-		print "<br>";
-		print "<br>";
+		print " <input type=\"text\" name=\"rip\" value=\"$rip\" size=\"12\" />";
+		print "<br />";
+		print "<br />";
 
 		print "<b>Cluster ID (1-255).</b>";
-		print "<br>";
-		print " <input type=\"text\" name=\"idcluster\" value=\"$idcluster\" size=12>";
-		print "<br>";
-		print "<br>";
+		print "<br />";
+		print " <input type=\"text\" name=\"idcluster\" value=\"$idcluster\" size=\"12\" />";
+		print "<br />";
+		print "<br />";
 
 		print "<b>Dead ratio.</b>";
-		print "<br>";
-		print " <input type=\"text\" name=\"deadratio\" value=\"$deadratio\" size=12>";
-		print "<br>";
-		print "<br>";
+		print "<br />";
+		print " <input type=\"text\" name=\"deadratio\" value=\"$deadratio\" size=\"12\" />";
+		print "<br />";
+		print "<br />";
 
-		print "<input type=\"hidden\" name=\"vipcl\"value=\"$vipcl\">";
-		print "<input type=\"hidden\" name=\"typecl\"value=\"$typecl\">";
-		print "<input type=\"hidden\" name=\"clstatus\"value=\"$clstatus\">";
-		print "<input type=\"hidden\" name=\"ifname\"value=\"$ifname\">";
-		print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-		print "<input type=\"submit\" value=\"Save\" name=\"action\" class=\"button small\">";
+		print "<input type=\"hidden\" name=\"vipcl\"value=\"$vipcl\" />";
+		print "<input type=\"hidden\" name=\"typecl\"value=\"$typecl\" />";
+		print "<input type=\"hidden\" name=\"clstatus\"value=\"$clstatus\" />";
+		print "<input type=\"hidden\" name=\"ifname\"value=\"$ifname\" />";
+		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+		print "<input type=\"submit\" value=\"Save\" name=\"action\" class=\"button small\" />";
 
-		#print "<input type=\"submit\" value=\"Test RSA connections\" name=\"action\" class=\"button small\">";
+		#print "<input type=\"submit\" value=\"Test RSA connections\" name=\"action\" class=\"button small\" />";
 		print "</form>";
 	}
-	print "<br>";
+	print "<br />";
 
 	if ( $rhost !~ /^$/ && $lhost !~ /^$/ && $rip !~ /^$/ && $lip !~ /^$/ && $vipcl !~ /^$/ )
 	{
 		print "<form method=\"post\" action=\"index.cgi\">";
 		print "<b>Remote Hostname root password.</b><font size=\"1\">*This value will no be remembered</font>";
-		print "<br>";
-		print "<input type=\"password\" name=\"pass\"value=\"\" size=12>";
-		print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-		print "<br>";
-		print "<br>";
-		print "<input type=\"submit\" value=\"Configure RSA connection between nodes\" name=\"actionpost\" class=\"button small\">";
+		print "<br />";
+		print "<input type=\"password\" name=\"pass\"value=\"\" size=\"12\" />";
+		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+		print "<br />";
+		print "<br />";
+		print "<input type=\"submit\" value=\"Configure RSA connection between nodes\" name=\"actionpost\" class=\"button small\" />";
 		print "</form>";
-		print "<br>";
+		print "<br />";
 
 	}
 }
@@ -869,9 +869,9 @@ if ( $rhost !~ /^$/ && $lhost !~ /^$/ && $rip !~ /^$/ && $lip !~ /^$/ && $vipcl 
 	#form for run and stop ucarp service
 	print "<form method=\"get\" action=\"index.cgi\">";
 	print "<b>Cluster type:</b>";
-	print "<div id=\"page-header\"></div>";
+	print "<div class=\"page-header\"></div>";
 
-	# print "<br>";
+	# print "<br />";
 	print "<select name=\"typecl\">\n";
 	if ( $activecl eq "$lhost" || $clstatus eq "" )
 	{
@@ -911,70 +911,68 @@ if ( $rhost !~ /^$/ && $lhost !~ /^$/ && $rip !~ /^$/ && $lip !~ /^$/ && $vipcl 
 		print "<option value=\"Disabled\" selected=\"selected\">--Disable cluster on all hosts--</option>";
 	}
 	print "</select>";
-	print "<br>";
-	print "<br>";
+	print "<br />";
+	print "<br />";
 	if ( $cable eq "Crossover cord" )
 	{
-		$checked = "checked";
+		$checked = "checked=\"checked\"";
 	}
 	else
 	{
 		$checked = "";
 	}
 	print "<input type=\"checkbox\" name=\"cable\" value=\"Crossover cord\" $checked />&nbsp;Use crossover patch cord";
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<input type=\"hidden\" name=\"lhost\" value=\"$lhost\">";
-	print "<input type=\"hidden\" name=\"rhost\" value=\"$rhost\">";
-	print "<input type=\"hidden\" name=\"lip\" value=\"$lip\">";
-	print "<input type=\"hidden\" name=\"rip\" value=\"$rip\">";
-	print "<input type=\"hidden\" name=\"vipcl\" value=\"$vipcl\">";
-	print "<input type=\"hidden\" name=\"ifname\" value=\"$ifname\">";
-	print "<input type=\"hidden\" name=\"cable\" value=\"$cable\">";
-	print "<input type=\"hidden\" name=\"idcluster\" value=\"$idcluster\">";
-	print "<input type=\"hidden\" name=\"deadratio\" value=\"$deadratio\">";
-	print "<br>";
-	print "<br>";
-	print "<input type=\"submit\" value=\"Configure cluster type\" name=\"action\" class=\"button small\">";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"lhost\" value=\"$lhost\" />";
+	print "<input type=\"hidden\" name=\"rhost\" value=\"$rhost\" />";
+	print "<input type=\"hidden\" name=\"lip\" value=\"$lip\" />";
+	print "<input type=\"hidden\" name=\"rip\" value=\"$rip\" />";
+	print "<input type=\"hidden\" name=\"vipcl\" value=\"$vipcl\" />";
+	print "<input type=\"hidden\" name=\"ifname\" value=\"$ifname\" />";
+	print "<input type=\"hidden\" name=\"cable\" value=\"$cable\" />";
+	print "<input type=\"hidden\" name=\"idcluster\" value=\"$idcluster\" />";
+	print "<input type=\"hidden\" name=\"deadratio\" value=\"$deadratio\" />";
+	print "<br />";
+	print "<br />";
+	print "<input type=\"submit\" value=\"Configure cluster type\" name=\"action\" class=\"button small\" />";
 
 	if ( $clstatus !~ /^$/ )
 	{
-		print "<input type=\"submit\" value=\"Test RSA connections\" name=\"action\" class=\"button small\">";
+		print "<input type=\"submit\" value=\"Test RSA connections\" name=\"action\" class=\"button small\" />";
 	}
 	if ( $activecl eq "$lhost" )
 	{
-		print "<input type=\"submit\" value=\"Test failover\" name=\"action\" class=\"button small\">";
+		print "<input type=\"submit\" value=\"Test failover\" name=\"action\" class=\"button small\" />";
 	}
 	if ( `ps aux | grep "ucarp" | grep "\\-k 100" | grep -v grep` )
 	{
-		print "<input type=\"submit\" value=\"Return node from maintenance\" name=\"action\" class=\"button small\">";
+		print "<input type=\"submit\" value=\"Return node from maintenance\" name=\"action\" class=\"button small\" />";
 	}
 	else
 	{
-		print "<input type=\"submit\" value=\"Force node as backup for maintenance\" name=\"action\" class=\"button small\">";
+		print "<input type=\"submit\" value=\"Force node as backup for maintenance\" name=\"action\" class=\"button small\" />";
 	}
 	print "</form>";
-	print "<br>";
+	print "<br />";
 }
 
-#print "<input type=\"submit\" value=\"Test connection\" name=\"action\" class=\"button small\">";
+#print "<input type=\"submit\" value=\"Test connection\" name=\"action\" class=\"button small\" />";
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 
 ####
 if ( $vipcl !~ /^$/ && $clstatus eq "" )
 {
 	print "<form method=\"get\" action=\"index.cgi\">";
-	print "<input type=\"hidden\" name=\"clstatus\"value=\"$clstatus\">";
-	print "<input type=\"hidden\" name=\"id\" value=\"$id\">";
-	print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+	print "<input type=\"hidden\" name=\"clstatus\"value=\"$clstatus\" />";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 	print "</form>";
 }
 
 print "</div></div></div>";
-print "<br class=\"cl\" >";
+print "<br class=\"cl\" />";
 
 print "        </div>
     <!--Content END-->
-  </div>
-</div>
 ";

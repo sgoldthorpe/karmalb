@@ -49,19 +49,19 @@ if ( !( valid_form() ) )
 	print "		<div class=\"box stats\">";
 
 	# Print form
-	print "		<form method=\"POST\" action=\"$cgiurl\">";
-	print "			<input type=\"hidden\" name=\"id\" value=\"3-4\">";
+	print "		<form method=\"post\" action=\"$cgiurl\">";
+	print "			<input type=\"hidden\" name=\"id\" value=\"3-4\" />";
 	print "			<label>Current password: </label>";
-	print "			<input type=\"password\"  name=\"pass\">";
+	print "			<input type=\"password\"  name=\"pass\" />";
 	print "			<div style=\"clear:both;\"></div>";
 	print "			<label>New password: </label>";
-	print "			<input type=\"password\"  name=\"newpass\">";
+	print "			<input type=\"password\"  name=\"newpass\" />";
 	print "			<div style=\"clear:both;\"></div>";
 	print "			<label>Verify password: </label>";
-	print "			<input type=\"password\" name=\"trustedpass\">";
-	print "			<br><br>";
-	print "			<input type=\"submit\" value=\"Change\" name=\"actionpost\" class=\"button small\">";
-	print "			<input type=\"submit\" value=\"Change & Sync with root passwd\" name=\"actionpost\" class=\"button small\">";
+	print "			<input type=\"password\" name=\"trustedpass\" />";
+	print "			<br /><br />";
+	print "			<input type=\"submit\" value=\"Change\" name=\"actionpost\" class=\"button small\" />";
+	print "			<input type=\"submit\" value=\"Change &amp; Sync with root passwd\" name=\"actionpost\" class=\"button small\" />";
 	print "			<div style=\"clear:both;\"></div>";
 	print "		</form>";
 
@@ -101,15 +101,13 @@ EOF
 
 }
 
-print "<br class=\"cl\">";
+print "<br class=\"cl\" />";
 
 #content 3-4 END
 print "
-        <br><br><br>
+        <br /><br /><br />
         </div>
     <!--Content END-->
-  </div>
-</div>
 ";
 
 ## SUBROUTINES ##

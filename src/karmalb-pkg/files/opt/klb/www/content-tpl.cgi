@@ -10,12 +10,12 @@ print "
         <div id=\"page-content\">
 
                 <!--Content Header INI-->
-                <div id=\"page-header\">
+                <div class=\"page-header\">
                         <h1>Dashboard **EL ID ES $id</h1>
                 </div>
                 <!--Content Header END-->
 
-        contenido<br><br><br>
+        contenido<br /><br /><br />
         </div>
     <!--Content END-->
   </div>

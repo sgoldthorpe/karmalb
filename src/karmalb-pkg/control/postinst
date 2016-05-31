@@ -1,11 +1,74 @@
 #!/bin/bash
 
+[ "$1" == "configure" ] && echo "Concluding @SHORTNAME@ installation..."
 
-[ "$1" == "configure" ] && echo "Concluding @SHORTNAME@ installation..." 
-
+update-rc.d -f zenloadbalancer remove
 update-rc.d zenloadbalancer defaults
 
-sed -i -e '1i\
-@LONGNAME@ @VERSION@' /etc/issue
+OVERRIDEDIR=/etc/insserv/overrides
+cat > $OVERRIDEDIR/ssh <<!EOF
+### BEGIN INIT INFO
+# Provides:		sshd
+# Required-Start:	$remote_fs $syslog zenloadbalancer
+# Required-Stop:	$remote_fs $syslog zenloadbalancer
+# Default-Start:	2 3 4 5
+# Default-Stop:		
+# Short-Description:	OpenBSD Secure Shell server
+### END INIT INFO
+!EOF
+update-rc.d ssh defaults
+
+cat > $OVERRIDEDIR/snmpd <<!EOF
+### BEGIN INIT INFO
+# Provides:           snmpd
+# Required-Start:     $network $remote_fs $syslog zenloadbalancer
+# Required-Stop:      $network $remote_fs $syslog zenloadbalancer
+# Default-Start:      2 3 4 5
+# Default-Stop:       0 1 6
+# Short-Description:  SNMP agents
+# Description:        NET SNMP (Simple Network Management Protocol) Agents
+### END INIT INFO
+!EOF
+update-rc.d snmpd defaults
+
+invoke-rc.d procps reload
+
+CHRONYCONF=/etc/chrony/chrony.conf
+if [ -f $CHRONYCONF ]; then
+	RESTARTCHRONY=0
+	if grep -q '^allow' $CHRONYCONF >/dev/null 2>&1; then
+		sed -i 's/^allow/#allow/' $CHRONYCONF
+		RESTARTCHRONY=1
+	fi
+	TSCONF=/opt/klb/config/timeservers.conf
+	if [ -f $TSCONF ]; then
+		/opt/klb/app/zbin/update-chrony.sh $TSCONF
+	else
+		test $RESTARTCHRONY -eq 1 && invoke-rc.d chrony restart
+	fi
+fi
+
+invoke-rc.d zenloadbalancer start
+
+ISSUE=/etc/issue
+ISSUE_ENTRY='@LONGNAME@ @VERSION@'
+# change login prompt
+if ! grep -q '^@LONGNAME@' $ISSUE >/dev/null 2>&1; then
+	sed -i -e "1i\
+$ISSUE_ENTRY" $ISSUE
+
+else
+	sed -i -e "s/^@LONGNAME@.*/$ISSUE_ENTRY/" $ISSUE
+fi
+
+# change grub entry
+GRUB_ENTRY="@SHORTNAME@ @VERSION@"
+GRUB_DEFAULTS=/etc/default/grub
+if [ -f $GRUB_DEFAULTS ]; then
+	if ! grep -q "^GRUB_DISTRIBUTOR=$GRUB_ENTRY" $GRUB_DEFAULTS > dev/null 2>&1; then
+		sed -i -e "s/^GRUB_DISTRIBUTOR=.*/GRUB_DISTRIBUTOR=\"$GRUB_ENTRY\"/" $GRUB_DEFAULTS
+		/usr/sbin/update-grub
+	fi
+fi
 
 exit 0

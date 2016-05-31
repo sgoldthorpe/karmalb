@@ -47,14 +47,14 @@ opendir ( DIR, $logdir );
 closedir ( DIR );
 
 print "<form method=\"get\" action=\"index.cgi\">";
-print "<input type=\"hidden\" name=\"id\" value=\"2-3\">";
+print "<input type=\"hidden\" name=\"id\" value=\"2-3\" />";
 
 foreach $file ( @files )
 {
-	print "<b>Log: $file</b><br>";
+	print "<b>Log: $file</b><br />";
 	print "<table>";
 	$filepath = "$logdir$file";
-	print "<tr ><td style=\"border: 0px\"><input type=\"radio\" name=\"filelog\" value=\"$filepath\"></td>";
+	print "<tr ><td style=\"border: 0px\"><input type=\"radio\" name=\"filelog\" value=\"$filepath\" /></td>";
 	$datetime_string = ctime( stat ( $filepath )->mtime );
 	print "<td style=\"border: 0px\"> $filepath - $datetime_string</td></tr>\n";
 	@filen = split ( "\.log", $file );
@@ -68,20 +68,20 @@ foreach $file ( @files )
 	{
 		$filepath        = "$logdir$filegz";
 		$datetime_string = ctime( stat ( $filepath )->mtime );
-		print "<tr><td style=\"border: 0px\"><input type=\"radio\" name=\"filelog\" value=\"$filepath\"></td>";
+		print "<tr><td style=\"border: 0px\"><input type=\"radio\" name=\"filelog\" value=\"$filepath\" /></td>";
 		print "<td style=\"border: 0px\">$filepath - $datetime_string</td></tr>";
 	}
 	print "</table>";
-	print "<br><br>";
+	print "<br /><br />";
 }
 
-print "Tail the last <input type=\"text\" value=\"100\" name=\"nlines\" size=\"5\"> lines";
-print "<input type=\"submit\" value=\"See logs\" name=\"action\" class=\"button small\">";
+print "Tail the last <input type=\"text\" value=\"100\" name=\"nlines\" size=\"5\" /> lines";
+print "<input type=\"submit\" value=\"See logs\" name=\"action\" class=\"button small\" />";
 print "</form>";
 
-print "<br>";
+print "<br />";
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 
 if ( $action eq "See logs" && $nlines !~ /^$/ && $filelog !~ /^$/ )
 {
@@ -89,7 +89,7 @@ if ( $action eq "See logs" && $nlines !~ /^$/ && $filelog !~ /^$/ )
 	{
 		if ( $nlines =~ m/^\d+$/ )
 		{
-			print "<b>file $filelog tail last $nlines lines</b><br>";
+			print "<b>file $filelog tail last $nlines lines</b><br />";
 			my @eject;
 			if ( $filelog =~ /gz$/ )
 			{
@@ -101,11 +101,11 @@ if ( $action eq "See logs" && $nlines !~ /^$/ && $filelog !~ /^$/ )
 			}
 			foreach $line ( @eject )
 			{
-				print "$line<br>";
+				print CGI::escapeHTML( $line ) . "<br />";
 			}
 			print "<form method=\"get\" action=\"index.cgi\">";
-			print "<input type=\"hidden\" name=\"id\" value=\"2-3\">";
-			print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\">";
+			print "<input type=\"hidden\" name=\"id\" value=\"2-3\" />";
+			print "<input type=\"submit\" value=\"Cancel\" name=\"action\" class=\"button small\" />";
 			print "</form>";
 		}
 		else
@@ -119,19 +119,17 @@ if ( $action eq "See logs" && $nlines !~ /^$/ && $filelog !~ /^$/ )
 	}
 }
 
-print "<div id=\"page-header\"></div>";
+print "<div class=\"page-header\"></div>";
 
 print "		</div>";
-print "<br>";
+print "<br />";
 print "	</div>";
 print "</div>";
 
-print "<br class=\"cl\">";
+print "<br class=\"cl\" />";
 print "
-        <br><br><br>
+        <br /><br /><br />
         </div>
     <!--Content END-->
-  </div>
-</div>
 ";
 

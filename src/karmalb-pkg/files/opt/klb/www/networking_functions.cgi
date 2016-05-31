@@ -86,6 +86,7 @@ sub listactiveips($class)
 
 	my $s = IO::Socket::INET->new( Proto => 'udp' );
 	my @interfaces = $s->if_list;
+	my $allow_gui_ip = true;
 
 	for my $if ( @interfaces )
 	{
@@ -101,7 +102,7 @@ sub listactiveips($class)
 			#if ( $bc && ($bc !~ /^0\.0\.0\.0$/) )
 			#cluster ip will not be listed
 			$clrip = &clrip();
-			if ( $bc && $ip !~ /^127\.0\.0\.1$/ && $ip ne $clrip && $ip ne &GUIip() )
+			if ( $bc && $ip !~ /^127\.0\.0\.1$/ && $ip ne $clrip && ( $allow_gui_ip || $ip ne &GUIip() ) )
 			{
 				if ( !$netmask )            { $netmask = "-"; }
 				if ( !$ip )                 { $ip      = "-"; }

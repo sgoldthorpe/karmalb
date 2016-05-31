@@ -38,7 +38,7 @@ $year  = $year + 1900;
 
 #print "$month $day $year $hour:$min:$sec\n";
 print "
-<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns=\"http://www.w3.org/1999/xhtml\">
 
 <head>
@@ -83,11 +83,12 @@ print "
 <title>Karma Load Balancer GUI v$version on $host</title>
 
 <link href=\"/img/favicon.ico\" rel=\"icon\" type=\"image/x-icon\" />
-<link rel='stylesheet' href='/font/font-aw/css/font-awesome.min.css'>
+<link rel='stylesheet' type='text/css' href='/font/font-aw/css/font-awesome.min.css' />
+<link rel=\"stylesheet\" href=\"css/menu_style.css\" type=\"text/css\" />
 
 </head>
 <body>
-<!-- <div id=\"container\"> --!
+<!-- <div id=\"container\"> -->
 <div id=\"header\">
   <!--mensaje superior-->
   <div class=\"header-top tr\">
@@ -104,17 +105,17 @@ if ( -e $filecluster && ( grep ( /UP/, @file ) ) )
 	}
 	elsif ( `ps aux | grep "ucarp" | grep "\\-k 100" | grep -v grep` )
 	{
-		print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"Changes will not be replicated!\">Cluster: <b>this node is on maintenance</b>";
+		print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"Changes will not be replicated!\" alt=\"!\" />Cluster: <b>this node is on maintenance</b>";
 	}
 	else
 	{
-		print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"Changes will not be replicated!\">Cluster: <b>this node is backup</b>";
+		print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"Changes will not be replicated!\" alt=\"!\" />Cluster: <b>this node is backup</b>";
 	}
 	print " |";
 }
 else
 {
-	print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"HA issue, cluster not configured\">Cluster: <b>Not configured. <a href=\"http://www.zenloadbalancer.com/eliminate-a-single-point-of-failure/\" target=\"_blank\"><u>How to eliminate this single point of failure</u></a></b> |";
+	print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"HA issue, cluster not configured\" alt=\"!\" />Cluster: <b>Not configured. <a href=\"help/clustering.html\" target=\"_blank\"><u>How to eliminate this single point of failure</u></a></b> |";
 }
 
 #print " Host: <strong>$host</strong> | Date: <strong>$month $day $year  $hour:$min:$sec</strong></p>
