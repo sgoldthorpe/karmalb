@@ -204,6 +204,8 @@ f opt/klb/www/gslb_functions.cgi
 f opt/klb/www/gui_functions.cgi
 f opt/klb/www/header.cgi
 f opt/klb/www/help.cgi
+d opt/klb/www/help
+f opt/klb/www/help/clustering.html
 f opt/klb/www/help-content.cgi
 f opt/klb/www/.htpasswd
 f opt/klb/www/http_functions.cgi

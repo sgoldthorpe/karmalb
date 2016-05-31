@@ -115,7 +115,7 @@ if ( -e $filecluster && ( grep ( /UP/, @file ) ) )
 }
 else
 {
-	print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"HA issue, cluster not configured\" alt=\"!\" />Cluster: <b>Not configured. <a href=\"http://www.zenloadbalancer.com/eliminate-a-single-point-of-failure/\" target=\"_blank\"><u>How to eliminate this single point of failure</u></a></b> |";
+	print "<img src=\"img/icons/small/exclamation_octagon_fram.png\" title=\"HA issue, cluster not configured\" alt=\"!\" />Cluster: <b>Not configured. <a href=\"help/clustering.html\" target=\"_blank\"><u>How to eliminate this single point of failure</u></a></b> |";
 }
 
 #print " Host: <strong>$host</strong> | Date: <strong>$month $day $year  $hour:$min:$sec</strong></p>
