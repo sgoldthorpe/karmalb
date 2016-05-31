@@ -1,0 +1,16 @@
+1.0alpha2	7-May-2016	Initial Alpha Release	-Steve Goldthorpe
+
+1.0alpha3	31-May-2016	Second Alpha Release	-Steve Goldthorpe
+	* Stop dhclient if found to be running
+	* Assign IP for web GUI
+	* Make reinstallation of karmalb package less painful
+	* Remove obsolete config
+	* Remove pen code
+	* Add kernel/network tuning
+	* Install irqbalance (will quit when not useful)
+	* Use Chrony for time-sync rather than periodic ntpdate
+	* Various branding changes
+	* Many HTML/XHTML fixes
+	* Update grub entry with name & version
+	* Remove Issuer field in CSR creation
+	* Debian security updates since last release (in ISO image)
