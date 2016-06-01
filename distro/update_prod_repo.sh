@@ -23,7 +23,7 @@ REPODISTS=$REPOCONF/distributions
 
 # MAIN SCRIPT
 
-while [ "x$1" != "x" ]; then
+while [ "x$1" != "x" ]; do
 	case "x$1" in
 		x-c)
 			CLEANPUBREPO=1;;
@@ -38,6 +38,7 @@ while [ "x$1" != "x" ]; then
 			INITPUBREPO=1;;
 		*)
 			break;;
+	esac
 	shift
 done
 
