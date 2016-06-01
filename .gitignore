@@ -13,6 +13,7 @@
 
 # ignore the repo directory
 /distro/repo/
+/distro/pubrepo/
 
 # ignore our apt-config config files as they are generated
 /distro/apt-configs/*.conf

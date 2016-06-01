@@ -20,11 +20,13 @@ DEST=cdrom
 INITRD=install.amd/initrd.gz
 MNT=iso
 PKGCACHE=pkgcache
+PUBREPO=pubrepo
+REPO=repo
+KEEPDEBUGPKGS=0
 # DERIVED DEFINITIONS
 NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
-PKGLOC=$DEST/pool/main/karmalb
 LABEL="`echo ${PKGNAME} ${PROJREL} ${ARCH}`"
 
 # FUNCTIONS
@@ -42,10 +44,63 @@ fetch_pkg() {
 		fi
 		FOUND="`find $PKGCACHE -name ${1}_${VER}\*.deb`"
 	fi
-	sudo cp -p $FOUND $2
+	test -d $2 || mkdir -p $2
+	cp -p $FOUND $2
+}
+
+calc_pkgdir() {
+	case $1 in
+		*karmalb*|mini-httpd*)
+			echo k/karmalb
+			;;
+		lib*)
+			echo `echo $1|cut -c1-4`/$1
+			;;
+		*)
+			echo `echo $1|cut -c1-1`/$1
+			;;
+	esac
+}
+
+get_pkgdir() {
+	FN="`apt-cache show $1| awk '/^Filename:/ { print $2; exit }'|sed -e 's@/updates/@/@'`"
+	if [ "$FN" ]; then
+		echo `dirname $FN`
+	else
+		echo "pool/name/`calc_pkgdir $1`"
+	fi
 }
 
 # MAIN SCRIPT
+
+while [ "x$1" != "x" ]; do
+	case "x$1" in
+		x-r)
+			REPO=$PUBREPO;;
+		x-d)
+			KEEPDEBUGPKGS=1;;
+		*)
+			break;;
+	esac
+	shift
+done
+
+if [ ! -d $REPO ]; then
+	echo "Please generate repo first before building ISO."
+	exit 4
+else
+	PROJPKGFILE="$REPO/pool/main/`calc_pkgdir $PKGNAME`/${PKGNAME}_${PROJREL}_${ARCH}.deb"
+	if [ ! -f $PROJPKGFILE ]; then
+		echo "$PROJPKGFILE is missing..."
+		exit 4
+	fi
+fi
+
+if [ "$REPO" = "$PUBREPO" ]; then
+	echo "Going to build a public ISO image..."
+else
+	echo "Going to build a working ISO image..."
+fi
 
 # fetch Debian iso if not already downloaded
 if [ ! -f $NETISO ]; then
@@ -67,10 +122,11 @@ cp -a $MNT/. $DEST/
 sudo umount $MNT
 
 # Copied files are read-only so make some read-write
-LIST="pool/main dists/$DIST/Release dists/$DIST/main/debian-installer/binary-$ARCH/ dists/$DIST/main/binary-$ARCH/ md5sum.txt isolinux/isolinux.bin $INITRD isolinux/menu.cfg isolinux/stdmenu.cfg"
+LIST="dists/$DIST/Release dists/$DIST/main/debian-installer/binary-$ARCH/ dists/$DIST/main/binary-$ARCH/ md5sum.txt isolinux/isolinux.bin $INITRD isolinux/menu.cfg isolinux/stdmenu.cfg"
 for L in $LIST; do
 	chmod u+w $DEST/$L
 done
+find $DEST/pool/main -type d -exec chmod u+w \{\} \;
 
 mkdir -p $PKGCACHE
 
@@ -83,52 +139,30 @@ find $DEST/pool -type f -name \*.deb | while read PKG; do
 	if [ ! "`echo $PKG|grep _${VER}_`" ]; then
 		echo "upgrade $BASE to $VER"
 		DIR=`dirname $PKG`
-		sudo rm -f $PKG
+		rm $PKG
 		fetch_pkg $BASE $DIR
 	fi
 done
 
-# ADD CUSTOM PACKAGES HERE
-echo "Adding custom packages..."
-# PERL
-( 
-	PERLPKGS="`ls ../src/perl-pkgs/*/*.deb 2>&1`"
-	set -- $PERLPKGS
-	if [ $# -ne 5 ]; then
-		echo "ERROR: Not all custom perl packages found."
-		exit 5
-	else
-		mkdir -p $PKGLOC
-		while [ "$1" ]; do
-			cp -p $1 $PKGLOC
-			shift
-		done
-	fi
-)
-# MISC
-( 
-	MISCPKGS="`ls ../src/misc-pkgs/*.deb 2>&1 | grep -v debug`"
-	set -- $MISCPKGS
-	if [ $# -ne 3 ]; then
-		echo "ERROR: Not all packages found."
-		exit 5
-	else
-		mkdir -p $PKGLOC
-		while [ "$1" ]; do
-			cp -p $1 $PKGLOC
-			shift
-		done
-	fi
-)
-
-# FINALLY KARMA PKG ITSELF
-KARMAPKG="`ls ../src/karmalb-pkg/karmalb*.deb 2>&1`"
-if [ "$KARMAPKG" ]; then
-	cp -p $KARMAPKG $PKGLOC
+# ADD PROJECT PACKAGES HERE
+echo "Adding project packages..."
+if [ $KEEPDEBUGPKGS -eq 1 ]; then
+	echo "Including any debug packages..."
+	REPOPKGS="`cd $REPO && find pool -type f -name \*.deb`"
 else
-	echo "ERROR: Not all packages found."
+	echo "Excluding debug packages..."
+	REPOPKGS="`cd $REPO && find pool -type f -name \*.deb|grep -v debug`"
+fi
+if [ ! "$REPOPKGS" ]; then
+	echo "ERROR: Couldn't find packages in repo."
 	exit 5
 fi
+for PKG in $REPOPKGS; do
+	B="`basename $PKG`"
+	D="pool/main/`calc_pkgdir $B`"
+	test -d $DEST/$D || mkdir -p $DEST/$D
+	cp -p $REPO/$PKG $DEST/$D
+done
 
 # ADD PKG DEPENDENCIES HERE
 PKGLIST="
@@ -242,7 +276,8 @@ done
 (
 	if [ "$INSTALL" ]; then
 		for PKG in $INSTALL; do
-			fetch_pkg $PKG $PKGLOC
+			D="`get_pkgdir $PKG`"
+			fetch_pkg $PKG $DEST/$D
 		done
 	fi
 )

@@ -1,0 +1,84 @@
+The workflow has changed, how to create an ISO image.
+
+1) Build all sources.
+In the src tree simply run 'make clean' followed by 'make'.
+
+2) Build the local repo.
+Run build_repo.sh - this will create a repo directory containing the current
+debs copied from the src tree.  If the environment variable $KARMALBKEY is set,
+packages in this repo will be signed with the key defined in $KARMALBKEY.  If
+the environment variable $KARMALBREPOSYNC is set, the local repo will be copied
+to this location.  This is normally defined as user@host:/path/.  If the
+environment variable $KARMALBPXESEEDTARGET is set, the pxe preseed file will be
+copied to this location.
+
+3) Build a working ISO image
+Run build_iso.sh - this will create an iso image based on a Debian network
+install image and the repo directory created in step 2.  As the Debian image
+required mounting, you'll need sudo root access to do this (it's also required
+for modifying the image).
+
+
+To create a public release.
+
+1) Build the sources as above.
+
+2) Build the local repo.
+
+3) Update your public repo
+Run update_prod_repo.sh to update your local copy of the public repo from your
+local repo.  There are various flags.
+  -c - clean the local public repo.  This will cause it to be refetched from the
+remote location before being updated with your local packages.
+  -f - fetch the public remote repo only.  Enforces a clean first.
+  -i - initialise local copy of public repo (copy directly from local repo).  Only use when bootstrapping for the first time.
+  -k - keep the working repo files (named workrepo).
+  -u - update the remote repo after updating the local copy.
+You will need 
+If the script will need to fetch or update the remote pub repo, the environment
+variable $KARMAREMOTEREPOSYNC must be set (in the form user@host:/path/).
+
+
+To create an ISO for public release.
+
+1) Update your public repo as above.
+
+2) Build a Public ISO image.
+Run build_iso.sh with the '-r' flag.  Package will fetched from the local copy
+of the public repo rather than the local repo.
+
+
+What is a public release?
+Public releases are slighly different in that packages that have not changed
+since the prevous release will have the same file size and time stamps as well
+as version numbers as they did previously i.e. they won't be updated.  If a
+package was updated in some way without the version number being incremented,
+it would appear in the local repo and working ISO images, but would not find
+it's way on to a public release (as there already exists a package with the
+same version so it won't be updated).  The best way to update a package is to
+update it's version or release number.  Should this not be possible, then you
+can manualy remove the old package from the local copy of the public repo and
+it will now be updated.  I can't think of any good reason for this, but it
+could happen.
+
+
+Release / development flow.
+My current release cycle goes as follows:
+[1] Change code.
+[2] Build local repo (syncing to local online repo).
+  ./build_repo.sh
+[3] Test using Network install.
+  If not OK go to [1].
+[4] Optionally build working ISO and test.
+  ./build_iso.sh
+  If not OK or public release not immenant go to [1].
+[5] Fetch public repo and update (use -i flag if first release).
+  ./update_prod_repo.sh
+[6] Create ISO for public release
+  ./build_iso -r
+[7] Test ISO
+  If not OK go back to [1].
+[8] Publish ISO.
+[9] Update public remote repo.
+  ./update_prod_repo.sh -u
+[10] Have a rest and start over.
