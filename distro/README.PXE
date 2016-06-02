@@ -1,0 +1,15 @@
+This is a sample PXE entry.  You can also use http for the preseed file if you have an
+available web server.  The DEBCONF_DEBUG command is optional but provids extra debugging
+information.
+
+LABEL KarmaLB 1.0a
+      MENU LABEL KarmaLB 1.0a
+      KERNEL debian8.0/linux
+      APPEND initrd=debian8.0/initrd.gz auto=true priority=critical interface=auto url=tftp://<TFTPIP>/tftpboot/preseed/karmalb_preseed.cfg DEBCONF_DEBUG=5
+      IPAPPEND 2
+
+The linux and initrd files can be obtained from:
+http://ftp.debian.org/debian/dists/Debian8.4/main/installer-amd64/current/images/netboot/debian-installer/amd64/
+
+More information on confguring PXE for Debian can be found here:
+https://wiki.debian.org/PXEBootInstall
