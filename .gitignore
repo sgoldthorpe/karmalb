@@ -35,6 +35,15 @@
 /src/karmalb-pkg/karmalb_*.deb
 /src/misc-pkgs/mini-httpd*.deb
 /src/misc-pkgs/monitoring-plugins-ldap-karmalb_*.deb
+/src/misc-pkgs/pound_*.deb
+/src/misc-pkgs/pound/pound_*.deb
 
-# and downloaded tarballs
+# and downloaded tarballs & srcs
 /src/misc-pkgs/mini_httpd*.tar.gz
+/src/misc-pkgs/pound/pound*.tar.xz
+/src/misc-pkgs/pound/pound*.tar.gz
+/src/misc-pkgs/pound/pound*.dsc
+/src/misc-pkgs/pound/Pound*.tgz
+
+# misc
+/src/misc-pkgs/pound/uupdate-mod

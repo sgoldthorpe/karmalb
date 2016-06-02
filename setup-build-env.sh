@@ -10,6 +10,7 @@ REQPKGS="apt-file \
 	libexpect-perl \
 	libgd-perl \
 	libipc-run3-perl \
+	libgoogle-perftools-dev \
 	libmoose-perl \
 	libnetaddr-ip-perl \
 	libnet-dns-perl \

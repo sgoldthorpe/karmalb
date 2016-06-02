@@ -191,10 +191,12 @@ libdbi1
 libev4
 libexpect-perl
 libfontconfig1
+libgcc1
 libgd3
 libgd-perl
 libglib2.0-data
 libgeoip1
+libgoogle-perftools4
 libgraphite2-3
 libharfbuzz0b
 libio-interface-perl
@@ -216,6 +218,7 @@ libnuma1
 libpango-1.0-0
 libpangocairo-1.0-0
 libpangoft2-1.0-0
+libpcre3
 libperl5.20
 libpixman-1-0
 libproc-daemon-perl
@@ -232,11 +235,13 @@ libsnmp-base
 libsnmp30
 libssl1.0.0
 libtcl8.6
+libtcmalloc-minimal4
 libthai0
 libthai-data
 libtiff5
 libtomcrypt0
 libtommath0
+libunwind8
 liburcu2
 libvpx1
 libxcb-render0
