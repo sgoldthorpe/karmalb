@@ -11,7 +11,10 @@ SRC_FILES="`apt-cache showsrc pound|sed '/^Files:/,/^Checksums/!d;//d'|awk '{ pr
 
 if [ "x$1" = "x-k" ]; then
 	KEEP=1
+elif [ "x$1" = "x-x" ]; then
+	EXTRACT=1
 else
+	EXTRACT=0
 	KEEP=0
 fi
 
@@ -46,6 +49,10 @@ for P in $NEWPATCH; do
 	cp -p $P pound-${NEW_VERSION}/debian/patches/$P
 	echo $P >> pound-${NEW_VERSION}/debian/patches/series
 done
+
+if [ $EXTRACT -eq 1 ]; then
+	exit 0
+fi
 
 test $KEEP -eq 0 && rm -rf pound-${DEB_VERSION}
 (
