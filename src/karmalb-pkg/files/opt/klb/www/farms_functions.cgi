@@ -466,7 +466,7 @@ sub setFarmListen($farmlisten)
 		}
 		elsif ( @filefarmhttp[$i_f] =~ /.*DisableSSLv3$/ && $flisten eq "http" )
 		{
-			@filefarmhttp[$i_f] =~ s/DisableSSLv3/#DisableSSLv3/;
+			@filefarmhttp[$i_f] =~ s/DisableSSLv3/#Disable SSLv3/;
 		}
 		if ( @filefarmhttp[$i_f] =~ /.*Disable SSLv3$/ && $flisten eq "https" )
 		{
@@ -475,6 +475,7 @@ sub setFarmListen($farmlisten)
 		elsif ( @filefarmhttp[$i_f] =~ /.*DisableSSLv3$/ && $flisten eq "https" )
 		{
 			@filefarmhttp[$i_f] =~ s/#//g;
+			@filefarmhttp[$i_f] =~ s/DisableSSLv3/#Disable SSLv3/;
 		}
 
 		# Enable SSLHonorCipherOrder
