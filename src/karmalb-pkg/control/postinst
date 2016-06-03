@@ -71,4 +71,10 @@ if [ -f $GRUB_DEFAULTS ]; then
 	fi
 fi
 
+# upgrade any pound configs
+CFGS="`find /opt/klb/config -name \*_pound.cfg`"
+if [ "$CFGS" ]; then
+	sed -i 's/DisableSSLv3/Disable SSLv3/' $CFGS
+fi
+
 exit 0
