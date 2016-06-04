@@ -4302,6 +4302,96 @@ sub getFarmCipher($fname)
 	return $output;
 }
 
+#Set Farm HonorCipherOrder value
+sub setFarmHonorCipherOrder($hvalue, $fname)
+{
+	( $hvalue, $fname ) = @_;
+	my $type   = &getFarmType( $fname );
+	my $output = -1;
+	if ( $type eq "https" )
+	{
+		if ( $hvalue eq "true" || $hvalue eq "false" )
+		{
+			my $file = &getFarmFile( $fname );
+			my $i = 0;
+			my $ciphersline = -1;
+			my $numval;
+			if ( $hvalue eq "true" )
+			{
+				$numval = "1";
+			}
+			else
+			{
+				$numval = "0";
+			}
+			tie @array, 'Tie::File', "$configdir/$file";
+			for ( @array )
+			{
+				if ( $_ =~ /Ciphers/ )
+				{
+					$ciphersline = $i;
+				}
+				elsif ( $_ =~ /SSLHonorCipherOrder/ )
+				{
+					$_      = "\tSSLHonorCipherOrder $numval";
+					$output = 0;
+					last;
+				}
+				$i++;
+			}
+			if ( $output != 0 && $ciphersline >= 0 )
+			{
+				# insert before ciphers line
+				splice @array, $ciphersline, 0, "\tSSLHonorCipherOrder $numval";
+				$output = 0;
+			}
+			if ( $output != -1)
+			{
+				untie @array;
+			}
+		}
+	}
+	return $output;
+}
+
+# Get Farm SSLHonorCipherOrder value
+sub getFarmHonorCipherOrder($fname)
+{
+	( $fname ) = @_;
+	my $type   = &getFarmType( $fname );
+	my $output = -1;
+	if ( $type eq "https" )
+	{
+		my $file = &getFarmFile( $fname );
+		open FI, "<$configdir/$file";
+		my @content = <FI>;
+		close FI;
+		$output = "false";
+		foreach $line ( @content )
+		{
+			if ( $line =~ /SSLHonorCipherOrder/ )
+			{
+				if ( $line !~ /#/ )
+				{
+					my @partline = split ( '\ ', $line );
+					$lfile = @partline[1];
+					chomp ( $lfile );
+					if ($lfile eq "1")
+					{
+						$output = "true";
+					}
+					elsif ($lfile eq "0")
+					{
+						$output = "false";
+					}
+				}
+				last;
+			}
+		}
+	}
+	return $output;
+}
+
 #function that check if the config file is OK.
 sub getFarmConfigIsOK($fname)
 {
