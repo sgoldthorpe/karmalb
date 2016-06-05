@@ -143,6 +143,7 @@ $httpverb           = $Variables{ "httpverb" };
 $certname           = $Variables{ "certname" };
 $ciphers            = $Variables{ "ciphers" };
 $cipherc            = $Variables{ "cipherc" };
+$honorcipherorder   = $Variables{ "honorcipherorder" };
 $idcluster          = $Variables{ 'idcluster' };
 $nattype            = $Variables{ 'nattype' };
 $service            = $Variables{ 'service' };

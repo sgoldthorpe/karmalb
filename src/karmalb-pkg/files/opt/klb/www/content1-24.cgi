@@ -153,6 +153,35 @@ if ( $action eq "editfarm-httpscipherscustom" )
 	}
 }
 
+if ($action eq "editfarm-httpshonorcipherorder" )
+{
+	my $newsetting;
+	if ( defined($honorcipherorder) )
+	{
+		$newsetting = "true";
+	}
+	else
+	{
+		$newsetting = "false";
+	}
+	my $horder = &getFarmHonorCipherOrder( $farmname );
+	if ( $horder ne $newsetting )
+	{
+		if ( $newsetting eq "true" )
+		{
+			&setFarmHonorCipherOrder( "true", $farmname );
+			&successmsg( "Ciphers will be applied in strict order for farm $farmname" );
+			&setFarmRestart( $farmname );
+		} 
+		elsif ( $newsetting eq "false" )
+		{
+			&setFarmHonorCipherOrder( "false", $farmname );
+			&successmsg( "Ciphers will be applied in any order for farm $farmname" );
+			&setFarmRestart( $farmname );
+		}
+	}
+}
+
 #change Farm's name
 
 if ( $action eq "editfarm-Name" )
@@ -915,6 +944,22 @@ if ( $type eq "https" )
 
 		print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
 	}
+	my $horder = &getFarmHonorCipherOrder( $farmname );
+	print "<form method=\"get\" action=\"\">";
+	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-httpshonorcipherorder\" />";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	if ( $horder eq "true" )
+	{
+		print "<input type=\"checkbox\" checked name=\"honorcipherorder\" value=\"true\" />";
+	}
+	else
+	{
+		print "<input type=\"checkbox\"  name=\"honorcipherorder\" value=\"true\" /> ";
+	}
+	print "&nbsp; Apply Ciphers in strict order.";
+	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
+
 }
 
 #END HTTPS FARM:
