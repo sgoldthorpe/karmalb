@@ -1690,7 +1690,7 @@ sub setFarmCipherList    # ($farm_name,$ciphers,$cipherc)
 		}
 		elsif ( $ciphers eq "ciphercustom" )
 		{
-			$cipherc = 'DEFAULT' if not defined $cipherc;
+			$cipherc = 'DEFAULT:-RC4' if not defined $cipherc;
 			$line =~ s/#//g;
 			$line   = "\tCiphers \"$cipherc\"";
 			$output = 0;
