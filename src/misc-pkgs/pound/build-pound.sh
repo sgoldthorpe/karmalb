@@ -44,7 +44,7 @@ for P in $BADPATCH; do
 	rm pound-${NEW_VERSION}/debian/patches/$P
 	sed -i "-e /$P/d" pound-${NEW_VERSION}/debian/patches/series
 done
-NEWPATCH="9999-remove-unneeded-libs.patch"
+NEWPATCH="1000-fix-compiler-warnings.patch 9999-remove-unneeded-libs.patch"
 for P in $NEWPATCH; do
 	cp -p $P pound-${NEW_VERSION}/debian/patches/$P
 	echo $P >> pound-${NEW_VERSION}/debian/patches/series
