@@ -140,7 +140,7 @@ if ( $action eq "editfarm-httpsciphers" )
 
 if ( $action eq "editfarm-httpscipherscustom" )
 {
-	$cipherc =~ s/\ //g;
+	$cipherc =~ s/^\s+|\s+$//g;
 	if ( $cipherc eq "" )
 	{
 		&errormsg( "Ciphers can't be blank" );
