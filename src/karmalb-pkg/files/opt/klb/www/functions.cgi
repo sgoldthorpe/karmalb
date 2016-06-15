@@ -1,4 +1,4 @@
-###############################################################################
+###############################################################################/
 #
 #     Karma Load Balancer CE Software License
 #     This file is part of the Karma Load Balancer CE software package, a true
@@ -255,8 +255,9 @@ sub createMenuFarmCert($fname,$cname)
 sub createmenubackup($file)
 {
 	( $file ) = @_;
-	print "<a href=\"index.cgi?id=$id&amp;action=apply&amp;file=$file\"><img src=\"img/icons/small/accept2.png\" title=\"Apply $file backup and restart Karma Load Balancer service\" alt=\"[Apply]\" /></a> ";
+	print "<a href=\"index.cgi?id=$id&amp;action=diff&amp;file=$file\"><img src=\"img/icons/small/find.png\" title=\"Compare backup against current config\" alt=\"[Diff]\" /></a> ";
 	print "<a href=\"downloads.cgi?filename=$file\"><img src=\"img/icons/small/arrow_down.png\" title=\"Download $file backup\" alt=\"[Download]\" /></a>";
+	print "<a href=\"index.cgi?id=$id&amp;action=apply&amp;file=$file\"><img src=\"img/icons/small/accept2.png\" title=\"Apply $file backup and restart Karma Load Balancer service\" alt=\"[Apply]\" /></a> ";
 	print "<a href=\"index.cgi?id=$id&amp;action=del&amp;file=$file\" onclick=\"return confirm('Are you sure you wish to delete this backup?')\"><img src=\"img/icons/small/cross_octagon.png\" title=\"Delete $file backup\" alt=\"[Del]\" /></a> ";
 
 }
