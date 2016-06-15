@@ -38,10 +38,23 @@ print "
 <h2>Settings::Backup</h2>
 <!--Content Header END-->";
 
+if ( $action eq "diff" )
+{
+	print "<div class=\"box-header\">";
+	print "Configuration Differences with $file";
+	print "</div>";
+	print "<div class=\"box stats\">";
+	print "<div style=\"white-space: pre ; display: block; unicode-bidi: embed; font-family: monospace; font-size: 120%; border: 1px solid black\">";
+	my $output = `$zenbackupdiffscript $backupdir$file $backupfor`;
+        print CGI::escapeHTML( $output );
+	print "</div>";
+	print "</div>";
+}
+
 if ( $action eq "apply" )
 {
 	&successmsg( "Backup will be decompressed and Karma Load Balancer will be restarted, ZLB Cluster node could switch..." );
-	my @eject = `$tar -xvzf $backupdir$file -C /`;
+	my @eject = `$zenbackupextscript $backupdir$file $backupfor`;
 	&logfile( "Restoring backup $backupdir$file" );
 	&logfile( "unpacking files: @eject" );
 	my @eject = `/etc/init.d/zenloadbalancer restart 2> /dev/null`;
