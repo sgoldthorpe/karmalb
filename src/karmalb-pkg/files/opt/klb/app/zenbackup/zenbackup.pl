@@ -25,6 +25,8 @@
 #
 ###############################################################################
 
+use File::Basename;
+
 require '/opt/klb/config/global.conf';
 
 $name = $ARGV[0];
@@ -39,6 +41,7 @@ if ($action eq "-c")
 
 if ($action eq "-d")
 	{
-	my @eject = `$tar -xzvf $backupdir\/backup-$name.tar.gz -C /`;
+	my $extractscript = dirname($zenbackup) . "/extract-backup.sh";
+	my @eject = `$zenbackupextscript $backupdir\/backup-$name.tar.gz $backupfor`;
 	}
 

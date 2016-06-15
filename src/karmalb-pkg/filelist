@@ -96,6 +96,9 @@ d opt/klb/app/zbin
 f opt/klb/app/zbin/update-chrony.sh
 f opt/klb/app/zbin/zlb-firstboot.sh
 d opt/klb/app/zenbackup
+f opt/klb/app/zenbackup/diff-backup.sh
+f opt/klb/app/zenbackup/extract-backup.sh
+f opt/klb/app/zenbackup/zenbackup.pl
 f opt/klb/app/zenbackup/zenbackup.pl
 d opt/klb/app/zeninotify
 f opt/klb/app/zeninotify/zeninotify.pl

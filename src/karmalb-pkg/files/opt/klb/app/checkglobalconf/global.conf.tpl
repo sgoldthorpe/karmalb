@@ -148,7 +148,10 @@ $zenlatdown="/opt/klb/app/zenlatency/zenlatency-stop.pl";#update
 $zenlatlog="/opt/klb/logs/zenlatency.log";#update
 
 #Zen backup
-$zenbackup="/opt/klb/app/zenbackup/zenbackup.pl";#update
+$zenbackupbindir="/opt/klb/app/zenbackup";#update
+$zenbackup="$zenbackupbindir/zenbackup.pl";#update
+$zenbackupdiffscript="$zenbackupbindir/diff-backup.sh";#update
+$zenbackupextscript="$zenbackupbindir/extract-backup.sh";#update
 
 #SNMP service
 $snmpdconfig_file="/etc/snmp/snmpd.conf";
