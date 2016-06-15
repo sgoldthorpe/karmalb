@@ -93,6 +93,9 @@ done
 
 rm -rf $TMPDIR
 
+# let system update the global.cfg if required
+/opt/klb/app/checkglobalconf/checkglobalconf.cgi
+
 echo "Done."
 
 exit 0
