@@ -75,7 +75,7 @@ My current release cycle goes as follows:
 [5] Fetch public repo and update (use -i flag if first release).
   ./update_prod_repo.sh
 [6] Create ISO for public release
-  ./build_iso -r
+  ./build_iso.sh -r
 [7] Test ISO
   If not OK go back to [1].
 [8] Publish ISO.
