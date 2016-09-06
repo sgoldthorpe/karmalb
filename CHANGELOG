@@ -1,3 +1,6 @@
+1.0alpha5	06-Sep-2016	Fourth Alpha Release	-Steve Goldthorpe
+	* Debian security updates since last release (in ISO image) only
+
 1.0alpha4	04-Jul-2016	Third Alpha Release	-Steve Goldthorpe
 	* Upgrade pound 2.6->2.7 (SSL DH keysize 1024->2048)
 	* Remove RC4 from Default ciphers list
