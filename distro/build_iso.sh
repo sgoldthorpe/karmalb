@@ -8,6 +8,8 @@ lookup() {
 VF="../VERSION"
 PROJNAME="`lookup PROJNAME`"
 PROJREL="`lookup VERSION`"
+ISOVER="`lookup ISOVERSION`"
+ISOREL="${PROJREL}r${ISOVER}"
 PKGNAME="`lookup PKGNAME`"
 OSNAME="`lookup OSNAME`"
 OSREL="`lookup OSREL`"
@@ -26,8 +28,8 @@ KEEPDEBUGPKGS=0
 # DERIVED DEFINITIONS
 NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
-TARGETISO=karmalb-${PROJREL}-$ARCH.iso
-LABEL="`echo ${PKGNAME} ${PROJREL} ${ARCH}`"
+TARGETISO=karmalb-${ISOREL}-$ARCH.iso
+LABEL="`echo ${PKGNAME}_${ISOREL}_${ARCH}|tr '[a-z].-' '[A-Z]__'`"
 
 # FUNCTIONS
 
@@ -316,7 +318,7 @@ echo "Building initrd..."
 	cd irmod
 	gzip -d < ../$DEST/$INITRD | \
 		sudo -n cpio --extract --make-directories --no-absolute-filenames
-	sed -e "s/@SHORTNAME@/$PROJNAME/g" -e "s/@VERSION@/$PROJREL/g" ../karmalb_preseed.cfg > preseed.cfg
+	sed -e "s/@SHORTNAME@/$PROJNAME/g" -e "s/@VERSION@/$ISOREL/g" ../karmalb_preseed.cfg > preseed.cfg
 	find . | sudo -n cpio -H newc --create | \
 		gzip -9 > ../$DEST/$INITRD
 	cd ../
@@ -326,7 +328,7 @@ echo "Building initrd..."
 # UPDATE ISOLINUX
 ISOLIST="menu.cfg stdmenu.cfg"
 for F in $ISOLIST; do
-	sed -e "s/@PROJNAME@/$PROJNAME/g" -e "s/@PROJREL@/$PROJREL/g" -e "s/@OSNAME@/$OSNAME/g" -e "s/@OSREL@/$OSREL/g" files/$F > $DEST/isolinux/$F
+	sed -e "s/@PROJNAME@/$PROJNAME/g" -e "s/@PROJREL@/$ISOREL/g" -e "s/@OSNAME@/$OSNAME/g" -e "s/@OSREL@/$OSREL/g" files/$F > $DEST/isolinux/$F
 done
 
 # REBUILD CHECKSUMS
@@ -342,6 +344,7 @@ xorriso -as mkisofs \
    -o $TARGETISO \
    -V "$LABEL" \
    -r \
+   -follow-links \
    -J -joliet-long \
    -isohybrid-mbr $BBFILE \
    -c isolinux/boot.cat \
