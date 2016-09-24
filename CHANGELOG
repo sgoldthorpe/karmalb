@@ -1,3 +1,6 @@
+1.0alpha5r2	24-Sep-2016	Fifth Alpha Release	-Steve Goldthorpe
+	* ISO update only (rebase on Debian 8.6.0 + security updates)
+
 1.0alpha5	06-Sep-2016	Fourth Alpha Release	-Steve Goldthorpe
 	* Debian security updates since last release (in ISO image) only
 
