@@ -27,7 +27,7 @@ KEEPDEBUGPKGS=0
 NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${PROJREL}-$ARCH.iso
-LABEL="`echo ${PKGNAME} ${PROJREL} ${ARCH}`"
+LABEL="`echo ${PKGNAME}_${PROJREL}_${ARCH}|tr '[a-z].-' '[A-Z]__'`"
 
 # FUNCTIONS
 
