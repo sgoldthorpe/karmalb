@@ -4302,6 +4302,39 @@ sub getFarmCipher($fname)
 	return $output;
 }
 
+#Get Farm MinDisProto value
+sub getFarmMinDisProto($fname)
+{
+	( $fname ) = @_;
+	my $type   = &getFarmType( $fname );
+	my $output = -1;
+	if ( $type eq "https" )
+	{
+		my $file = &getFarmFile( $fname );
+		open FI, "<$configdir/$file";
+		my @content = <FI>;
+		close FI;
+		foreach $line ( @content )
+		{
+			if ( $line =~ /Disable/ )
+			{
+				my @partline = split ( '\ ', $line );
+				$lfile = @partline[1];
+				chomp ( $lfile );
+				if ( $line =~ /DisableSSLv3/ )
+				{
+					$output = "SSLv3";
+				}
+				else
+				{
+					$output = $lfile;
+				}
+			}
+		}
+	}
+	return $output;
+}
+
 #Set Farm HonorCipherOrder value
 sub setFarmHonorCipherOrder($hvalue, $fname)
 {
