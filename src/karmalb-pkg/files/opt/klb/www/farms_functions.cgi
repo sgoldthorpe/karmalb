@@ -4302,6 +4302,29 @@ sub getFarmCipher($fname)
 	return $output;
 }
 
+#Set Farm MinDisProto value
+sub setFarmMinDisProto($fname, $minproto)
+{
+	( $fname, $minproto ) = @_;
+	my $type   = &getFarmType( $fname );
+	my $output = -1;
+	if ( $type eq "https" )
+	{
+		my $file = &getFarmFile( $fname );
+		tie @array, 'Tie::File', "$configdir/$file";
+		for ( @array )
+		{
+			if ( $_ =~ /Disable / || $_ =~ /DisableSSLv3/ )
+			{
+				$_      = "\tDisable $minproto";
+				$output = 0;
+			}
+		}
+		untie @array;
+	}
+	return $output;
+}
+
 #Get Farm MinDisProto value
 sub getFarmMinDisProto($fname)
 {
