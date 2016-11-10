@@ -4359,9 +4359,9 @@ sub getFarmMinDisProto($fname)
 }
 
 #Set Farm HonorCipherOrder value
-sub setFarmHonorCipherOrder($hvalue, $fname)
+sub setFarmHonorCipherOrder($fname, $hvalue)
 {
-	( $hvalue, $fname ) = @_;
+	( $fname, $hvalue ) = @_;
 	my $type   = &getFarmType( $fname );
 	my $output = -1;
 	if ( $type eq "https" )

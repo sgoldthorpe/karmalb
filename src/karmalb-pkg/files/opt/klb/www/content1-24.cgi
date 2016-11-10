@@ -170,13 +170,13 @@ if ($action eq "editfarm-httpshonorcipherorder" )
 	{
 		if ( $newsetting eq "true" )
 		{
-			&setFarmHonorCipherOrder( "true", $farmname );
+			&setFarmHonorCipherOrder( $farmname, "true" );
 			&successmsg( "Ciphers will be applied in strict order for farm $farmname" );
 			&setFarmRestart( $farmname );
 		} 
 		elsif ( $newsetting eq "false" )
 		{
-			&setFarmHonorCipherOrder( "false", $farmname );
+			&setFarmHonorCipherOrder( $farmname, "false" );
 			&successmsg( "Ciphers will be applied in any order for farm $farmname" );
 			&setFarmRestart( $farmname );
 		}
