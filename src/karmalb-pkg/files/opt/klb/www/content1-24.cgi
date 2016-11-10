@@ -183,6 +183,32 @@ if ($action eq "editfarm-httpshonorcipherorder" )
 	}
 }
 
+#manage disabled protocols
+if ( $action eq "editfarm-httpsdisproto" )
+{
+	my $newsetting;
+	if ( defined($disproto) )
+	{
+		$newsetting = $disproto;
+	}
+	else
+	{
+		$newsetting = 'SSLv3';
+	}
+	my $oldsetting = &getFarmMinDisProto( $farmname );
+	if ( $oldsetting ne $newsetting )
+	{
+		if ( $newsetting ne 'SSLv3' && $newsetting ne 'TLSv1' &&
+			$newsetting ne 'TLSv1_1' && $newsetting ne 'TLSv1_2' )
+		{
+			$newsetting = 'SSLv3';
+		}
+		&setFarmMinDisProto( $farmname, $newsetting );
+		&successmsg( "Disabled protocols changed to $newsetting and below for $farmname" );
+		&setFarmRestart( $farmname );
+	}
+}
+
 #change Farm's name
 
 if ( $action eq "editfarm-Name" )
@@ -959,6 +985,30 @@ if ( $type eq "https" )
 		print "<input type=\"checkbox\"  name=\"honorcipherorder\" value=\"true\" /> ";
 	}
 	print "&nbsp; Apply Ciphers in strict order.";
+	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
+
+	print "<br />";
+	print "<b>Disabled Protocol Level</font>";
+	print "<br />";
+	my $disproto = &getFarmMinDisProto( $farmname );
+	print "<form method=\"get\" action=\"\">";
+	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-httpsdisproto\" />";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<select  name=\"disproto\">";
+	# don't specify TLSv1_2 until TLSv1_3 is supported by openssl
+	foreach $proto ( qw(SSLv3 TLSv1 TLSv1_1) )
+	{
+		if ( $proto eq $disproto )
+		{
+			print "<option value=\"$proto\" selected=\"selected\">$proto</option>";
+		}
+		else
+		{
+			print "<option value=\"$proto\">$proto</option>";
+		}
+	}
+	print "</select>";
 	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
 
 }

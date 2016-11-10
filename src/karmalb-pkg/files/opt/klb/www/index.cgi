@@ -144,6 +144,7 @@ $certname           = $Variables{ "certname" };
 $ciphers            = $Variables{ "ciphers" };
 $cipherc            = $Variables{ "cipherc" };
 $honorcipherorder   = $Variables{ "honorcipherorder" };
+$disproto           = $Variables{ 'disproto' };
 $idcluster          = $Variables{ 'idcluster' };
 $nattype            = $Variables{ 'nattype' };
 $service            = $Variables{ 'service' };
