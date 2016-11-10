@@ -937,7 +937,7 @@ if ( $type eq "https" )
 
 	print "<br />";
 	$cipher = &getFarmCipher( $farmname );
-	print "Ciphers";
+	print "<b>Ciphers.</b>";
 	chomp ( $cipher );
 	print "<form method=\"get\" action=\"\">";
 	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-httpsciphers\" />";
@@ -962,7 +962,7 @@ if ( $type eq "https" )
 	print "<br />";
 	if ( $cipher ne "cipherglobal" )
 	{
-		print "Customize your ciphers.";
+		print "<b>Customize your ciphers.</b>";
 		print "<form method=\"get\" action=\"\">";
 		print "<input type=\"hidden\" name=\"action\" value=\"editfarm-httpscipherscustom\" />";
 		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
@@ -984,11 +984,11 @@ if ( $type eq "https" )
 	{
 		print "<input type=\"checkbox\"  name=\"honorcipherorder\" value=\"true\" /> ";
 	}
-	print "&nbsp; Apply Ciphers in strict order.";
+	print "&nbsp; Apply ciphers in strict order.";
 	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
 
 	print "<br />";
-	print "<b>Disabled Protocol Level</font>";
+	print "<b>Disabled protocol level.</b>";
 	print "<br />";
 	my $disproto = &getFarmMinDisProto( $farmname );
 	print "<form method=\"get\" action=\"\">";
