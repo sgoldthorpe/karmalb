@@ -198,8 +198,9 @@ if ( $action eq "editfarm-httpsdisproto" )
 	my $oldsetting = &getFarmMinDisProto( $farmname );
 	if ( $oldsetting ne $newsetting )
 	{
-		if ( $newsetting ne 'SSLv3' && $newsetting ne 'TLSv1' &&
-			$newsetting ne 'TLSv1_1' && $newsetting ne 'TLSv1_2' )
+		if ( $newsetting ne 'SSLv2' && $newsetting ne 'SSLv3' &&
+			$newsetting ne 'TLSv1' && $newsetting ne 'TLSv1_1' &&
+			$newsetting ne 'TLSv1_2' )
 		{
 			$newsetting = 'SSLv3';
 		}
@@ -996,6 +997,7 @@ if ( $type eq "https" )
 	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
 	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
 	print "<select  name=\"disproto\">";
+	# don't specify SSLv2 as SSLv3 is disabled in openssl1.0.1ij+ in Debian regardless
 	# don't specify TLSv1_2 until TLSv1_3 is supported by openssl
 	foreach $proto ( qw(SSLv3 TLSv1 TLSv1_1) )
 	{
