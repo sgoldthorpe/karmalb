@@ -336,7 +336,7 @@ $clvip = &clvip();
 
 for my $if ( @interfaces )
 {
-	if ( $if !~ /^lo|sit0/ )
+	if ( ( $if !~ /^lo|sit0/ ) && ( &isSlaveIf($if) ne 'true' ) )
 	{
 		my $flags = $s->if_flags( $if );
 		$hwaddr  = $s->if_hwaddr( $if );
@@ -605,7 +605,7 @@ if ( $action eq "editgw" )
 	for my $if ( @interfaces )
 	{
 		my $flags = $s->if_flags( $if );
-		if ( ( $if !~ /^lo|sit|.*\:.*/ ) && ( $flags & IFF_RUNNING ) )
+		if ( ( $if !~ /^lo|sit|.*\:.*/ ) && ( &isSlaveIf($if) ne 'true' ) && ( $flags & IFF_RUNNING ) )
 		{
 			print "<option value=\"$if\" ";
 			if ( ( $iface eq "" && $isfirst eq "true" ) || $iface eq $if )

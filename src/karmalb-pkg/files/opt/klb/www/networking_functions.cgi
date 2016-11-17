@@ -762,5 +762,18 @@ sub isValidPortNumber($port)
 	return $valid;
 }
 
+# bonding functions
+
+sub isSlaveIf($if)
+{
+	my ( $if ) = @_;
+	my $output = 'false';
+	if ( -e "/sys/class/net/$if/master" )
+	{
+		$output = 'true';
+	}
+	return $output;
+}
+
 # do not remove this
 1
