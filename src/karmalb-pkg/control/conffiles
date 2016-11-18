@@ -2,4 +2,6 @@ opt/klb/app/mini_httpd/mini_httpd.conf
 opt/klb/config/global.conf
 opt/klb/config/timeservers.conf
 opt/klb/www/.htpasswd
+etc/modprobe.d/karmalb.conf
+etc/modules-load.d/karmalb.conf
 etc/sysctl.d/70-karmalb.conf

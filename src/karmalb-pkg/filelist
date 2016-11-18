@@ -7,6 +7,10 @@ f etc/init.d/minihttpd
 f etc/init.d/zenloadbalancer
 d etc/logrotate.d
 f etc/logrotate.d/zenloadbalancer
+d etc/modprobe.d
+f etc/modprobe.d/karmalb.conf
+d etc/modules-load.d
+f etc/modules-load.d/karmalb.conf
 f etc/motd.tail
 f etc/profile
 d etc/rc2.d
