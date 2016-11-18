@@ -12,7 +12,6 @@ insserv -r pound
 insserv -r gdnsd
 systemctl disable gdnsd >/dev/null 2>&1
 /etc/init.d/gdnsd stop >/dev/null 2>&1
-insserv -r networking
 #insserv -r nfs-common
 #insserv -r atd
 insserv -r rsync
