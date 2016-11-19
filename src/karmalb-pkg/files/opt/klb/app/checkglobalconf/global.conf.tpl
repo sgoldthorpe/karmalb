@@ -20,7 +20,7 @@ $ntp="pool.ntp.org"; #delete
 #chrony server file extract
 $filetimeserv="/opt/klb/config/timeservers.conf";
 #Do backup to
-$backupfor="$configdir $confhttp /etc/iproute2/rt_tables /etc/network/interfaces /etc/modprobe.d/karmalb.conf /etc/modules-load.d/krmalb.conf /etc/sysctl.d/70-karmalb.conf";#update
+$backupfor="$configdir $confhttp /etc/iproute2/rt_tables /etc/network/interfaces /etc/modprobe.d/karmalb.conf /etc/modules-load.d/karmalb.conf /etc/sysctl.d/70-karmalb.conf";#update
 #Save backups on
 $backupdir="/opt/klb/backups/";#update
 #rt tables file
