@@ -3,11 +3,11 @@ Description: mini_httpd does not run php cgi
 	       Thanks to Thorsten Schmale who has written this patch.
 Author: Marvin Stark <marv@der-marv.de>
 Last-Update: 2015-09-03
-Index: mini-httpd-1.21/mini_httpd.c
+Index: mini-httpd-1.25/mini_httpd.c
 ===================================================================
---- mini-httpd-1.21.orig/mini_httpd.c
-+++ mini-httpd-1.21/mini_httpd.c
-@@ -1143,7 +1143,7 @@ handle_request( void )
+--- mini-httpd-1.25.orig/mini_httpd.c
++++ mini-httpd-1.25/mini_httpd.c
+@@ -1145,7 +1145,7 @@ handle_request( void )
      int r, file_len, i;
      const char* index_names[] = {
  	"index.html", "index.mini-httpd.html", "index.htm", "index.xhtml", "index.xht", "Default.htm",
@@ -16,7 +16,7 @@ Index: mini-httpd-1.21/mini_httpd.c
  
      /* Set up the timeout for reading. */
  #ifdef HAVE_SIGSET
-@@ -2155,6 +2155,7 @@ make_envp( void )
+@@ -2156,6 +2156,7 @@ make_envp( void )
      int envn;
      char* cp;
      char buf[256];
@@ -24,7 +24,7 @@ Index: mini-httpd-1.21/mini_httpd.c
  
      envn = 0;
      envp[envn++] = build_env( "PATH=%s", CGI_PATH );
-@@ -2175,6 +2175,7 @@ make_envp( void )
+@@ -2176,6 +2176,7 @@ make_envp( void )
      envp[envn++] = build_env(
  	"REQUEST_METHOD=%s", get_method_str( method ) );
      envp[envn++] = build_env( "SCRIPT_NAME=%s", path );

@@ -1,6 +1,6 @@
---- mini_httpd-1.23/mini_httpd.c	2016-04-25 22:05:57.064421226 +0100
-+++ mini_httpd-1.23/mini_httpd.c.new	2016-04-25 22:38:41.977165349 +0100
-@@ -1993,6 +1993,9 @@
+--- mini_httpd-1.25/mini_httpd.c	2016-04-25 22:05:57.064421226 +0100
++++ mini_httpd-1.25/mini_httpd.c.new	2016-04-25 22:38:41.977165349 +0100
+@@ -1994,6 +1994,9 @@
  	int s;
  	char* title;
  	char* cp;
@@ -10,7 +10,7 @@
  
  	/* Slurp in all headers. */
  	headers_size = 0;
-@@ -2014,7 +2017,16 @@
+@@ -2015,7 +2018,16 @@
  	    add_str( &headers, &headers_size, &headers_len, buf );
  	    if ( ( br = strstr( headers, "\015\012\015\012" ) ) != (char*) 0 ||
  		 ( br = strstr( headers, "\012\012" ) ) != (char*) 0 )
@@ -27,7 +27,7 @@
  	    }
  
  	/* If there were no headers, bail. */
-@@ -2054,11 +2066,15 @@
+@@ -2055,11 +2067,15 @@
  	    default: title = "Something"; break;
  	    }
  	(void) snprintf(

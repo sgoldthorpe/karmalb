@@ -1,5 +1,5 @@
 #!/bin/sh -e
-V=1.23
+V=1.25
 D=mini_httpd-$V
 P=mini_httpd_patches
 TAR=mini_httpd-${V}.tar.gz
