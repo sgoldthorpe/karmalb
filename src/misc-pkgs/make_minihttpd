@@ -34,7 +34,7 @@ if [ ! -f $TAR ]; then
 fi
 
 tar xfz $TAR
-find $D -type d -exec chmod o+w \{\} \;
+find $D -exec chmod u+w \{\} \;
 
 p() {
 	echo "Patch: $2"
