@@ -21,8 +21,12 @@ if ! ifquery $TO >/dev/null 2>&1; then
 fi
 
 echo "Stopping networking..."
+/etc/init.d/minihttpd stop >/dev/null 2>&1
 /etc/init.d/zenloadbalancer stop >/dev/null 2>&1
 /etc/init.d/networking stop >/dev/null 2>&1
+/bin/ip link set dev ${FROM} down >/dev/null 2>&1
+/bin/ip addr flush ${FROM} >/dev/null 2>&1
+/bin/ip -6 addr flush ${FROM} >/dev/null 2>&1
 
 echo "Updating config..."
 /bin/sed "s/^${FROM}/${TO}/" ${KLBDIR}/config/if_${FROM}_conf > ${KLBDIR}/config/if_${TO}_conf
