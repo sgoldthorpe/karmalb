@@ -97,6 +97,7 @@ d opt/klb/app/ucarp
 d opt/klb/app/ucarp/sbin
 #f opt/klb/app/ucarp/sbin/ucarp
 d opt/klb/app/zbin
+f opt/klb/app/zbin/replace-nic.sh
 f opt/klb/app/zbin/update-chrony.sh
 f opt/klb/app/zbin/zlb-firstboot.sh
 d opt/klb/app/zenbackup
