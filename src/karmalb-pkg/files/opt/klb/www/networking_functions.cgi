@@ -775,5 +775,34 @@ sub isSlaveIf($if)
 	return $output;
 }
 
+sub isMasterIf($if)
+{
+	my ( $if ) = @_;
+	my $output = 'false';
+	if ( -e "/sys/class/net/$if/bonding/slaves" )
+	{
+		$output = 'true';
+	}
+	return $output;
+}
+
+sub masterStatus($if)
+{
+	my ( $if ) = @_;
+	open BONDSTATUS, '<', "/proc/net/bonding/$if";
+	my @contents = <BONDSTATUS>;
+	close BONDSTATUS;
+	my @mii_status = grep /^MII Status:/, @contents;
+	my $status = 'up';
+	if ( @mii_status[0] =~ /down$/ )
+	{
+		$status = 'down';
+	} elsif ( grep /down$/, @mii_status )
+	{
+		$status = 'warn';
+	}
+	return $status;
+}
+
 # do not remove this
 1
