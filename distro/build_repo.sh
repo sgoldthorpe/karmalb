@@ -8,6 +8,8 @@ lookup() {
 VF="../VERSION"
 DIST="`lookup DEBDIST`"
 ARCH="`lookup ARCH`"
+PROJNAME="`lookup PROJNAME`"
+PROJREL="`lookup VERSION`"
 #
 DEST=repo
 # DERIVED DEFINITIONS
@@ -66,8 +68,11 @@ if [ "$KARMALBREPOSYNC" ]; then
 	rsync -av --delete-delay repo/dists repo/pool $KARMALBREPOSYNC
 fi
 if [ "$KARMALBPXESEEDTARGET" ]; then
+	TMPFILE=`mktemp`
 	echo "Copying PXE preseed file..."
-	scp karmalb_pxe_preseed.cfg $KARMALBPXESEEDTARGET
+	sed -e "s/@SHORTNAME@/$PROJNAME/g" -e "s/@VERSION@/$PROJREL/g" karmalb_pxe_preseed.cfg > $TMPFILE
+	scp -q $TMPFILE $KARMALBPXESEEDTARGET
+	rm $TMPFILE
 fi
 
 echo "Done."
