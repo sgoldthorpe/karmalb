@@ -459,23 +459,23 @@ sub setFarmListen($farmlisten)
 
 		}
 
-		# Enable 'Disable SSLv3'
-		if ( @filefarmhttp[$i_f] =~ /.*Disable SSLv3$/ && $flisten eq "http" )
+		# Enable 'Disable ...'
+		if ( @filefarmhttp[$i_f] =~ /.*Disable / && $flisten eq "http" )
 		{
-			@filefarmhttp[$i_f] =~ s/Disable SSLv3/#Disable SSLv3/;
+			@filefarmhttp[$i_f] =~ s/Disable /#Disable /;
 		}
 		elsif ( @filefarmhttp[$i_f] =~ /.*DisableSSLv3$/ && $flisten eq "http" )
 		{
 			@filefarmhttp[$i_f] =~ s/DisableSSLv3/#Disable SSLv3/;
 		}
-		if ( @filefarmhttp[$i_f] =~ /.*Disable SSLv3$/ && $flisten eq "https" )
+		if ( @filefarmhttp[$i_f] =~ /.*Disable / && $flisten eq "https" )
 		{
 			@filefarmhttp[$i_f] =~ s/#//g;
 		}
 		elsif ( @filefarmhttp[$i_f] =~ /.*DisableSSLv3$/ && $flisten eq "https" )
 		{
+			@filefarmhttp[$i_f] =~ s/DisableSSLv3/Disable SSLv3/;
 			@filefarmhttp[$i_f] =~ s/#//g;
-			@filefarmhttp[$i_f] =~ s/DisableSSLv3/#Disable SSLv3/;
 		}
 
 		# Enable SSLHonorCipherOrder
@@ -4302,10 +4302,66 @@ sub getFarmCipher($fname)
 	return $output;
 }
 
-#Set Farm HonorCipherOrder value
-sub setFarmHonorCipherOrder($hvalue, $fname)
+#Set Farm MinDisProto value
+sub setFarmMinDisProto($fname, $minproto)
 {
-	( $hvalue, $fname ) = @_;
+	( $fname, $minproto ) = @_;
+	my $type   = &getFarmType( $fname );
+	my $output = -1;
+	if ( $type eq "https" )
+	{
+		my $file = &getFarmFile( $fname );
+		tie @array, 'Tie::File', "$configdir/$file";
+		for ( @array )
+		{
+			if ( $_ =~ /Disable / || $_ =~ /DisableSSLv3/ )
+			{
+				$_      = "\tDisable $minproto";
+				$output = 0;
+			}
+		}
+		untie @array;
+	}
+	return $output;
+}
+
+#Get Farm MinDisProto value
+sub getFarmMinDisProto($fname)
+{
+	( $fname ) = @_;
+	my $type   = &getFarmType( $fname );
+	my $output = -1;
+	if ( $type eq "https" )
+	{
+		my $file = &getFarmFile( $fname );
+		open FI, "<$configdir/$file";
+		my @content = <FI>;
+		close FI;
+		foreach $line ( @content )
+		{
+			if ( $line =~ /Disable/ )
+			{
+				my @partline = split ( '\ ', $line );
+				$lfile = @partline[1];
+				chomp ( $lfile );
+				if ( $line =~ /DisableSSLv3/ )
+				{
+					$output = "SSLv3";
+				}
+				else
+				{
+					$output = $lfile;
+				}
+			}
+		}
+	}
+	return $output;
+}
+
+#Set Farm HonorCipherOrder value
+sub setFarmHonorCipherOrder($fname, $hvalue)
+{
+	( $fname, $hvalue ) = @_;
 	my $type   = &getFarmType( $fname );
 	my $output = -1;
 	if ( $type eq "https" )

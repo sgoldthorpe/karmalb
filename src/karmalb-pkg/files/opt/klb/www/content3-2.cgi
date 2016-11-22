@@ -336,7 +336,7 @@ $clvip = &clvip();
 
 for my $if ( @interfaces )
 {
-	if ( $if !~ /^lo|sit0/ )
+	if ( ( $if !~ /^lo|sit0/ ) && ( &isSlaveIf($if) ne 'true' ) )
 	{
 		my $flags = $s->if_flags( $if );
 		$hwaddr  = $s->if_hwaddr( $if );
@@ -413,13 +413,33 @@ for my $if ( @interfaces )
 			{
 				print "<td>&nbsp;&nbsp;<img src=\"img/icons/small/lock.png\" title=\"A datalink farm is locking the gateway of this interface\" alt=\"L\" /></td>";
 			}
-			if ( $status eq "up" )
+			if ( &isMasterIf( $if ) ne 'true' )
 			{
-				print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" />";
+				my $myval =  &isMasterIf( $if );
+				if ( $status eq "up" )
+				{
+					print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" />";
+				}
+				else
+				{
+					print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" />";
+				}
 			}
 			else
 			{
-				print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" />";
+				my $masterstatus = &masterStatus($if);
+				if ( $masterstatus eq 'up' )
+				{
+					print "<td><img src=\"img/icons/small/start.png\" title=\"up\" alt=\"U\" />";
+				}
+				elsif ( $masterstatus eq 'warn' )
+				{
+					print "<td><img src=\"img/icons/small/warning.png\" title=\"slave(s) down\" alt=\"w\" />";
+				}
+				else
+				{
+					print "<td><img src=\"img/icons/small/stop.png\" title=\"down\" alt=\"d\" />";
+				}
 			}
 			if ( $link eq "off" )
 			{
@@ -605,7 +625,7 @@ if ( $action eq "editgw" )
 	for my $if ( @interfaces )
 	{
 		my $flags = $s->if_flags( $if );
-		if ( ( $if !~ /^lo|sit|.*\:.*/ ) && ( $flags & IFF_RUNNING ) )
+		if ( ( $if !~ /^lo|sit|.*\:.*/ ) && ( &isSlaveIf($if) ne 'true' ) && ( $flags & IFF_RUNNING ) )
 		{
 			print "<option value=\"$if\" ";
 			if ( ( $iface eq "" && $isfirst eq "true" ) || $iface eq $if )

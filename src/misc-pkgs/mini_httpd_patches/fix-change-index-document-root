@@ -4,11 +4,11 @@ Author: Jose dos Santos Junior <j.s.junior@live.com>
 Last-Update: 2015-09-14
 Bug: http://bugs.debian.org/730373
 ===================================================================
-Index: mini-httpd-1.21/mini_httpd.c
+Index: mini-httpd-1.25/mini_httpd.c
 ===================================================================
---- mini-httpd-1.21.orig/mini_httpd.c
-+++ mini-httpd-1.21/mini_httpd.c
-@@ -1142,7 +1142,7 @@ handle_request( void )
+--- mini-httpd-1.25.orig/mini_httpd.c
++++ mini-httpd-1.25/mini_httpd.c
+@@ -1144,7 +1144,7 @@ handle_request( void )
      char* cp;
      int r, file_len, i;
      const char* index_names[] = {

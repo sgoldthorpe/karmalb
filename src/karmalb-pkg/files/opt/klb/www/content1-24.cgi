@@ -170,16 +170,43 @@ if ($action eq "editfarm-httpshonorcipherorder" )
 	{
 		if ( $newsetting eq "true" )
 		{
-			&setFarmHonorCipherOrder( "true", $farmname );
+			&setFarmHonorCipherOrder( $farmname, "true" );
 			&successmsg( "Ciphers will be applied in strict order for farm $farmname" );
 			&setFarmRestart( $farmname );
 		} 
 		elsif ( $newsetting eq "false" )
 		{
-			&setFarmHonorCipherOrder( "false", $farmname );
+			&setFarmHonorCipherOrder( $farmname, "false" );
 			&successmsg( "Ciphers will be applied in any order for farm $farmname" );
 			&setFarmRestart( $farmname );
 		}
+	}
+}
+
+#manage disabled protocols
+if ( $action eq "editfarm-httpsdisproto" )
+{
+	my $newsetting;
+	if ( defined($disproto) )
+	{
+		$newsetting = $disproto;
+	}
+	else
+	{
+		$newsetting = 'SSLv3';
+	}
+	my $oldsetting = &getFarmMinDisProto( $farmname );
+	if ( $oldsetting ne $newsetting )
+	{
+		if ( $newsetting ne 'SSLv2' && $newsetting ne 'SSLv3' &&
+			$newsetting ne 'TLSv1' && $newsetting ne 'TLSv1_1' &&
+			$newsetting ne 'TLSv1_2' )
+		{
+			$newsetting = 'SSLv3';
+		}
+		&setFarmMinDisProto( $farmname, $newsetting );
+		&successmsg( "Disabled protocols changed to $newsetting and below for $farmname" );
+		&setFarmRestart( $farmname );
 	}
 }
 
@@ -911,7 +938,7 @@ if ( $type eq "https" )
 
 	print "<br />";
 	$cipher = &getFarmCipher( $farmname );
-	print "Ciphers";
+	print "<b>Ciphers.</b>";
 	chomp ( $cipher );
 	print "<form method=\"get\" action=\"\">";
 	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-httpsciphers\" />";
@@ -936,7 +963,7 @@ if ( $type eq "https" )
 	print "<br />";
 	if ( $cipher ne "cipherglobal" )
 	{
-		print "Customize your ciphers.";
+		print "<b>Customize your ciphers.</b>";
 		print "<form method=\"get\" action=\"\">";
 		print "<input type=\"hidden\" name=\"action\" value=\"editfarm-httpscipherscustom\" />";
 		print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
@@ -958,7 +985,32 @@ if ( $type eq "https" )
 	{
 		print "<input type=\"checkbox\"  name=\"honorcipherorder\" value=\"true\" /> ";
 	}
-	print "&nbsp; Apply Ciphers in strict order.";
+	print "&nbsp; Apply ciphers in strict order.";
+	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
+
+	print "<br />";
+	print "<b>Disabled protocol level.</b>";
+	print "<br />";
+	my $disproto = &getFarmMinDisProto( $farmname );
+	print "<form method=\"get\" action=\"\">";
+	print "<input type=\"hidden\" name=\"action\" value=\"editfarm-httpsdisproto\" />";
+	print "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+	print "<input type=\"hidden\" name=\"farmname\" value=\"$farmname\" />";
+	print "<select  name=\"disproto\">";
+	# don't specify SSLv2 as SSLv3 is disabled in openssl1.0.1ij+ in Debian regardless
+	# don't specify TLSv1_2 until TLSv1_3 is supported by openssl
+	foreach $proto ( qw(SSLv3 TLSv1 TLSv1_1) )
+	{
+		if ( $proto eq $disproto )
+		{
+			print "<option value=\"$proto\" selected=\"selected\">$proto</option>";
+		}
+		else
+		{
+			print "<option value=\"$proto\">$proto</option>";
+		}
+	}
+	print "</select>";
 	print "<input type=\"submit\" value=\"Modify\" name=\"buttom\" class=\"button small\" /></form>";
 
 }

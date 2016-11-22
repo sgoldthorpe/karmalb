@@ -179,6 +179,7 @@ gdnsd
 geoip-database
 grub-pc
 grub2-common
+ifenslave
 install-info
 iputils-arping
 irqbalance

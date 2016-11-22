@@ -29,6 +29,7 @@
 #use CGI qw(:standard escapeHTML);
 use CGI;
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
+use File::Basename;
 print "Content-type: text/html\n\n";
 
 #print "ident es $idpost";
@@ -144,6 +145,7 @@ $certname           = $Variables{ "certname" };
 $ciphers            = $Variables{ "ciphers" };
 $cipherc            = $Variables{ "cipherc" };
 $honorcipherorder   = $Variables{ "honorcipherorder" };
+$disproto           = $Variables{ 'disproto' };
 $idcluster          = $Variables{ 'idcluster' };
 $nattype            = $Variables{ 'nattype' };
 $service            = $Variables{ 'service' };
@@ -226,6 +228,16 @@ else
 {
 	$id = "1-1";
 }
+
+#sanity checks
+#nlines should be only numeric, default to 100 if not.
+$nlines = 100 if ( defined($nlines) && $nlines =~ /\D/ );
+#filelog should exist and be in $logdir
+$filelog = "'bad log file specified'" if ( defined($filelog) && ( index($logdir, dirname($filelog)) != 0  || ! -e "$filelog" ) );
+#rip should only contain alphanumerics, periods or hyphens
+$rip = "" if ( defined($rip) && $rip !~ /^[a-zA-Z0-9.-]+$/ );
+#if should only contain alphanumerics, periods or colons
+$if = "" if ( defined($if) && $if !~ /^[a-zA-Z0-9.:]+$/ );
 
 ##HEADER
 require "header.cgi";

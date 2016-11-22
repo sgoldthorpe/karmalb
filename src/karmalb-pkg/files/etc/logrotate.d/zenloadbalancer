@@ -7,4 +7,7 @@
         notifempty
         create 640 root root
         sharedscripts
+        postrotate
+                /bin/kill -HUP `cat /var/run/mini_httpd.pid 2> /dev/null` 2> /dev/null || true
+        endscript
 }

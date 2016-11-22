@@ -4,6 +4,7 @@
 
 update-rc.d -f zenloadbalancer remove
 update-rc.d zenloadbalancer defaults
+update-rc.d networking defaults
 
 OVERRIDEDIR=/etc/insserv/overrides
 cat > $OVERRIDEDIR/ssh <<!EOF
