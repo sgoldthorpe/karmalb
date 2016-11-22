@@ -1,4 +1,4 @@
-VERSION = 1.012
+VERSION = 1.016
 RELEASE = 1
 MODULE = libnet-interface-perl
 CPANNAME = Net::Interface
