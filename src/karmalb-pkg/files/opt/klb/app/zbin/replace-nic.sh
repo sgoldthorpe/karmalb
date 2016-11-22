@@ -32,7 +32,7 @@ echo "Updating config..."
 /bin/sed "s/^${FROM}/${TO}/" ${KLBDIR}/config/if_${FROM}_conf > ${KLBDIR}/config/if_${TO}_conf
 /bin/sed -i "s/table_${FROM}\$/table_${TO}/" /etc/iproute2/rt_tables
 /bin/sed -i "/defaultgwif/ s/${FROM}/${TO}/" ${KLBDIR}/config/global.conf
-/bin/rm -f ${KLBDIR}/config/if_${FROM}_conf
+/bin/rm -f ${KLBDIR}/config/if_${FROM}_conf ${KLBDIR}/app/zenrrd/rrd/${FROM}iface.rrd
 
 sleep 5
 echo "Restarting networking..."
