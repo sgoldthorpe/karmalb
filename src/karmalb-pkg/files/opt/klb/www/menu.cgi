@@ -55,6 +55,7 @@ print "
           		</li>
 			<li><a href=\"#\"><img src=\"../img/icons/small/comment.png\" alt=\"+\" /> <b>About</b></a>
 				<ul>
+					<li style=\"height:30px;color:#eeeeee;font-weight:normal;margin:0px;font-size:12px;text-align:left;text-indent:25px;\">-- Karma Load Balancer $version --</li>
                 			<li><a href=\"index.cgi?id=4-1\"><img src=\"../img/icons/small/page_2.png\" alt=\"*\" /> License</a></li>
 
 
