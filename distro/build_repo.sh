@@ -34,7 +34,7 @@ echo "Adding custom packages..."
 # PERL
 PERLPKGS="`ls ../src/perl-pkgs/*/*.deb 2>&1`"
 set -- $PERLPKGS
-if [ $# -ne 5 ]; then
+if [ $# -ne 4 ]; then
 	echo "ERROR: Not all custom perl packages found."
 	exit 5
 else

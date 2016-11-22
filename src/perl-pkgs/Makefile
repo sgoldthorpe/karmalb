@@ -1,4 +1,4 @@
-DIRS = libfile-grep-perl libgd-3dbargrapher-perl libnet-interface-perl libnet-route-perl libnet-ssh-expect-perl
+DIRS = libfile-grep-perl libgd-3dbargrapher-perl libnet-route-perl libnet-ssh-expect-perl
 BUILDDIRS = $(DIRS:%=build-%)
 CLEANDIRS = $(DIRS:%=clean-%)
 
