@@ -486,7 +486,7 @@ sub getGraphs2Show($graphtype)
 		closedir ( DIR );
 		for ( @list ) { s/.rrd//g };    # remove filenames .rrd trailing
 	}
-	return @list;
+	return sort @list;
 }
 
 # do not remove this

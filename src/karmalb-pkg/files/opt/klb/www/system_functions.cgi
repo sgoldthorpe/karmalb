@@ -189,7 +189,7 @@ sub getNetworkStats()
 	}
 
 	close DEV;
-	return @data;
+	return sort { $a->[0] cmp $b->[0] } @data;
 
 }
 

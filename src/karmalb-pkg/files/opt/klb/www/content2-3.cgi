@@ -43,7 +43,7 @@ print "		<div class=\"box stats\">";
 # Print form
 #search farm files
 opendir ( DIR, $logdir );
-@files = grep ( /.*\.log$/, readdir ( DIR ) );
+@files = sort grep ( /.*\.log$/, readdir ( DIR ) );
 closedir ( DIR );
 
 print "<form method=\"get\" action=\"index.cgi\">";
