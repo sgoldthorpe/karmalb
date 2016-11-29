@@ -1,4 +1,19 @@
-1.0alpha5r2	24-Sep-2016	Fifth Alpha Release	-Steve Goldthorpe
+1.0alpha6	20-Nov-2016	Sixth Alpha Release	-Steve Goldthorpe
+	* Debian security updates since last release (in ISO image)
+	* Enable SSLv1.0/SSLv1.1 disablement (A score available in ssllabs test)
+	* Default lowest SSL protocol to SSLv1.1 for new farms
+	* Strict cipher order set by default on new farms
+	* Fix web interface log rotation
+	* web interace upgraded (minihttpd 1.23->1.25)
+	* bonded interface support to enable high availability/throughput
+	* visually indicate degraded slave interfaces
+	* fix long-standing zen vulnerabilities (http://www.securityfocus.com/bid/55638)
+	* removed broken Net::Interface CPAN module (unused by KLB)
+	* sort order of farms and graphs
+	* load ip_conntrack module at boot (fixes some Conn stats issues)
+	* show version on about tab as well as header
+
+o.0alpha5r2	24-Sep-2016	Fifth Alpha Release	-Steve Goldthorpe
 	* ISO update only (rebase on Debian 8.6.0 + security updates)
 
 1.0alpha5	06-Sep-2016	Fourth Alpha Release	-Steve Goldthorpe
