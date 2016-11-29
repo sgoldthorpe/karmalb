@@ -112,6 +112,7 @@ else
 fi
 
 if [ $UPDATEPUBREPO -eq 1 ]; then
+	echo "tip: any password will be for the external repo server"
 	rsync -av --delete-delay repo/dists repo/pool $KARMAREMOTEREPOSYNC
 fi
 
