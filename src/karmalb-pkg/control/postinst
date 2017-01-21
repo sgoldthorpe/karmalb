@@ -61,6 +61,7 @@ $ISSUE_ENTRY" $ISSUE
 else
 	sed -i -e "s/^@LONGNAME@.*/$ISSUE_ENTRY/" $ISSUE
 fi
+test -x $KDIR/app/zbin/update-issue.sh && $KDIR/app/zbin/update-issue.sh >/dev/null 2>&1
 
 # change grub entry
 GRUB_ENTRY="@SHORTNAME@ @VERSION@"

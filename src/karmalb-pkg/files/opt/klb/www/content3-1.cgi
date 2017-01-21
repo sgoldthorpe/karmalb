@@ -135,6 +135,7 @@ if ( $action eq "Save Management IP" )
 	tie @array, 'Tie::File', "$confhttp";
 	@array[0] = "host=$ipgui\n";
 	untie @array;
+	my $output = `/opt/klb/app/zbin/update-issue.sh >/dev/null 2>&1`;
 
 	# save snmp ip
 	my $mng_ip  = &GUIip();
@@ -155,6 +156,7 @@ if ( $action eq "Save Management IP" )
 if ( $action eq "Change GUI https port" )
 {
 	&setGuiPort( $guiport, $confhttp );
+	my $output = `/opt/klb/app/zbin/update-issue.sh >/dev/null 2>&1`;
 }
 
 if ( $action eq "Restart Management Services" )

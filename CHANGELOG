@@ -1,3 +1,7 @@
+1.0beta1	21-Jan-2017	First Beta Release	-Steve Goldthorpe
+	* Added code to update /etc/issue with admin URL
+	* ISO update (rebase on Debian 8.7.1 + security updates)
+
 1.0alpha6	20-Nov-2016	Sixth Alpha Release	-Steve Goldthorpe
 	* Debian security updates since last release (in ISO image)
 	* Enable SSLv1.0/SSLv1.1 disablement (A score available in ssllabs test)
