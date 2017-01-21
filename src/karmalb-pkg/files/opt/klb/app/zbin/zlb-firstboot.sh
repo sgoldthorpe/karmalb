@@ -87,6 +87,7 @@ if ! grep -qi "inet[[:space:]][[:space:]]*static" $NCONF; then
 	echo "iface lo inet loopback" >> $NCONF
 	pkill dhclient >/dev/null 2>&1
 	sed -i "s/^host=.*/host=$IP/" $MCFG
+	test -x $KDIR/app/zbin/update-issue.sh && $KDIR/app/zbin/update-issue.sh >/dev/null 2>&1
 fi
 
 #
