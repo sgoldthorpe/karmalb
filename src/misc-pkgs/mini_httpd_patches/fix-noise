@@ -20,7 +20,7 @@
  static ssize_t my_write( void* buf, size_t size );
  #ifdef HAVE_SENDFILE
 +static void send_via_sendfile( int fd, int s, off_t size );
- static int my_sendfile( int fd, int s, off_t offset, size_t nbytes );
+ static ssize_t my_sendfile( int fd, int s, off_t offset, size_t nbytes );
  #endif /* HAVE_SENDFILE */
  static void add_str( char** bufP, size_t* bufsizeP, size_t* buflenP, char* str );
 @@ -2363,8 +2363,8 @@
