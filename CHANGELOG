@@ -1,4 +1,9 @@
-1.0beta1r2	11-Feb-2017	Second Beta Release	-Steve Goldthorpe
+1.0beta2	25-Feb-2017	Second Beta Release	-Steve Goldthorpe
+	* Bugfixes and improvements from zevenet zlb https://github.com/zevenet/zlb
+		* [Bugfix] Missed farmname variable in contents
+		* [Bugfix] Fix RewriteLocation always showing as disabled
+		* [Improvement] direct access to farm details from overview.
+		* [Improvement] click name to see details/edit.
 	* web interace upgraded (minihttpd 1.25->1.26) (minor non-linux fix)
 	* Debian security updates since last release (in ISO image)
 
