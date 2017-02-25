@@ -1,7 +1,7 @@
 FULLNAME=Karma Load Balancer
 PROJNAME=KarmaLB
 PKGNAME=karmalb
-VERSION=1.0b1
+VERSION=1.0b2
 ISOVERSION=1
 MAINTAINER=KarmaLB Developers <dev@karmalb.org.uk>
 OSNAME=Debian
