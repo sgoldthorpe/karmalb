@@ -34,7 +34,7 @@ remote location before being updated with your local packages.
   -i - initialise local copy of public repo (copy directly from local repo).  Only use when bootstrapping for the first time.
   -k - keep the working repo files (named workrepo).
   -u - update the remote repo after updating the local copy.
-You will need 
+
 If the script will need to fetch or update the remote pub repo, the environment
 variable $KARMAREMOTEREPOSYNC must be set (in the form user@host:/path/).
 
