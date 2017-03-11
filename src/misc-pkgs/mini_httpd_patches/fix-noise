@@ -1,5 +1,5 @@
---- mini_httpd-1.25/Makefile.old	2016-04-02 23:50:24.654898583 +0100
-+++ mini_httpd-1.25/Makefile	2016-04-02 23:52:59.542922729 +0100
+--- mini_httpd-1.27/Makefile.old	2017-02-28 14:10:24.654898583 +0100
++++ mini_httpd-1.27/Makefile	2017-03-11 19:20:59.542922729 +0100
 @@ -24,7 +24,7 @@
  CC =		cc
  CDEFS =		$(SSL_DEFS) $(SSL_INC)
@@ -9,8 +9,8 @@
  LDLIBS =	$(CRYPT_LIB) $(SSL_LIBS) $(SYSV_LIBS)
  
  all:		mini_httpd htpasswd
---- mini_httpd-1.25/mini_httpd.c.old	2016-04-02 23:53:58.716474582 +0100
-+++ mini_httpd-1.25/mini_httpd.c	2016-04-03 00:02:29.402080344 +0100
+--- mini_httpd-1.27/mini_httpd.c.old	2017-02-28 14:25:58.716474582 +0100
++++ mini_httpd-1.27/mini_httpd.c	2016-03-11 19:21:29.402080344 +0100
 @@ -277,10 +277,10 @@
  static void add_to_response( char* str );
  static void send_response( void );
@@ -23,7 +23,7 @@
  static ssize_t my_sendfile( int fd, int s, off_t offset, size_t nbytes );
  #endif /* HAVE_SENDFILE */
  static void add_str( char** bufP, size_t* bufsizeP, size_t* buflenP, char* str );
-@@ -2363,8 +2363,8 @@
+@@ -2362,8 +2362,8 @@
      /* Use the request's hostname, or fall back on the IP address. */
      if ( host != (char*) 0 )
  	{
@@ -33,7 +33,7 @@
  	portno = strpbrk(req_hostname, ":");
  	if (portno != (char *) 0)
  	    *portno++ = '\0';
-@@ -2720,6 +2720,7 @@
+@@ -2719,6 +2719,7 @@
      }
  
  
@@ -41,7 +41,7 @@
  static void
  send_via_sendfile( int fd, int s, off_t size )
      {
-@@ -2749,6 +2750,7 @@
+@@ -2748,6 +2749,7 @@
  	(void) alarm( WRITE_TIMEOUT );
  	}
      }
