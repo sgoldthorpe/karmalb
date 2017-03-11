@@ -85,7 +85,7 @@ print "<div class=\"page-header\"></div>";
 
 if ( $action eq "See logs" && $nlines !~ /^$/ && $filelog !~ /^$/ )
 {
-	if ( -e $filelog && ( $filelog =~ /^\/opt\/klb/\/logs\// || $filelog =~ /^\/var\/log\//) && $filelog !~ /\.\./)
+	if ( -e $filelog && ( $filelog =~ /^\/opt\/klb\/logs\// || $filelog =~ /^\/var\/log\// ) && $filelog !~ /\.\./ )
 	{
 		if ( $nlines =~ m/^\d+$/ )
 		{
