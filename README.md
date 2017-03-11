@@ -48,13 +48,21 @@ Links
 
 Changelog
 ---------
+* **1.0beta3** - 11-Mar-2017 Third Beta Release _-Steve Goldthorpe_
+    * Web interface upgraded (mini\_httpd 1.26->1.27)
+       * Fix version number (1.0b2 displayed 1.0b1)
+       * Bugfix from zevenet zlb https://github.com/zevenet/zlb
+           * [Bugfix] Secure system file paths while accessing to file logs
+             through the web GUI
+       * Debian security updates since last release (in ISO image)
+
 * **1.0beta2** - 25-Feb-2017 Second Beta Release _-Steve Goldthorpe_
     * Bugfixes and improvements from zevenet zlb https://github.com/zevenet/zlb
         * [Bugfix] Missed farmname variable in contents
         * [Bugfix] Fix RewriteLocation always showing as disabled
         * [Improvement] direct access to farm details from overview.
         * [Improvement] click name to see details/edit.
-    * web interace upgraded (minihttpd 1.25->1.26) (minor non-linux fix)
+    * Web interace upgraded (mini\_httpd 1.25->1.26) (minor non-linux fix)
     * Debian security updates since last release (in ISO image)
 * **1.0beta1r1** - 21-Jan-2017 First Beta Release _-Steve Goldthorpe_
     * Added code to update /etc/issue with admin URL
@@ -65,14 +73,14 @@ Changelog
     * Default lowest SSL protocol to SSLv1.1 for new farms
     * Strict cipher order set by default on new farms
     * Fix web interface log rotation
-    * web interace upgraded (minihttpd 1.23->1.25)
-    * bonded interface support to enable high availability/throughput
-    * visually indicate degraded slave interfaces
+    * Web interface upgraded (mini\_httpd 1.23->1.25)
+    * Bonded interface support to enable high availability/throughput
+    * Visually indicate degraded slave interfaces
     * fix long-standing zen vulnerabilities (http://www.securityfocus.com/bid/55638)
-    * removed broken Net::Interface CPAN module (unused by KLB)
-    * sort order of farms and graphs
-    * load ip\_conntrack module at boot (fixes some Conn stats issues)
-    * show version on about tab as well as header
+    * Removed broken Net::Interface CPAN module (unused by KLB)
+    * Sort order of farms and graphs
+    * Load ip\_conntrack module at boot (fixes some Conn stats issues)
+    * Show version on about tab as well as header
 * **1.0alpha5r2** - 24-Sep-2016 Fifth Alpha Release _-Steve Goldthorpe_
     * ISO update only (rebase on Debian 8.6.0 + security updates)
 * **1.0alpha5** - 06-Sep-2016 Fourth Alpha Release _-Steve Goldthorpe_
