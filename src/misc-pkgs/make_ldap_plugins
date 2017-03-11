@@ -6,6 +6,7 @@ PKGCACHE=pkgcache
 DEB=${PKGNAME}_${PKGVER}_${ARCH}.deb
 WORKDIR=monitoring-plugins-ldap
 FULLPKG=monitoring-plugins-standard
+DEBVER=2.1.1-1
 
 if [ "x$1" = "x-k" ]; then
 	KEEP=1
@@ -25,6 +26,12 @@ else
 		( cd $PKGCACHE; apt-get download $FULLPKG )
 		FULLDEB="`ls ${FULLPKG}*.deb 2>/dev/null`"
 	fi
+fi
+
+if [ "`basename $FULLDEB`" != "${FULLPKG}_${DEBVER}_${ARCH}.deb" ]; then
+	echo "Debian Package looks like it's been updated - please bump PKGVER and DEBVER."
+	echo "Found `basename $FULLDEB` expected ${FULLPKG}_${DEBVER}_${ARCH}.deb."
+	exit 2
 fi
 
 rm -rf $WORKDIR
