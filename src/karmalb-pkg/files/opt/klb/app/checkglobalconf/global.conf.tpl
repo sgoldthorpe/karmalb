@@ -28,7 +28,7 @@ $rttables = "/etc/iproute2/rt_tables";
 #this file
 $globalcfg = "/opt/klb/config/global.conf";#update
 #version KLB
-$version="1.0b3";#update
+$version="@VERSION@";#update
 #Cipher PCI
 $cipher_pci="DEFAULT:-RC4";#update
 
