@@ -29,7 +29,7 @@ d opt/klb
 d opt/klb/app
 d opt/klb/app/checkglobalconf
 f opt/klb/app/checkglobalconf/checkglobalconf.cgi
-f opt/klb/app/checkglobalconf/global.conf.tpl
+F opt/klb/app/checkglobalconf/global.conf.tpl
 f opt/klb/app/checkglobalconf/snmpd.conf.tpl
 d opt/klb/app/farmguardian
 d opt/klb/app/farmguardian/bin
@@ -125,7 +125,7 @@ f opt/klb/app/zenrrd/zenrrd.pl
 d opt/klb/backups
 l opt/klb/backups/.htpasswd ../www/.htpasswd
 d opt/klb/config
-f opt/klb/config/global.conf
+F opt/klb/config/global.conf
 f opt/klb/config/timeservers.conf
 f opt/klb/config/lbcert.pem
 f opt/klb/config/zlb-start

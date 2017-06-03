@@ -44,6 +44,17 @@ cat filelist | while read T F X; do
 			if [ -x files/$F ]; then
 				chmod 755 $WORKDIR/$F
 			fi;;
+		F)
+			sed -e "s/@PKGNAME@/$PKGNAME/g" \
+				-e "s/@VERSION@/$VERSION/g" \
+				-e "s/@MAINTAINER@/$MAINTAINER/g" \
+				-e "s/@ARCH@/$ARCH/g" \
+				-e "s/@LONGNAME@/$LONGNAME/g" \
+				-e "s/@SHORTNAME@/$SHORTNAME/g" \
+				files/$F > $WORKDIR/$F
+			if [ -x files/$F ]; then
+				chmod 755 $WORKDIR/$F
+			fi;;
 		l)	ln -s $X $WORKDIR/$F;;
 		\#*)	# skip
 			;;
