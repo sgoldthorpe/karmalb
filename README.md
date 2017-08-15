@@ -48,6 +48,11 @@ Links
 
 Changelog
 ---------
+* **1.0.0** - 15-Aug-2017 First Major Release _-Steve Goldthorpe_
+    * Bugfix from zevenet zlb https://github.com/zevenet/zlb
+        * Added netfilter lock when more than one iptables command is executed at the same time
+    * Debian security updates since last release (in ISO image)
+
 * **1.0beta4** - 03-Jun-2017 Fourth Beta Release _-Steve Goldthorpe_
     * Bugfixes and improvements from zevenet zlb https://github.com/zevenet/zlb
         * [New feature] Add advanced health check for SIP connections
