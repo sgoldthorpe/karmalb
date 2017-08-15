@@ -115,6 +115,10 @@ $defaultgwif="";
 #Number of gratuitous pings
 $pingc="1";
 
+## L4xNat - netfilter
+# Iptables lock filename
+$iptlock = "/tmp/iptables.lock";
+
 #Directory where is check script. In this directory you can save your own check scripts. 
 $libexec_dir="/opt/klb/app/libexec";#update
 #FarmGuardian binary, create advanced check for backend servers
