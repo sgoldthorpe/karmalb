@@ -26,7 +26,8 @@ PUBREPO=pubrepo
 REPO=repo
 KEEPDEBUGPKGS=0
 # DERIVED DEFINITIONS
-NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd/
+#NETLOC=http://cdimage.debian.org/debian-cd/$OSREL/$ARCH/iso-cd
+NETLOC=http://cdimage.debian.org/cdimage/archive/$OSREL/$ARCH/iso-cd
 NETISO=debian-$OSREL-$ARCH-netinst.iso
 TARGETISO=karmalb-${ISOREL}-$ARCH.iso
 LABEL="`echo ${PKGNAME}_${ISOREL}_${ARCH}|tr '[a-z].-' '[A-Z]__'`"
