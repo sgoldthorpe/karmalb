@@ -1,7 +1,7 @@
 1.0.0		15-Aug-2017	First Major Release	-Steve Goldthorpe
 	* Bugfix from zevenet zlb https://github.com/zevenet/zlb
 		* Added netfilter lock when more than one iptables command is executed at the same time
-	* Debian security updates since last release (in ISO image)
+	* ISO update (rebase on Debian 8.9.0 + security updates)
 
 
 1.0beta4	03-Jun-2017	Fourth Beta Release	-Steve Goldthorpe
