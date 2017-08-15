@@ -24,6 +24,8 @@
 #
 ###############################################################################
 
+use Fcntl qw(:flock SEEK_END);
+
 #
 sub loadNfModule($modname,$params)
 {
@@ -325,6 +327,36 @@ sub genIptMasquerade($fname,$nattype,$index,$proto,$mark,$state)
 	$rule = "$iptables -t nat -A POSTROUTING -m mark --mark $mark -j MASQUERADE $layer -m comment --comment ' FARM\_$fname\_$index\_ '";
 
 	return $rule;
+}
+
+#lock iptables
+sub setIptLock    # ($lockfile)
+{
+	my $ipt_lockfile = shift;
+
+	if ( flock ( $ipt_lockfile, LOCK_EX ) )
+	{
+		&logfile( "Success locking IPTABLES" );
+	}
+	else
+	{
+		&logfile( "Cannot lock iptables: $!" );
+	}
+}
+
+#unlock iptables
+sub setIptUnlock    # ($lockfile)
+{
+	my $ipt_lockfile = shift;
+
+	if ( flock ( $ipt_lockfile, LOCK_UN ) )
+	{
+		&logfile( "Success unlocking IPTABLES" );
+	}
+	else
+	{
+		&logfile( "Cannot unlock iptables: $!" );
+	}
 }
 
 # get conntrack sessions
