@@ -5,7 +5,7 @@
 #     Community Edition derived from the Zen Load Balancer software package.
 #     Sources available at https://github.com/sgoldthorpe/karmalb
 #
-#     Copyright (C) 2016 Steve Goldthorpe <dev@karmalb.org.uk>
+#     Copyright (C) 2016,2017 Steve Goldthorpe <dev@karmalb.org.uk>
 #     Copyright (C) 2014 SOFINTEL IT ENGINEERING SL, Sevilla (Spain)
 #
 #     This library is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@
 #FOOTER
 print "
 <!-- Start Footer -->
-<div class=\"footer\">Karma Load Balancer is created under GNU/LGPL License Copyright (C) 2016 Steve  Goldthorpe &lt;dev\@karmalb.org.uk&gt;, Copyright (C) 2014 SOFINTEL IT ENGINEERING SL </div>
+<div class=\"footer\">Karma Load Balancer is created under GNU/LGPL License Copyright (C) 2016,2017 Steve  Goldthorpe &lt;dev\@karmalb.org.uk&gt;, Copyright (C) 2014 SOFINTEL IT ENGINEERING SL </div>
 <!-- End Footer -->
 <!-- Close div class=\"container\"
 </div> -->
