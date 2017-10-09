@@ -23,9 +23,11 @@ REQPKGS="apt-file \
 	openssl \
 	packaging-dev \
 	quilt \
+	reprepro \
 	sudo \
 	wget \
 	xorriso"
+
 
 
 INSTALL=""
