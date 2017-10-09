@@ -10,7 +10,7 @@ all: $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB) $(MONPLUGDEB) $(POUNDDEB)
 $(KEYRINGDEB) $(KEYRINGUDEB):
 	cd karmalb-keyring; \
 		dpkg-buildpackage -rfakeroot -b -uc
-	test "$(KARMALBKEY)" && dpkg-sig -k $(KARMALBKEY) --sign builder $(KEYRINGDEB)
+	test "$(KARMALBKEY)" && dpkg-sig -k $(KARMALBKEY) --sign builder $(KEYRINGDEB) || true
 	rm -rf karmalb-keyring/build/
 	rm -rf karmalb-keyring/debian/files karmalb-keyring/debian/karmalb-keyring-udeb \
 		karmalb-keyring/debian/karmalb-keyring/
@@ -22,7 +22,7 @@ $(KEYRINGDEB) $(KEYRINGUDEB):
 
 $(MHTTPDDEB):
 	sh make_minihttpd
-	test "$(KARMALBKEY)" && dpkg-sig -k $(KARMALBKEY) --sign builder $(MHTTPDDEB)
+	test "$(KARMALBKEY)" && dpkg-sig -k $(KARMALBKEY) --sign builder $(MHTTPDDEB) || true
 
 clean:
 	rm -f $(KEYRINGDEB) $(KEYRINGUDEB) $(MHTTPDDEB) $(MONPLUGDEB) $(POUNDDEB)
