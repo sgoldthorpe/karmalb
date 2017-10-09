@@ -1,3 +1,6 @@
+1.0.0r2		10-Oct-2017	ISO Image Update	-Steve Goldthorpe
+	* Debian security updates since last release (in ISO image)
+
 1.0.0		15-Aug-2017	First Major Release	-Steve Goldthorpe
 	* Bugfix from zevenet zlb https://github.com/zevenet/zlb
 		* Added netfilter lock when more than one iptables command is executed at the same time
