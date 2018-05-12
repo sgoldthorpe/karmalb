@@ -59,9 +59,11 @@ Changelog
     * karmalb package now depends on pound >= 2.8 (and removes any DynScale settings)
     * Debian security updates since last release (in ISO image)
 
-* **1.0.0r2** - 10-Oct-2017 ISO Image Update _-Steve Goldthorpe_
+* **1.0.0r3** - 15-Feb-2018 ISO Image Update _-Steve Goldthorpe_ (unreleased)
     * ISO update (rebase on Debian 8.10.0 + security updates)
 
+* **1.0.0r2** - 10-Oct-2017 ISO Image Update _-Steve Goldthorpe_
+    * Debian security updates since last release (in ISO image)
 
 * **1.0.0** - 15-Aug-2017 First Major Release _-Steve Goldthorpe_
     * Bugfix from zevenet zlb https://github.com/zevenet/zlb
