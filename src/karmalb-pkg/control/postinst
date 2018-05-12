@@ -77,6 +77,7 @@ fi
 CFGS="`find /opt/klb/config -name \*_pound.cfg`"
 if [ "$CFGS" ]; then
 	sed -i 's/DisableSSLv3/Disable SSLv3/' $CFGS
+	sed -i '/DynScale/d' $CFGS
 fi
 
 exit 0
