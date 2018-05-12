@@ -1,6 +1,6 @@
 KEYRINGDEB = karmalb-keyring_1.0-1_all.deb
 KEYRINGUDEB = karmalb-keyring-udeb_1.0-1_all.udeb
-MHTTPDDEB = mini-httpd_1.27-1_amd64.deb
+MHTTPDDEB = mini-httpd_1.28-1_amd64.deb
 MONPLUGDEB= monitoring-plugins-ldap-karmalb_1.0-1_amd64.deb
 POUNDDEB = pound_2.7-1karmalb_amd64.deb
 
