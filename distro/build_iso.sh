@@ -35,20 +35,26 @@ LABEL="`echo ${PKGNAME}_${ISOREL}_${ARCH}|tr '[a-z].-' '[A-Z]__'`"
 # FUNCTIONS
 
 fetch_pkg() {
-	VER=`apt-cache show --no-all-versions $1|awk '/^Version/ { print $2 }'|sed 's/.*://'`
-	FOUND="`find $PKGCACHE -name ${1}_${VER}_\*.deb`"
-	if [ ! "$FOUND" ]; then
-		( cd $PKGCACHE; apt-get download $1 )
-		# epoch version confuses matters - rename if found
-		RENAME="`find $PKGCACHE -name $1_[0-9]*%3a*.deb`"
-		if [ "$RENAME" ]; then
-			NEWNAME="`echo $RENAME | sed 's/_[0-9]*%3a/_/'`"
-			mv $RENAME $NEWNAME
-		fi
-		FOUND="`find $PKGCACHE -name ${1}_${VER}\*.deb`"
+	if [ "x$3" = "x" ]; then
+		VER=`apt-cache show --no-all-versions $2|awk '/^\s*Version/ { V=$2 } END { print V }'`
+	else
+		VER="$3"
 	fi
-	test -d $2 || mkdir -p $2
-	cp -p $FOUND $2
+	VER_NE=`echo "$VER"|sed 's/.*://'`
+	FOUND="`find $PKGCACHE -name \"$2_*${VER_NE}*.deb\"`"
+	if [ ! "$FOUND" ]; then
+		( cd $PKGCACHE; apt-get download "$2=$VER" )
+		# epoch version confuses matters - rename if found
+		RENAME="`find $PKGCACHE -name \"${2}_[0-9]*%3a*.deb\"`"
+		if [ "$RENAME" ]; then
+			NEWNAME="`echo "$RENAME" | sed 's/_[0-9]*%3a/_/'`"
+			mv "$RENAME" "$NEWNAME"
+		fi
+		FOUND="`find $PKGCACHE -name \"$2_*${VER_NE}*.deb\"`"
+	fi
+	test "$FOUND" || ( echo "Package issue - $2 $VER"; exit 2 )
+	test -d "$1" || mkdir -p "$1"
+	cp -p "$FOUND" "$1"
 }
 
 calc_pkgdir() {
@@ -66,7 +72,7 @@ calc_pkgdir() {
 }
 
 get_pkgdir() {
-	FN="`apt-cache show $1| awk '/^Filename:/ { print $2; exit }'|sed -e 's@/updates/@/@'`"
+	FN="`apt-cache show $1| awk '/^Filename:/ { sub(/\/updates\//, "/", $2); print $2; exit }'`"
 	if [ "$FN" ]; then
 		echo `dirname $FN`
 	else
@@ -134,16 +140,23 @@ find $DEST/pool/main -type d -exec chmod u+w \{\} \;
 mkdir -p $PKGCACHE
 
 # UPGRADE MEDIA PACKAGES TO ENSURE CONSISTENT VERSIONING
-
 echo "Upgrading packages..."
-find $DEST/pool -type f -name \*.deb | while read PKG; do
-	BASE=`basename $PKG|sed 's/_.*//'`
-	VER=`apt-cache show --no-all-versions $BASE|awk '/^Version/ { print $2 }'|sed 's/.*://'`
-	if [ ! "`echo $PKG|grep _${VER}_`" ]; then
+find $DEST/pool -type f -name \*.deb | while read DEB; do
+	BASE=`basename $DEB`
+	PAT=`echo $BASE|sed -e 's/_.*//' -e '/^linux/s/-[0-9\.-]*-/-[0-9.-]*-/'`
+	PKG=`apt-cache show --no-all-versions ^$PAT\$|awk '/^Package/ { P=$2 } END { print P }'`
+	if [ "$PKG" ]; then
+		VER=`apt-cache show --no-all-versions ^$PAT\$|awk '/^Version/ { V=$2 } END { print V }'`
+	else
+		PKG=`apt-cache show --no-all-versions $PAT|awk '/^Package/ { P=$2 } END { print P }'`
+		VER=`apt-cache show --no-all-versions $PAT|awk '/^Version/ { V=$2 } END { print V }'`
+	fi
+	VER_NE=`echo $VER | sed 's/.*://'`
+	if [ ! "`echo $DEB|grep _${VER_NE}_`" ]; then
 		echo "upgrade $BASE to $VER"
-		DIR=`dirname $PKG`
-		rm $PKG
-		fetch_pkg $BASE $DIR
+		DIR=`dirname $DEB`
+		rm $DEB
+		fetch_pkg $DIR $PKG $VER
 	fi
 done
 
@@ -323,7 +336,7 @@ done
 	if [ "$INSTALL" ]; then
 		for PKG in $INSTALL; do
 			D="`get_pkgdir $PKG`"
-			fetch_pkg $PKG $DEST/$D
+			fetch_pkg $DEST/$D $PKG
 		done
 	fi
 )
