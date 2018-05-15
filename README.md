@@ -48,7 +48,7 @@ Links
 
 Changelog
 ---------
-* **1.0.1** - 12-May-2018 Minor Release _-Steve Goldthorpe_
+* **1.0.1** - 15-May-2018 Minor Release _-Steve Goldthorpe_
     * pound upgraded from 2.7 -> 2.8
         * [Enhancement] removed DynScale flag and support
         * [Enhancement] removed support for multi-line headers (both input and output)
