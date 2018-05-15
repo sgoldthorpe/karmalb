@@ -144,7 +144,7 @@ echo "Upgrading packages..."
 find $DEST/pool -type f -name \*.deb | while read DEB; do
 	BASE=`basename $DEB`
 	PAT=`echo $BASE|sed -e 's/_.*//' -e '/^linux/s/-[0-9\.-]*-/-[0-9.-]*-/'`
-	PKG=`apt-cache show --no-all-versions ^$PAT\$|awk '/^Package/ { P=$2 } END { print P }'`
+	PKG=`apt-cache show --no-all-versions ^$PAT\$ 2>/dev/null|awk '/^Package/ { P=$2 } END { print P }'`
 	if [ "$PKG" ]; then
 		VER=`apt-cache show --no-all-versions ^$PAT\$|awk '/^Version/ { V=$2 } END { print V }'`
 	else
