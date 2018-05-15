@@ -48,6 +48,20 @@ Links
 
 Changelog
 ---------
+* **1.0.1** - 15-May-2018 Minor Release _-Steve Goldthorpe_
+    * pound upgraded from 2.7 -> 2.8
+        * [Enhancement] removed DynScale flag and support
+        * [Enhancement] removed support for multi-line headers (both input and output)
+        * [Bug fix] fixed potential request smuggling via fudged headers
+    * minihttpd upgraded from 1.27 -> 1.28
+        * Fix to buffer overrun bug in htpasswd. Reported by Alessio Santoru as CVE-2017-17663.
+        * Some fixes to keep connections from getting stuck forever in FIN_WAIT_2 state.
+    * karmalb package now depends on pound >= 2.8 (and removes any DynScale settings)
+    * Debian security updates since last release (in ISO image)
+
+* **1.0.0r3** - 15-Feb-2018 ISO Image Update _-Steve Goldthorpe_ (unreleased)
+    * ISO update (rebase on Debian 8.10.0 + security updates)
+
 * **1.0.0r2** - 10-Oct-2017 ISO Image Update _-Steve Goldthorpe_
     * Debian security updates since last release (in ISO image)
 
