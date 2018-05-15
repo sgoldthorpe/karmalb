@@ -1,5 +1,6 @@
---- pound-2.7/Makefile.in.old	2016-06-07 00:17:55.017105187 +0100
-+++ pound-2.7/Makefile.in	2016-06-07 00:20:27.563334597 +0100
+diff -Naur p/Makefile.in Pound-2.8/Makefile.in
+--- p/Makefile.in	2018-05-12 11:43:43.603833381 +0100
++++ Pound-2.8/Makefile.in	2018-05-12 11:46:50.591825726 +0100
 @@ -46,10 +46,10 @@
  		${CC} @LDFLAGS@ -o poundctl poundctl.o $(LIBS)
  
@@ -13,14 +14,3 @@
  
  svc.o:		svc.c dh512.h dh@C_DH_LEN@.h
  		${CC} ${CFLAGS} -c -o svc.o svc.c
---- pound-2.7/http.c.old	2016-06-06 23:15:57.362126782 +0100
-+++ pound-2.7/http.c	2016-06-06 23:18:13.992163616 +0100
-@@ -82,7 +82,7 @@
-         "<html><head><title>Redirect</title></head><body><h1>Redirect</h1><p>You should go to <a href=\"%s\">%s</a></p></body></html>",
-         safe_url, safe_url);
-     snprintf(rep, sizeof(rep),
--        "HTTP/1.0 %d %s\r\nLocation: %s\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n",
-+        "HTTP/1.0 %d %s\r\nLocation: %s\r\nContent-Type: text/html\r\nContent-Length: %zu\r\n\r\n",
-         code, code_msg, safe_url, strlen(cont));
-     BIO_write(c, rep, strlen(rep));
-     BIO_write(c, cont, strlen(cont));

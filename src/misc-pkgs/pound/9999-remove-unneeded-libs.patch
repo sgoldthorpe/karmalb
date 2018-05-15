@@ -1,11 +1,12 @@
-Index: pound-2.7/configure
-===================================================================
---- pound-2.7.orig/configure
-+++ pound-2.7/configure
-@@ -3851,50 +3851,6 @@ fi
- { $as_echo "$as_me:${as_lineno-$LINENO}: *** Checking for libraries ***" >&5
- $as_echo "$as_me: *** Checking for libraries ***" >&6;}
- LIBS="${LIBS} -lm"
+--- p/configure	2018-05-12 11:43:39.955833530 +0100
++++ pound-2.8/configure	2018-05-12 11:58:01.615798256 +0100
+@@ -3849,54 +3849,6 @@
+ fi
+ 
+ 
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: *** Checking for libraries ***" >&5
+-$as_echo "$as_me: *** Checking for libraries ***" >&6;}
+-LIBS="${LIBS} -lm"
 -{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for dlopen in -ldl" >&5
 -$as_echo_n "checking for dlopen in -ldl... " >&6; }
 -if ${ac_cv_lib_dl_dlopen+:} false; then :
@@ -50,10 +51,11 @@ Index: pound-2.7/configure
 -  LIBS="-ldl $LIBS"
 -
 -fi
- 
+-
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for socket in -lsocket" >&5
  $as_echo_n "checking for socket in -lsocket... " >&6; }
-@@ -3936,46 +3892,6 @@ if test "x$ac_cv_lib_socket_socket" = xy
+ if ${ac_cv_lib_socket_socket+:} false; then :
+@@ -3937,46 +3889,6 @@
    LIBS="-lsocket -lnsl ${LIBS}"
  fi
  
